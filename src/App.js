@@ -1,10 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import Translate from './Components/Translator/Translate'
+import "./App.css";
+import Translate from "./Components/Translator/Translate";
+
 
 function App() {
   return (
-    <Translate />
+    <div>
+      <Translate />
+    </div>
   );
 }
 
