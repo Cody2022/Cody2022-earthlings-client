@@ -1,11 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import Translate from './Components/Translator/Translate'
 
 function App() {
   return (
-    <div className="App">
-      <hi>Hello Earthlings</hi>
-    </div>
+    <Translate />
   );
 }
 
