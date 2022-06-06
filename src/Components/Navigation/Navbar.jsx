@@ -6,26 +6,22 @@ import { Box } from "@mui/system";
 
 const Navbar = () => {
   return (
-    <AppBar position="sticky">
-      <Toolbar disableGutters>
-        <img
-          src={IAmHereLogo}
-          style={{ width: 75, height: 75 }}
-          alt="application logo"
-        />
-        <Typography variant="h6">
-          I Am <br />
-          Here
-        </Typography>
-        <Box
-          sx={{
-            marginLeft: "1000px",
-          }} 
-        >
-          <Button variant="contained">Login</Button>
-        </Box>
-      </Toolbar>
-    </AppBar>
+    <Box>
+      <AppBar position="sticky">
+        <Toolbar disableGutters>
+          <img
+            src={IAmHereLogo}
+            style={{ width: 75, height: 75 }}
+            alt="application logo"
+          />
+          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+            I Am <br />
+            Here
+          </Typography>
+          <Button variant="contained" sx={{ mr: 10 }}>Login</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 
