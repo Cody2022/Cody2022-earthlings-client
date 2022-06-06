@@ -11,7 +11,7 @@ const LeftArrow = () => {
           position: "absolute",
           color: "white",
           mt: "-335px",
-          ml: "30px",
+          left: "30px",
         }}
       />
     </div>
