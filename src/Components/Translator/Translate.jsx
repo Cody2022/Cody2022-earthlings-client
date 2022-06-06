@@ -48,7 +48,7 @@ i18n
 function Translate() {
   const { t } = useTranslation();
 
-  return <h2>{t('welcome_to_earthlings')}</h2>;
+  return <h2>{t("welcome_to_earthlings")}</h2>;
 }
 
 export default Translate;
