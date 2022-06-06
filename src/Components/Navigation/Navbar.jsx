@@ -14,11 +14,16 @@ const Navbar = () => {
             style={{ width: 75, height: 75 }}
             alt="application logo"
           />
-          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             I Am <br />
             Here
           </Typography>
-          <Button variant="contained" sx={{ mr: 10 }}>Login</Button>
+          <Button variant="contained" sx={{ mr: 5 }} >
+            Login
+          </Button>
+          <Button variant="contained" sx={{ mr: 10 }} >
+            Sign up
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
