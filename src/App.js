@@ -1,10 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-import Translate from './Components/Translator/Translate'
+import "./App.css";
+import Carousel from "./Components/ImageCarousel/Carousel";
+import Navbar from "./Components/Navigation/Navbar";
+import Translate from "./Components/Translator/Translate";
+
 
 function App() {
   return (
-    <Translate />
+    <div>
+      <Navbar />
+      <Carousel />
+      <Translate />
+    </div>
   );
 }
 
