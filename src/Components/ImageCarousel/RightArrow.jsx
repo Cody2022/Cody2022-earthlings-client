@@ -10,8 +10,8 @@ const RightArrow = () => {
           cursor: "pointer",
           position: "absolute",
           color: "white",
-          mt: "-325px",
-          ml: "1450px",
+          mt: "-335px",
+          right: "30px",
         }}
       />
     </div>

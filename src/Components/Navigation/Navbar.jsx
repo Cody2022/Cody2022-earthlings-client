@@ -21,8 +21,10 @@ const Navbar = () => {
           {t('i_am_T')} <br />
           {t('here_T')}
           </Typography>
-          {/* <Button variant="contained" sx={{ mr: 10 }}>LOGIN</Button> */}
           <Button variant="contained" sx={{ mr: 10 }}>{t('login_T')}</Button>
+          <Button variant="contained" sx={{ mr: 10 }} >
+            Sign up
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
