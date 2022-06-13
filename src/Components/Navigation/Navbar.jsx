@@ -1,12 +1,14 @@
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import IAmHereLogo from "../../images/i-am-here-logo.png";
+import { useNavigate } from "react-router-dom";
 import { Button, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
   const { user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const navigate=useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -71,8 +73,8 @@ const Navbar = () => {
                   horizontal: "left",
                 }}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={()=>navigate("/profile")}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>Whatever</MenuItem>
                 <MenuItem onClick={() => logoutWithRedirect()}>Logout</MenuItem>
               </Menu>
             </>

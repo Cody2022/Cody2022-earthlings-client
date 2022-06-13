@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 const domain=process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId=process.env.REACT_APP_AUTH0_CLIENT_ID;
-const url="http://localhost:3000";
+const url="http://localhost:3000/enter";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
