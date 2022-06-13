@@ -5,6 +5,7 @@ import Profile from './Profile';
 import { Newcomer } from './Newcomer';
 import { Volunteer } from './Volunteer';
 import { Admin } from './index';
+import {useNavigate} from "react-router-dom"
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -20,6 +21,7 @@ const Enter = () => {
   const [isNewcomer, setIsNewcomer] = useState(null);
   const [isVolunteer, setIsVolunteer] = useState(null);
   const [isAdmin, setIsAdmin] = useState(null);
+  const navigate=useNavigate();
 
   const [role, setRole] = useState();
   const handleSelectRole = (event) => {
@@ -50,32 +52,20 @@ const Enter = () => {
     isNewcomer === undefined &&
     isAdmin === undefined
   ) {
-    return <Profile />;
+    navigate ("/profile");
   }
   /*User is Admin: direct to admin page*/
   if (isAdmin) {
-    return (
-      <div>
-        <Admin />
-      </div>
-    );
+    navigate("/admin");
   }
   
   /*User is newcomer: direct to newcomer page*/
   if (isNewcomer && !isVolunteer) {
-    return (
-      <div>
-        <Newcomer />
-      </div>
-    );
+    navigate("/newcomer");
   }
   /*User is volunteer: direct to volunteer page*/
   if (!isNewcomer && isVolunteer) {
-    return (
-      <div>
-        <Volunteer />
-      </div>
-    );
+    navigate("/volunteer");
   }
 
   /*User has two roles, i.e., volunteer and newcomer: Select role first then direct to the corresponding page*/
