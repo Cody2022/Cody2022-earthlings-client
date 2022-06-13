@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../Loading';
-import EditRole from '../EditRole';
+import EditProfile from '../EditProfile';
+import EditUser from '../EditUser';
 
 const Profile = () => {
 
@@ -35,7 +36,8 @@ const Profile = () => {
             <h2>{user.name}</h2>
             <p>{user.email}</p>
             <p className="col-12 text-light bg-dark p-4">{JSON.stringify(user, null, 2)}</p>
-            <EditRole />
+            <EditProfile />
+            <EditUser />
             {isAdmin &&<p>isAdmin: true </p>}
         </div>
   )
