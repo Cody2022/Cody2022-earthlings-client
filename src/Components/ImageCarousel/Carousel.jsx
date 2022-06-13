@@ -31,7 +31,7 @@ const Carousel = () => {
         component="img"
         sx={{
           height: 600,
-          maxWidth: 1600,
+          maxWidth: "100%",
           width: "100%",
         }}
         src={images[currImg].image}
