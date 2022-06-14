@@ -105,8 +105,8 @@ const Enter = () => {
           </div>
         )}
 
-        {role && role === "newcomer" && <Newcomer />}
-        {role && role === "volunteer" && <Volunteer />}
+        {role && role === "newcomer" && navigate("/newcomer")}
+        {role && role === "volunteer" && navigate("/volunteer")}
       </div>
     );
   }
