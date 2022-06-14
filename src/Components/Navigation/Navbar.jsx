@@ -1,7 +1,7 @@
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import IAmHereLogo from "../../images/i-am-here-logo.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -23,11 +23,13 @@ const Navbar = () => {
     <Box>
       <AppBar position="sticky">
         <Toolbar disableGutters>
-          <img
-            src={IAmHereLogo}
-            style={{ width: 75, height: 75 }}
-            alt="application logo"
-          />
+          <Link to="/">
+            <img
+              src={IAmHereLogo}
+              style={{ width: 75, height: 75 }}
+              alt="application logo"
+            />
+          </Link>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             I Am <br />
             Here
@@ -73,7 +75,9 @@ const Navbar = () => {
                   horizontal: "left",
                 }}
               >
-                <MenuItem onClick={()=>navigate("/profile")}>Profile</MenuItem>
+                <MenuItem onClick={() => navigate("/profile")}>
+                  Profile
+                </MenuItem>
                 <MenuItem onClick={handleClose}>Whatever</MenuItem>
                 <MenuItem onClick={() => logoutWithRedirect()}>Logout</MenuItem>
               </Menu>

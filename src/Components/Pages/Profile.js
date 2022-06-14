@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Loading from "../Loading";
-import EditProfile from "../EditProfile";
-import EditUser from "../EditUser";
+import Loading from "../Loading/Loading";
+import EditProfile from "../EditProfile/EditProfile";
+import EditUser from "../EditProfile/EditUser";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -29,7 +29,7 @@ const Profile = () => {
   return (
     <div>
       <h1>Profile</h1>
-      <img src={user.picture} />
+      <img src={user.picture} alt="user picture"/>
       <h2>{user.name}</h2>
       <p>{user.email}</p>
       <p className="col-12 text-light bg-dark p-4">

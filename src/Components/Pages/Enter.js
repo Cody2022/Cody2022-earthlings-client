@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
-import Loading from '../Loading';
-import Profile from './Profile';
-import { Newcomer } from './Newcomer';
-import { Volunteer } from './Volunteer';
-import { Admin } from './index';
+import Loading from '../Loading/Loading';
 import {useNavigate} from "react-router-dom"
 
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import Carousel from '../ImageCarousel/Carousel';
-import { color } from '@mui/system';
 
 
 const Enter = () => {
@@ -22,11 +12,6 @@ const Enter = () => {
   const [isVolunteer, setIsVolunteer] = useState(null);
   const [isAdmin, setIsAdmin] = useState(null);
   const navigate=useNavigate();
-
-  const [role, setRole] = useState();
-  const handleSelectRole = (event) => {
-    setRole(event.target.value);
-  };
 
   let email = user.email;
   console.log("user type is:", typeof user);
@@ -46,7 +31,7 @@ const Enter = () => {
   if (isLoading) {
     return <div>isLoading...</div>;
   }
-  /*New user: direct to profile edit page*/
+  /*Newly registered user: direct to profile edit page*/
   if (
     isAdmin === undefined &&
     isNewcomer === undefined &&
@@ -68,45 +53,10 @@ const Enter = () => {
     navigate("/volunteer");
   }
 
-  /*User has two roles, i.e., volunteer and newcomer: Select role first then direct to the corresponding page*/
-  if (isNewcomer && isVolunteer) {
+  else {
     return (
       <div>
-        {!role && (
-          <div style={{ backgroundColor: "lightskyblue" }}>
-            <FormControl style={{ display: "flex", textAlign: "center" }}>
-              <FormLabel
-                id="controlled-radio-buttons-group"
-                style={{ fontweight: "bold", color: "yellow" }}
-              >
-                Select your role please!
-              </FormLabel>
-              <RadioGroup
-                sx={{ position: "relative", left: "45%" }}
-                row
-                aria-labelledby="controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                value={role}
-                onChange={handleSelectRole}
-              >
-                <FormControlLabel
-                  value="newcomer"
-                  control={<Radio />}
-                  label="Newcomer"
-                />
-                <FormControlLabel
-                  value="volunteer"
-                  control={<Radio />}
-                  label="Volunteer"
-                />
-              </RadioGroup>
-            </FormControl>
-            <Carousel />
-          </div>
-        )}
-
-        {role && role === "newcomer" && navigate("/newcomer")}
-        {role && role === "volunteer" && navigate("/volunteer")}
+        <Carousel />
       </div>
     );
   }
