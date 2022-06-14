@@ -5,10 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useTranslation} from "react-i18next";
 
 const Navbar = () => {
-  const { user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const { t } = useTranslation();
+
   const navigate=useNavigate();
+  const { user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -18,6 +21,7 @@ const Navbar = () => {
     setAnchorEl(null);
   };
   const logoutWithRedirect = () => logout({ returnTo: window.location.origin });
+
 
   return (
     <Box>
@@ -31,8 +35,8 @@ const Navbar = () => {
             />
           </Link>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            I Am <br />
-            Here
+            {t("i_am_T")} <br />
+            {t("here_T")}
           </Typography>
 
           {!isAuthenticated && (
@@ -43,7 +47,7 @@ const Navbar = () => {
               variant="contained"
               sx={{ mr: 3 }}
             >
-              Login
+              {t("login_T")}
             </Button>
           )}
 
