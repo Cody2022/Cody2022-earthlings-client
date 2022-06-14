@@ -56,7 +56,7 @@ const Navbar = () => {
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
               >
-                {user.name}
+                {user.email}
               </Button>
               <Menu
                 id="demo-positioned-menu"

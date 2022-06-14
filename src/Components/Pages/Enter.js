@@ -50,7 +50,7 @@ const Enter = () => {
   if (
     isAdmin === undefined &&
     isNewcomer === undefined &&
-    isAdmin === undefined
+    isVolunteer === undefined
   ) {
     navigate ("/profile");
   }
