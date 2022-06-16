@@ -3,6 +3,7 @@ import "./App.css";
 import { Home, Profile, Enter, Admin, Newcomer, Volunteer } from "./Components/Pages/pages";
 
 import Navbar from "./Components/Navigation/Navbar";
+import Rooms from "./Components/Messenger/Rooms/Rooms";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/newcomer" element={<Newcomer />} />
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/messenger" element={<Rooms />} />
       </Routes>
     </div>
   );
