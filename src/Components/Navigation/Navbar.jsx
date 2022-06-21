@@ -6,6 +6,7 @@ import { Button, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useTranslation} from "react-i18next";
+import SelectLanguage from "../Translator/SelectLanguage"
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -37,7 +38,7 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {t("i_am_T")}<span> </span>{t("here_T")}
           </Typography>
-
+          <SelectLanguage />
           {!isAuthenticated && (
             <Button
               onClick={() => {
