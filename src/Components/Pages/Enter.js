@@ -14,8 +14,6 @@ const Enter = () => {
   const navigate=useNavigate();
 
   let email = user.email;
-  console.log("user type is:", typeof user);
-  console.log("user.email:", user.email);
 
   useEffect(() => {
     const fetchUserRoles = async (email) => {
