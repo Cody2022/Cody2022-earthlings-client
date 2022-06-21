@@ -13,8 +13,6 @@ function App() {
       <header className="navbar">
         <Navbar />
       </header>
-      <Carousel />
-      {/* <Translate /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/enter" element={<Enter />} />
