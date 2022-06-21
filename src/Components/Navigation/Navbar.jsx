@@ -35,8 +35,7 @@ const Navbar = () => {
             />
           </Link>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {t("i_am_T")} <br />
-            {t("here_T")}
+            {t("i_am_T")}<span> </span>{t("here_T")}
           </Typography>
 
           {!isAuthenticated && (

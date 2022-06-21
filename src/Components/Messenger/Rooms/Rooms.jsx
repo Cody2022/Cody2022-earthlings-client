@@ -1,5 +1,6 @@
 import { useState } from "react";
 import io from "socket.io-client";
+import Chat from "../Chat/Chat";
 
 const socket = io.connect("http://localhost:5000");
 
@@ -41,7 +42,7 @@ const Rooms = () => {
           <button onClick={joinRoom}>Join A Room</button>
         </div>
       ) : (
-        {/* <Chat socket={socketRef} username={username} room={room} /> */}
+        <Chat socket={socket} username={username} room={room} />
       )}
     </div>
   );

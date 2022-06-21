@@ -3,7 +3,7 @@ import "./App.css";
 import Navbar from "./Components/Navigation/Navbar";
 import BigCalendar from "./Components/Calendar/BigCalendar";
 import { Home, Profile, Enter, Admin, Newcomer, Volunteer } from "./Components/Pages/pages";
-// import Rooms from "./Components/Messenger/Rooms/Rooms";
+import Rooms from "./Components/Messenger/Rooms/Rooms";
 
 function App() {
   return (
