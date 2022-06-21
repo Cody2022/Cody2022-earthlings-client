@@ -39,24 +39,20 @@ const Profile = () => {
       style={{
         backgroundImage: `url(${backgroundImage}`,
         backgroundSize: "cover",
-        height: "100vh",
       }}
     >
       <Container style={{display: "flex", justifyContent: 'center'}}>
       <Avatar
         alt="User"
         src={userImage}
-        sx={{width:0.2, height:0.2}}        
+        sx={{width:0.15, height:0.2}}        
       />
       </Container>
       <Divider>
           <Chip sx={{weight:200, height:50, fontWeight:"bold"}} label={label} />
       </Divider>
        <br/>
-      <UserForm email={email} setLabel={setLabel}/>
-
-      <p>{JSON.stringify(user, null, 2)}</p>
-          
+      <UserForm email={email} setLabel={setLabel}/>          
     </Box>
   );
 };

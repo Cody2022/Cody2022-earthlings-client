@@ -18,7 +18,7 @@ function App() {
         <Route path="/newcomer" element={<Newcomer />} />
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/profile" element={<Profile />} />
-        {/* <Route path="/messenger" element={<Rooms />} /> */}
+        <Route path="/messenger" element={<Rooms />} />
         <Route path="/calendar" element={<BigCalendar />} />
       </Routes>
     </div>
