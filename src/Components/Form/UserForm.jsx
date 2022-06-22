@@ -51,7 +51,7 @@ const UserForm = (props) => {
   };
 
   const [userInfo, setUserInfo] = useState(defaultUserInfo);
-  const [isUpdated, setIsUpdated]=useState();
+  const [isShowMessage, setIsShowMessage]=useState(false);
 
   const getLanguages = (e) => {
     const {value, checked}=e.target;
@@ -92,8 +92,12 @@ const UserForm = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const updatedUserInfo=await updateUserInfo({...userInfo, email});
-    if (updatedUserInfo){setIsUpdated(true)}
+    const newUserInfo=await updateUserInfo({...userInfo, email});
+    if (newUserInfo){
+      if (userInfo.isNewcomer){navigate("/newcomer")}
+      else if (userInfo.isVolunteer){navigate("/volunteer")}
+      else if (!newUserInfo.isNewcomer && !newUserInfo.isVolunteer) {setIsShowMessage(true)}
+    }
   };
 
   return (
@@ -304,7 +308,6 @@ const UserForm = (props) => {
               });
             }}
           />
-
           <Autocomplete
             disablePortal
             id="combo-box-demo"
@@ -348,21 +351,8 @@ const UserForm = (props) => {
             </RadioGroup>
           </FormControl>
         </Grid>
-        {isUpdated && <p style={{color:"purple", fontWeight:"bold"}}> Changes have been successfully updated!</p>}
-        {isUpdated && <Button
-              sx={{ my: 2 }}
-              variant="contained"
-              color="secondary"
-              type="submit"
-              onClick={(e)=>{
-                e.preventDefault();
-                if (userInfo.isNewcomer){navigate("/newcomer")}
-                else if (userInfo.isVolunteer){navigate("/volunteer")}
-              }}
-            >
-              Go to Dashboard
-            </Button>
-        }
+        {isShowMessage && <p style={{color:"red", fontWeight:"bold"}}> Select your role please!</p>}
+
         <Button
           sx={{ my: 2 }}
           variant="contained"
