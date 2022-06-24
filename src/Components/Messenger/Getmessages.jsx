@@ -1,31 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
 
-const Getmessages = (props) => {
-    const params = useParams();
-    const id = params.id;
-    const [conversation, setConversation] = useState([]);
+const Getmessages = () => {
+  const [conversations, setConversations] = useState([]);
+  //Get the user information from Auth0
+  const { user } = useAuth0();
 
-    //Fetch all the conversations of that user
-    useEffect(() => {
-        const getConversation = async () => {
-            try {
-                const response = await fetch(
-                  `/conversation/62a8bc6a5a6a080011440231`
-                );
-                console.log(response);
-                const data = await response.json();
-                console.log(data);
-                setConversation(data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        getConversation();
-    }, [id])
-  return (
-    <div>Getmessages</div>
-  )
-}
+  //Fetch all conversations from current user
+  useEffect(() => {
+    const getConversations = async () => {
+      try {
+        let response = await fetch(`/conversation/${user.email}`);
+        let member = await response.json();
+        console.log(`All conversations for this user are:`, member);
+        return setConversations(member);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    getConversations();
+  }, [user.email]);
 
-export default Getmessages
+  return <div>Getmessages</div>;
+};
+
+export default Getmessages;
