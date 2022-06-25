@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Autocomplete,
   Button,
   Checkbox,
@@ -351,7 +352,7 @@ const UserForm = (props) => {
             </RadioGroup>
           </FormControl>
         </Grid>
-        {isShowMessage && <p style={{color:"red", fontWeight:"bold"}}> Select your role please!</p>}
+        {isShowMessage && <Alert severity="warning" style={{color:"purple", fontWeight:"bold"}}> Select your role please!</Alert>}
 
         <Button
           sx={{ my: 2 }}
