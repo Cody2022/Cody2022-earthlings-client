@@ -3,8 +3,7 @@ import "./App.css";
 import Navbar from "./Components/Navigation/Navbar";
 import BigCalendar from "./Components/Calendar/BigCalendar";
 import { Home, Profile, Enter, Admin, Newcomer, Volunteer } from "./Components/Pages/pages";
-// import Rooms from "./Components/Messenger/Rooms/Rooms";
-import Getmessages from "./Components/Messenger/Getmessages";
+import ChatPage from "./Components/Pages/ChatPage";
 
 function App() {
   return (
@@ -19,8 +18,7 @@ function App() {
         <Route path="/newcomer" element={<Newcomer />} />
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/profile" element={<Profile />} />
-        {/* <Route path="/messenger" element={<Rooms />} /> */}
-        <Route path="/messenger" element={<Getmessages />} />
+        <Route path="/chat" element={<ChatPage />} />
         <Route path="/calendar" element={<BigCalendar />} />
       </Routes>
     </div>
