@@ -82,7 +82,7 @@ const Navbar = () => {
                 <MenuItem onClick={() => navigate("/profile")}>
                   Profile
                 </MenuItem>
-                <MenuItem onClick={() => navigate("/messenger")}>Chat Messenger</MenuItem>
+                <MenuItem onClick={() => navigate("/chat")}>Chat Messenger</MenuItem>
                 <MenuItem onClick={() => logoutWithRedirect()}>Logout</MenuItem>
               </Menu>
             </>
