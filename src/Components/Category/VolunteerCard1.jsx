@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
-import ctrain from "../../images/ctrain.jpg";
+import avatar1 from "../../images/avatar1.jpg";
 import { Button } from '@mui/material';
 
 
@@ -34,15 +34,15 @@ export default function VolunteerCard() {
   };
 
   return (
-    <Card sx={{borderRadius:1, border: 1 }} style={{width:250, backgroundColor:"rgba(48, 233, 252, 0.21)"}}>
+    <Card sx={{borderRadius:1, border: 1, marginBottom:2 }} style={{width:250, backgroundColor:"rgba(48, 233, 252, 0.21)"}}>
       <CardHeader
-        title="Volunteer Name"
+        title="Volunteer Name-1"
         titleTypographyProps={{fontSize: "1rem", color:"black", align:"left"}}
       />
       <CardMedia
         component="img"
-        height="170"
-        image={ctrain}
+        height="150"
+        image={avatar1}
         alt="volunteerImage"
       />
       <CardContent>
