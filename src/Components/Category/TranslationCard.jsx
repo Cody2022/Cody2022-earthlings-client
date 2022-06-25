@@ -15,7 +15,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import ctrain from "../../images/ctrain.jpg";
+import translation from "../../images/translation.jpg";
 import { Button } from '@mui/material';
 
 const ExpandMore = styled((props) => {
@@ -29,7 +29,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function TransportCard() {
+export default function TranslationCard() {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -39,18 +39,18 @@ export default function TransportCard() {
   return (
     <Card sx={{borderRadius:5 }} style={{width:350}}>
       <CardHeader
-        title="Transport"
+        title="Translation"
         titleTypographyProps={{fontSize: "1.2rem", color:"black", align:"center"}}
       />
       <CardMedia
         component="img"
         height="170"
-        image={ctrain}
-        alt="transport"
+        image={translation}
+        alt="Translation"
       />
       <CardContent>
         <Typography variant="body3" color="text.secondary">
-         Get Assistance with Transportation
+         Get Assistance with Translation
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -68,7 +68,7 @@ export default function TransportCard() {
         <CardContent>
           <Typography paragraph>More information:</Typography>
           <Typography paragraph>
-            Get transport assistance.
+            Get Translation assistance.
           </Typography>
         </CardContent>
       </Collapse>
