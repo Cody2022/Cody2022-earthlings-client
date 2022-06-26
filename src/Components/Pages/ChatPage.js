@@ -26,14 +26,13 @@ const ChatPage = () => {
     return <div>isLoading...</div>;
   };
 
-
   return (
     <div>
       <h1>This is the official chat messenger page. Coming Soon!!</h1>
-      <p>Test render:</p>
+      <p>List of conversations:</p>
       <br />
       {conversationList.map((c) => (
-        <Conversation conversation={c} currentUser={user} />
+        <Conversation conversation={c} currentUser={user} isLoading={isLoading} />
       ))}
     </div>
   );
