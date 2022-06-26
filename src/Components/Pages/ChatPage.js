@@ -3,35 +3,35 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const ChatPage = () => {
-  const { user } = useAuth0();
-    const [conversationList, setConversationList] = useState([]);
-    
-    let email = user.email
+  const { user, isLoading } = useAuth0();
+  const [conversationList, setConversationList] = useState([]);
 
   useEffect(() => {
-    const getConversations = async (email) => {
+    const getConversations = async () => {
       try {
-        const res = await axios.get(`/conversation/${email}`);
-        console.log(res);
+        const res = await axios.get(`/conversation/${user.email}`);
         setConversationList(res.data);
       } catch (err) {
         console.log(err.message);
       }
     };
-    getConversations(email);
-  }, [email]);
-    
+    if (isLoading === false) {
+      getConversations();
+    }
+  }, [isLoading]);
 
-  const convo = JSON.stringify(conversationList);
-  console.log(`convo is:${convo}`);
+  if (isLoading) {
+    return <div>isLoading...</div>;
+  };
 
   return (
     <div>
       <h1>This is the official chat messenger page. Coming Soon!!</h1>
-      <p>Test render of user conversations:</p>
-          <br />
-          
-          <h1>{convo}</h1>
+      <p>Test render:</p>
+      <br />
+      {conversationList.map((conversation) => (
+        <div>{user.email}</div>
+      ))}
     </div>
   );
 };
