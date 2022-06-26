@@ -1,6 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Conversation from "../Messenger/Conversation";
 
 const ChatPage = () => {
   const { user, isLoading } = useAuth0();
@@ -25,13 +26,14 @@ const ChatPage = () => {
     return <div>isLoading...</div>;
   };
 
+
   return (
     <div>
       <h1>This is the official chat messenger page. Coming Soon!!</h1>
       <p>Test render:</p>
       <br />
-      {conversationList.map((conversation) => (
-        <div>{user.email}</div>
+      {conversationList.map((c) => (
+        <Conversation conversation={c} currentUser={user} />
       ))}
     </div>
   );
