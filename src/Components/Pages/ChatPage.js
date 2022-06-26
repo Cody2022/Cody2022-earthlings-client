@@ -18,6 +18,7 @@ const ChatPage = () => {
     if (isLoading === false) {
       getConversations();
     }
+    // eslint-disable-next-line
   }, [isLoading]);
 
   if (isLoading) {
