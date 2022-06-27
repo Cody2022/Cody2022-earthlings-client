@@ -1,10 +1,10 @@
 import React from 'react'
 
-const ChatRoom = () => {
+const ChatRoom = ({chatText, own}) => {
   return (
     <div>
       <span style={{ display: "flex", justifyContent: "center" }}>
-        You are now in a chatroom
+        <p>{chatText.message}</p>
       </span>
     </div>
   );
