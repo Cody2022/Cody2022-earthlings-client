@@ -66,7 +66,9 @@ const ChatPage = () => {
         {
           currentChat ? (
             <div>
-              <ChatRoom />
+              {messageList.map(m => (
+                <ChatRoom chatText={m} own={m.sender === user._id} />
+              ))}
             </div>
           ) : (
             <span style={{display: 'flex', justifyContent: 'center'}}>Open a conversation to start a chat</span>
