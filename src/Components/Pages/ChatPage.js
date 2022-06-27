@@ -25,12 +25,27 @@ const ChatPage = () => {
     // eslint-disable-next-line
   }, [isLoading]);
 
+  
+  console.log(`Current chat is:`, currentChat);
+  
+  //Fetch messages
+  useEffect(() => {
+    const getMessages = async () => {
+        try {
+        const response = await axios.get(`/messages/${currentChat._id}`);
+        setMessageList(response.data);
+        } catch (err) {
+        console.log(err.messge);
+      }
+    }
+    getMessages();
+  }, [currentChat._id])
+
+  console.log(`Message list is`, messageList)
+  
   if (isLoading) {
     return <div>isLoading...</div>;
   }
-
-  console.log(`Current chat is:`, currentChat)
-
   return (
     <div>
       <h1>This is the official chat messenger page. Coming Soon!!</h1>
