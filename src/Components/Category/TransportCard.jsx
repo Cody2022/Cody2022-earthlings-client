@@ -55,14 +55,14 @@ export default function TransportCard() {
       </CardContent>
       <CardActions disableSpacing>
          <Button size="medium" sx={{color:"blue"}} >Get Assistance</Button>
-        <ExpandMore
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
