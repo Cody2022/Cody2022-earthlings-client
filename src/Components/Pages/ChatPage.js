@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 import ChatRoom from "../Messenger/ChatRoom";
 import Conversation from "../Messenger/Conversation";
@@ -10,6 +11,7 @@ const ChatPage = () => {
   const [currentChat, setCurrentChat] = useState(false);
   const [messageList, setMessageList] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const scrollRef = useRef();
 
   useEffect(() => {
     const getConversations = async () => {
@@ -60,6 +62,11 @@ const ChatPage = () => {
       console.log(err.message)
     }
   };
+
+  //useEffect that will automatically scroll into view
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({behavior: "smooth"});
+  }, [messageList])
   
   if (isLoading) {
     return <div>isLoading...</div>;
@@ -84,7 +91,9 @@ const ChatPage = () => {
         {currentChat ? (
           <div>
             {messageList.map((m) => (
-              <ChatRoom chatText={m} own={m.sender === user._id} />
+              <div ref={scrollRef}>
+                <ChatRoom chatText={m} own={m.sender === user._id} />
+              </div>
             ))}
           </div>
         ) : (
