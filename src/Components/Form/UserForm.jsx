@@ -1,4 +1,6 @@
+import React, { useState } from "react";
 import {
+  Alert,
   Autocomplete,
   Button,
   Checkbox,
@@ -12,7 +14,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import React, { useState } from "react";
+import {useNavigate} from "react-router-dom"
 
 const provinces = [
   { label: "Alberta"},
@@ -33,6 +35,7 @@ const provinces = [
 const UserForm = (props) => {
   const email=props.email;
   const setLabel=props.setLabel;
+  const navigate=useNavigate();
 
   const defaultUserInfo = {
     firstName: "",
@@ -49,6 +52,7 @@ const UserForm = (props) => {
   };
 
   const [userInfo, setUserInfo] = useState(defaultUserInfo);
+  const [isShowMessage, setIsShowMessage]=useState(false);
 
   const getLanguages = (e) => {
     const {value, checked}=e.target;
@@ -89,7 +93,12 @@ const UserForm = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const updatedUserInfo=await updateUserInfo({...userInfo, email});
+    const newUserInfo=await updateUserInfo({...userInfo, email});
+    if (newUserInfo){
+      if (userInfo.isNewcomer){navigate("/newcomer")}
+      else if (userInfo.isVolunteer){navigate("/volunteer")}
+      else if (!newUserInfo.isNewcomer && !newUserInfo.isVolunteer) {setIsShowMessage(true)}
+    }
   };
 
   return (
@@ -300,7 +309,6 @@ const UserForm = (props) => {
               });
             }}
           />
-
           <Autocomplete
             disablePortal
             id="combo-box-demo"
@@ -320,7 +328,7 @@ const UserForm = (props) => {
         <Grid container sx={{ display: "flex", justifyContent: "center" }}>
           <FormControl>
             <FormLabel sx={{ fontWeight: "bold", color: "black" }}>
-             Select Your Role
+             Select Your Role*
             </FormLabel>
             <RadioGroup
               row
@@ -339,13 +347,12 @@ const UserForm = (props) => {
                 name="isVolunteer"
                 value="volunteer"
                 control={<Radio size="small" />}
-                label="Volunteer"
-                
+                label="Volunteer" 
               />
             </RadioGroup>
           </FormControl>
         </Grid>
-
+        {isShowMessage && <Alert severity="warning" style={{color:"purple", fontWeight:"bold"}}> Select your role please!</Alert>}
 
         <Button
           sx={{ my: 2 }}
@@ -355,7 +362,7 @@ const UserForm = (props) => {
           onClick={handleSubmit}
         >
           Save Changes
-        </Button>
+        </Button>      
       </Grid>
     </Container>
   );
