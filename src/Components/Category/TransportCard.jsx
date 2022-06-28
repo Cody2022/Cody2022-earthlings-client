@@ -37,7 +37,7 @@ export default function TransportCard() {
   };
 
   return (
-    <Card sx={{borderRadius:5 }} style={{width:350}}>
+    <Card sx={{borderRadius:5 }} style={{width:350, height: "fit-content"}}>
       <CardHeader
         title="Transport"
         titleTypographyProps={{fontSize: "1.2rem", color:"black", align:"center"}}
@@ -55,14 +55,14 @@ export default function TransportCard() {
       </CardContent>
       <CardActions disableSpacing>
          <Button size="medium" sx={{color:"blue"}} >Get Assistance</Button>
-        {/* <ExpandMore
+        <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore> */}
+        </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
