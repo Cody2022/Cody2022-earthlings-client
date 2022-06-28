@@ -2,8 +2,17 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./Components/Navigation/Navbar";
 import BigCalendar from "./Components/Calendar/BigCalendar";
-import { Home, Profile, Enter, Admin, Newcomer, Volunteer } from "./Components/Pages/pages";
+import {
+  Home,
+  Profile,
+  Enter,
+  Admin,
+  Newcomer,
+  Volunteer,
+} from "./Components/Pages/pages";
 import Rooms from "./Components/Messenger/Rooms/Rooms";
+import Footer from "./Components/Navigation/Footer";
+
 
 function App() {
   return (
@@ -11,6 +20,7 @@ function App() {
       <header className="navbar">
         <Navbar />
       </header>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/enter" element={<Enter />} />
@@ -21,6 +31,8 @@ function App() {
         <Route path="/messenger" element={<Rooms />} />
         <Route path="/calendar" element={<BigCalendar />} />
       </Routes>
+
+      <Footer />
     </div>
   );
 }
