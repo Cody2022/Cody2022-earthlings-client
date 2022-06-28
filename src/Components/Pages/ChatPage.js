@@ -9,6 +9,7 @@ const ChatPage = () => {
   const [conversationList, setConversationList] = useState([]);
   const [currentChat, setCurrentChat] = useState(false);
   const [messageList, setMessageList] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
     const getConversations = async () => {
@@ -42,6 +43,23 @@ const ChatPage = () => {
   }, [currentChat._id])
 
   console.log(`Message list is`, messageList)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const chatText = {
+      sender: user.email,
+      message: newMessage,
+      conversationId: currentChat._id
+    };
+
+    try {
+      const res = await axios.post('/messages/', chatText);
+      setMessageList([...messageList, res.data])
+      setNewMessage("");
+    } catch (err) {
+      console.log(err.message)
+    }
+  };
   
   if (isLoading) {
     return <div>isLoading...</div>;
@@ -54,25 +72,34 @@ const ChatPage = () => {
         <input placeholder="Search for friends" />
         {conversationList.map((c) => (
           <div onClick={() => setCurrentChat(c)}>
-          <Conversation
-            conversation={c}
-            currentUser={user}
-            isLoading={isLoading}
-          />
-            </div>
+            <Conversation
+              conversation={c}
+              currentUser={user}
+              isLoading={isLoading}
+            />
+          </div>
         ))}
       </div>
       <div>
-        {
-          currentChat ? (
-            <div>
-              {messageList.map(m => (
-                <ChatRoom chatText={m} own={m.sender === user._id} />
-              ))}
-            </div>
-          ) : (
-            <span style={{display: 'flex', justifyContent: 'center'}}>Open a conversation to start a chat</span>
-          )}
+        {currentChat ? (
+          <div>
+            {messageList.map((m) => (
+              <ChatRoom chatText={m} own={m.sender === user._id} />
+            ))}
+          </div>
+        ) : (
+          <span style={{ display: "flex", justifyContent: "center" }}>
+            Open a conversation to start a chat
+          </span>
+        )}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <input
+          placeholder="Write Something"
+          onChange={(e) => setNewMessage(e.target.value)}
+          value={newMessage}
+        />
+        <button onClick={handleSubmit}>Send</button>
       </div>
     </div>
   );
