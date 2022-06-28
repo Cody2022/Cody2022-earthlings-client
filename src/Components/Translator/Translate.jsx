@@ -6,23 +6,6 @@ import HttpApi from 'i18next-http-backend';
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "bootstrap/dist/js/bootstrap.js";
 
-const languages = [
-  {
-    code: 'fr',
-    name: 'Français',
-    country_code: 'fr',
-  },
-  {
-    code: 'en',
-    name: 'English',
-    country_code: 'gb',
-  },
-  {
-    code: 'ukr',
-    name: 'україни',
-    country_code: 'ua',
-  },
-]
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next

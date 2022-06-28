@@ -4,6 +4,8 @@ import Navbar from "./Components/Navigation/Navbar";
 import BigCalendar from "./Components/Calendar/BigCalendar";
 import { Home, Profile, Enter, Admin, Newcomer, Volunteer } from "./Components/Pages/pages";
 import Rooms from "./Components/Messenger/Rooms/Rooms";
+import CalendarPicker from "./Components/Calendar/CalendarPicker";
+import RequestForm from "./Components/Form/RequestForm";
 
 function App() {
   return (
@@ -18,8 +20,11 @@ function App() {
         <Route path="/newcomer" element={<Newcomer />} />
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/messenger" element={<Rooms />} />
+        {/* <Route path="/messenger" element={<Rooms />} />  */}
         <Route path="/calendar" element={<BigCalendar />} />
+        {/* <Route path="/schedule" element={<CalendarPicker />} /> */}
+        <Route path="/request" element={<RequestForm />} />
+
       </Routes>
     </div>
   );
