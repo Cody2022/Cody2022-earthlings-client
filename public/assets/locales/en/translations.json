@@ -3,5 +3,6 @@
     "login_T": "LOGIN",
     "logout_T": "LOG OUT",
     "i_am_T": "I Am",
-    "here_T": "Here"
+    "here_T": "Here",
+    "app_title": "I Am Here"
 }

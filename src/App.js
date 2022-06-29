@@ -3,13 +3,8 @@ import "./App.css";
 import Navbar from "./Components/Navigation/Navbar";
 import BigCalendar from "./Components/Calendar/BigCalendar";
 import { Home, Profile, Enter, Admin, Newcomer, Volunteer } from "./Components/Pages/pages";
-<<<<<<< HEAD
-import Rooms from "./Components/Messenger/Rooms/Rooms";
-import CalendarPicker from "./Components/Calendar/CalendarPicker";
-import RequestForm from "./Components/Form/RequestForm";
-=======
 import ChatPage from "./Components/Pages/ChatPage";
->>>>>>> 61c040a9998a1fe9c9e4ebb497cb15ab46d7e490
+import RequestForm from "./Components/Form/RequestForm"
 
 function App() {
   return (
@@ -24,11 +19,7 @@ function App() {
         <Route path="/newcomer" element={<Newcomer />} />
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/profile" element={<Profile />} />
-<<<<<<< HEAD
-        {/* <Route path="/messenger" element={<Rooms />} />  */}
-=======
         <Route path="/chat" element={<ChatPage />} />
->>>>>>> 61c040a9998a1fe9c9e4ebb497cb15ab46d7e490
         <Route path="/calendar" element={<BigCalendar />} />
         {/* <Route path="/schedule" element={<CalendarPicker />} /> */}
         <Route path="/request" element={<RequestForm />} />
