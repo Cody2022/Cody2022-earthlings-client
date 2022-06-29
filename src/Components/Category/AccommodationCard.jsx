@@ -15,7 +15,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import translation from "../../images/translation.jpg";
+import housing from "../../images/housing.jpg";
 import { Button } from '@mui/material';
 
 const ExpandMore = styled((props) => {
@@ -29,7 +29,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function TranslationCard() {
+export default function AccommodationCard() {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -37,20 +37,20 @@ export default function TranslationCard() {
   };
 
   return (
-    <Card sx={{borderRadius:5 }} style={{width:350, height: "fit-content"}}>
+    <Card sx={{borderRadius:5 }} style={{width:360, height: "fit-content"}}>
       <CardHeader
-        title="Translation"
+        title="Accommodation"
         titleTypographyProps={{fontSize: "1.2rem", color:"black", align:"center"}}
       />
       <CardMedia
         component="img"
         height="170"
-        image={translation}
-        alt="Translation"
+        image={housing}
+        alt="Accommodation"
       />
       <CardContent>
         <Typography variant="body3" color="text.secondary">
-         Get Assistance with Translation
+         Get Assistance with Accommodation
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -68,7 +68,7 @@ export default function TranslationCard() {
         <CardContent>
           <Typography paragraph>More information:</Typography>
           <Typography paragraph>
-            Get Translation assistance.
+            Get Accommodation assistance.
           </Typography>
         </CardContent>
       </Collapse>

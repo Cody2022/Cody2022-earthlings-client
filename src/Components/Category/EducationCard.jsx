@@ -37,7 +37,7 @@ export default function EducationCard() {
   };
 
   return (
-    <Card sx={{borderRadius:5 }} style={{width:350}}>
+    <Card sx={{borderRadius:5 }} style={{width:350, height: "fit-content"}}>
       <CardHeader
         title="Education"
         titleTypographyProps={{fontSize: "1.2rem", color:"black", align:"center"}}

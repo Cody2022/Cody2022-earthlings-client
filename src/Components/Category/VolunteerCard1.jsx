@@ -6,17 +6,14 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import ctrain from "../../images/ctrain.jpg";
+
+import avatar1 from "../../images/avatar1.jpg";
 import { Button } from '@mui/material';
-import { BorderAll } from '@mui/icons-material';
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -37,15 +34,15 @@ export default function VolunteerCard() {
   };
 
   return (
-    <Card sx={{borderRadius:1, border: 1 }} style={{width:250, backgroundColor:"rgba(48, 233, 252, 0.21)"}}>
+    <Card sx={{borderRadius:1, border: 1, marginBottom:2 }} style={{width:250, backgroundColor:"rgba(48, 233, 252, 0.21)"}}>
       <CardHeader
-        title="Volunteer Name"
+        title="Volunteer Name-1"
         titleTypographyProps={{fontSize: "1rem", color:"black", align:"left"}}
       />
       <CardMedia
         component="img"
-        height="170"
-        image={ctrain}
+        height="150"
+        image={avatar1}
         alt="volunteerImage"
       />
       <CardContent>

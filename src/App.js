@@ -2,9 +2,13 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./Components/Navigation/Navbar";
 import BigCalendar from "./Components/Calendar/BigCalendar";
+import Footer from "./Components/Navigation/Footer";
+
 import { Home, Profile, Enter, Admin, Newcomer, Volunteer } from "./Components/Pages/pages";
+import Rooms from "./Components/Messenger/Rooms/Rooms";
+import CalendarPicker from "./Components/Calendar/CalendarPicker";
+import RequestForm from "./Components/Form/RequestForm";
 import ChatPage from "./Components/Pages/ChatPage";
-import RequestForm from "./Components/Form/RequestForm"
 
 function App() {
   return (
@@ -12,6 +16,7 @@ function App() {
       <header className="navbar">
         <Navbar />
       </header>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/enter" element={<Enter />} />
@@ -25,6 +30,8 @@ function App() {
         <Route path="/request" element={<RequestForm />} />
 
       </Routes>
+
+      <Footer />
     </div>
   );
 }
