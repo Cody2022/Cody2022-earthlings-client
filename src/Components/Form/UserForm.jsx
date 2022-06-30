@@ -144,6 +144,7 @@ const UserForm = (props) => {
             name="age"
             label="Age"
             type="number"
+            InputProps={{ inputProps: { min: 1 } }}
             value={userInfo.age}
             sx={{ py: 1, px: 1 }}
             onChange={(e) => {
