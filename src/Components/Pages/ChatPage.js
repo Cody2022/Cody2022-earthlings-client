@@ -2,6 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
+import {io} from "socket.io-client"
 import ChatRoom from "../Messenger/ChatRoom";
 import Conversation from "../Messenger/Conversation";
 
@@ -11,7 +12,33 @@ const ChatPage = () => {
   const [currentChat, setCurrentChat] = useState(false);
   const [messageList, setMessageList] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null)
+  const socket = useRef();
   const scrollRef = useRef();
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:8900");
+    socket.current.on("getMessage", data => {
+      setArrivalMessage({
+        sender: data.senderId,
+        message: data.message,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  //Update message list if there is any changes in arrival messages
+  useEffect(() => {
+    arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
+    setMessageList((prev) => [...prev, arrivalMessage])
+  }, [arrivalMessage, currentChat])
+
+  useEffect(() => {
+    socket.current.emit("addUser", user.email)
+    socket.current.on("getUsers", users => {
+      console.log(users)
+    })
+  }, [user]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -27,9 +54,6 @@ const ChatPage = () => {
     }
     // eslint-disable-next-line
   }, [isLoading]);
-
-  
-  console.log(`Current chat is:`, currentChat);
   
   //Fetch messages
   useEffect(() => {
@@ -44,8 +68,6 @@ const ChatPage = () => {
     getMessages();
   }, [currentChat._id])
 
-  console.log(`Message list is`, messageList)
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const chatText = {
@@ -53,6 +75,14 @@ const ChatPage = () => {
       message: newMessage,
       conversationId: currentChat._id
     };
+
+    const receiverId = currentChat.members.find(member => member !== user.email);
+
+    socket.current.emit("sendMessage", {
+      senderId: user.email,
+      receiverId,
+      message: newMessage,
+    });
 
     try {
       const res = await axios.post('/messages/', chatText);
@@ -67,6 +97,7 @@ const ChatPage = () => {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({behavior: "smooth"});
   }, [messageList])
+
   
   if (isLoading) {
     return <div>isLoading...</div>;
