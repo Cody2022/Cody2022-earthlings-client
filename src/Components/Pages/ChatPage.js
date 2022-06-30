@@ -17,7 +17,7 @@ const ChatPage = () => {
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("http://localhost:5000");
     socket.current.on("getMessage", data => {
       setArrivalMessage({
         sender: data.senderId,
@@ -34,11 +34,16 @@ const ChatPage = () => {
   }, [arrivalMessage, currentChat])
 
   useEffect(() => {
-    socket.current.emit("addUser", user.email)
-    socket.current.on("getUsers", users => {
-      console.log(users)
-    })
-  }, [user]);
+    const grabUser = async () => {
+      socket.current.emit("addUser", user.email)
+      socket.current.on("getUsers", users => {
+        console.log(users)
+      })
+    }
+    if (isLoading === false) {
+      grabUser();
+    }
+  }, [user, isLoading]);
 
   useEffect(() => {
     const getConversations = async () => {
