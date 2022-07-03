@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Box, Container, Grid, ListItem, Paper } from "@mui/material";
+import { Box, Grid, ListItem, Paper, Typography } from "@mui/material";
 import axios from "axios";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
@@ -105,16 +105,19 @@ const ChatPage = () => {
     scrollRef.current?.scrollIntoView({behavior: "smooth"});
   }, [messageList])
 
-  
   if (isLoading) {
     return <div>isLoading...</div>;
   }
   return (
-    <Container>
-      <h1>This is the official chat messenger page. Coming Soon!!</h1>
-      <p>List of conversations:</p>
-      <Paper elevation={8}>
-        <input placeholder="Search for friends" />
+    <Box sx={{
+      display: 'flex',
+      padding: 1
+    }}>
+      <Paper elevation={24} sx={{
+      }}>
+        <Typography variant="h6" gutterBottom={true} sx={{
+          padding: 1
+        }}>My Connections</Typography>
         {conversationList.map((c) => (
           <ListItem onClick={() => setCurrentChat(c)}>
             <Conversation
@@ -125,12 +128,14 @@ const ChatPage = () => {
           </ListItem>
         ))}
       </Paper>
-      <Paper elevation={8}>
+      <Paper elevation={24} sx={{
+        width: 1
+      }}>
         {currentChat ? (
           <Grid>
             {messageList.map((m) => (
               <ListItem ref={scrollRef}>
-                <ChatRoom chatText={m} own={m.sender === user._id} />
+                <ChatRoom chatText={m} own={m.sender === user.email} />
               </ListItem>
             ))}
           </Grid>
@@ -148,7 +153,7 @@ const ChatPage = () => {
           <button onClick={handleSubmit}>Send</button>
           </Box>
       </Paper>
-    </Container>
+    </Box>
   );
 };
 
