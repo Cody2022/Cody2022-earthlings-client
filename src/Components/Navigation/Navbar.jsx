@@ -7,6 +7,7 @@ import { Box } from "@mui/system";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useTranslation} from "react-i18next";
 import SelectLanguage from "../Translator/SelectLanguage"
+import Header from "./Header";
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -38,24 +39,7 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {t("i_am_T")}<span> </span>{t("here_T")}
           </Typography>
-          <Link component={useNavigate} color="white" underline="none" to="/">
-            <Button color="inherit">Home</Button>
-          </Link>
-          <Link component={useNavigate} color="white" underline="none" to="/newcomer">
-            <Button color="inherit">Newcomer</Button>
-          </Link>
-          <Link component={useNavigate} color="white" underline="none" to="/Volunteer">
-            <Button color="inherit">Volunteer</Button>
-          </Link>
-          <Link component={useNavigate} color="white" underline="none" to="/profile">
-            <Button color="inherit">Profile</Button>
-          </Link>
-          <Link component={useNavigate} color="white" underline="none" to="/chat">
-            <Button color="inherit">Chat</Button>
-          </Link>
-          <Link component={useNavigate} color="white" underline="none" to="/admin">
-            <Button color="inherit">Admin</Button>
-          </Link>
+          <Header />
           <SelectLanguage />
           {!isAuthenticated && (
             <Button
