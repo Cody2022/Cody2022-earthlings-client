@@ -4,7 +4,7 @@ const ChatRoom = ({chatText, own}) => {
   return (
     <div>
       <span style={{ display: "flex", justifyContent: "center" }}>
-        <p>{chatText.message}</p>
+        <p>{chatText.sender}: {chatText.message}</p>
       </span>
     </div>
   );
