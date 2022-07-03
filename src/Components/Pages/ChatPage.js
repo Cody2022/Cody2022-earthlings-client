@@ -1,10 +1,12 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { Box, Container, Grid, ListItem, Paper } from "@mui/material";
 import axios from "axios";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
 import {io} from "socket.io-client"
 import ChatRoom from "../Messenger/ChatRoom";
 import Conversation from "../Messenger/Conversation";
+
 
 const ChatPage = () => {
   const { user, isLoading } = useAuth0();
@@ -108,45 +110,45 @@ const ChatPage = () => {
     return <div>isLoading...</div>;
   }
   return (
-    <div>
+    <Container>
       <h1>This is the official chat messenger page. Coming Soon!!</h1>
       <p>List of conversations:</p>
-      <div>
+      <Paper elevation={8}>
         <input placeholder="Search for friends" />
         {conversationList.map((c) => (
-          <div onClick={() => setCurrentChat(c)}>
+          <ListItem onClick={() => setCurrentChat(c)}>
             <Conversation
               conversation={c}
               currentUser={user}
               isLoading={isLoading}
             />
-          </div>
+          </ListItem>
         ))}
-      </div>
-      <div>
+      </Paper>
+      <Paper elevation={8}>
         {currentChat ? (
-          <div>
+          <Grid>
             {messageList.map((m) => (
-              <div ref={scrollRef}>
+              <ListItem ref={scrollRef}>
                 <ChatRoom chatText={m} own={m.sender === user._id} />
-              </div>
+              </ListItem>
             ))}
-          </div>
+          </Grid>
         ) : (
           <span style={{ display: "flex", justifyContent: "center" }}>
             Open a conversation to start a chat
           </span>
         )}
-      </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Box p={1}>
         <input
           placeholder="Write Something"
           onChange={(e) => setNewMessage(e.target.value)}
           value={newMessage}
         />
-        <button onClick={handleSubmit}>Send</button>
-      </div>
-    </div>
+          <button onClick={handleSubmit}>Send</button>
+          </Box>
+      </Paper>
+    </Container>
   );
 };
 
