@@ -1,28 +1,28 @@
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import { Button} from "@mui/material";
 
 function Header() {
   return (
     <>
     <header className='header'>
         <div>
-        <Link component={useNavigate} color="white" underline="none" to="/">
+        <Link className='links' component={useNavigate} color="white" to="/">
             <Button color="inherit">Home</Button>
           </Link>
-          <Link component={useNavigate} color="white" underline="none" to="/newcomer">
+          <Link className='links' component={useNavigate} color="white" to="/newcomer">
             <Button color="inherit">Newcomer</Button>
           </Link>
-          <Link component={useNavigate} color="white" underline="none" to="/Volunteer">
+          <Link className='links' component={useNavigate} color="white" to="/Volunteer">
             <Button color="inherit">Volunteer</Button>
           </Link>
-          <Link component={useNavigate} color="white" underline="none" to="/profile">
+          <Link className='links' component={useNavigate} color="white" to="/profile">
             <Button color="inherit">Profile</Button>
           </Link>
-          <Link component={useNavigate} color="white" underline="none" to="/chat">
+          <Link className='links' component={useNavigate} color="white" to="/chat">
             <Button color="inherit">Chat</Button>
           </Link>
-          <Link component={useNavigate} color="white" underline="none" to="/admin">
+          <Link className='links' component={useNavigate} color="white" to="/admin">
             <Button color="inherit">Admin</Button>
           </Link>
         </div>

@@ -50,12 +50,17 @@ function BigCalendar() {
 
   useEffect(() => {
     apiClient.post(
-      "/blah",
+      "/schedule",
       JSON.stringify({
         title: newEvent.title,
         startDate: newEvent.start,
         endDate: newEvent.end,
-      })
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
   }, [newEvent]);
 
