@@ -21,28 +21,28 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const events = [
-  {
-    title: "Big Meeting",
-    allDay: true,
-    start: new Date(2022, 6, 0),
-    end: new Date(2022, 6, 0),
-  },
-  {
-    title: "Vacation",
-    start: new Date(2022, 6, 7),
-    end: new Date(2022, 6, 10),
-  },
-  {
-    title: "Conference",
-    start: new Date(2022, 6, 20),
-    end: new Date(2022, 6, 23),
-  },
-];
+// const events = [
+//   {
+//     title: "Big Meeting",
+//     allDay: true,
+//     start: new Date(2022, 6, 0),
+//     end: new Date(2022, 6, 0),
+//   },
+//   {
+//     title: "Vacation",
+//     start: new Date(2022, 6, 7),
+//     end: new Date(2022, 6, 10),
+//   },
+//   {
+//     title: "Conference",
+//     start: new Date(2022, 6, 20),
+//     end: new Date(2022, 6, 23),
+//   },
+// ];
 
 function BigCalendar() {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
-  const [allEvents, setAllEvents] = useState(events);
+  const [allEvents, setAllEvents] = useState();
 
   function handleAddEvent() {
     setAllEvents([...allEvents, newEvent]);
@@ -57,6 +57,7 @@ function BigCalendar() {
         endDate: newEvent.end,
       }),
       {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -67,11 +68,11 @@ function BigCalendar() {
   return (
     <div className="App">
       <h1>Calendar</h1>
-      <h2>Add New Event</h2>
+      <h2>My Availibility</h2>
       <div>
         <input
           type="text"
-          placeholder="Add Title"
+          placeholder="Add Tasks"
           style={{ width: "20%", marginRight: "10px" }}
           value={newEvent.title}
           onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
@@ -88,7 +89,7 @@ function BigCalendar() {
           onChange={(end) => setNewEvent({ ...newEvent, end })}
         />
         <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>
-          Add Event
+          Submit
         </button>
       </div>
       <Calendar

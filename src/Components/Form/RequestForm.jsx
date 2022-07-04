@@ -31,7 +31,7 @@ const RequestForm = () => {
   
   return (
     <div className="container">
-      <h1>Request Form</h1>
+      <h1>Document Translation Request</h1>
       <form>
         {/* <label for="Tasks">Choose a tasks:</label>
 
@@ -43,7 +43,7 @@ const RequestForm = () => {
         </select> */}
 
         <div className="form-group">
-          <h3>Request 1</h3>
+          <h3>Comments</h3>
           <input
             onChange={handleChange}
             name="title"
