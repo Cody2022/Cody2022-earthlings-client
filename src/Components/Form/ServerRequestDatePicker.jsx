@@ -1,107 +1,34 @@
 import * as React from 'react';
-import Badge from '@mui/material/Badge';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { CalendarPickerSkeleton } from '@mui/x-date-pickers/CalendarPickerSkeleton';
-import getDaysInMonth from 'date-fns/getDaysInMonth';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-function getRandomNumber(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
-}
 
-function fakeFetch(date, { signal }) {
-  return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      const daysInMonth = getDaysInMonth(date);
-      const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
+export default function ResponsiveDatePickers(props) {
+  const setTransportInfo=props.setTransportInfo;
+  const transportInfo=props.transportInfo;
 
-      resolve({ daysToHighlight });
-    }, 500);
-
-    signal.onabort = () => {
-      clearTimeout(timeout);
-      reject(new DOMException('aborted', 'AbortError'));
-    };
-  });
-}
-
-const initialValue = new Date();
-
-export default function ServerRequestDatePicker() {
-  const requestAbortController = React.useRef(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
-  const [value, setValue] = React.useState(initialValue);
-
-  const fetchHighlightedDays = (date) => {
-    const controller = new AbortController();
-    fakeFetch(date, {
-      signal: controller.signal,
-    })
-      .then(({ daysToHighlight }) => {
-        setHighlightedDays(daysToHighlight);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        // ignore the error if it's caused by `controller.abort`
-        if (error.name !== 'AbortError') {
-          throw error;
-        }
-      });
-
-    requestAbortController.current = controller;
-  };
-
-  React.useEffect(() => {
-    fetchHighlightedDays(initialValue);
-    // abort request on unmount
-    return () => requestAbortController.current?.abort();
-  }, []);
-
-  const handleMonthChange = (date) => {
-    if (requestAbortController.current) {
-      // make sure that you are aborting useless requests
-      // because it is possible to switch between months pretty quickly
-      requestAbortController.current.abort();
-    }
-
-    setIsLoading(true);
-    setHighlightedDays([]);
-    fetchHighlightedDays(date);
-  };
-
+  const getDate=(newDate)=>{
+      let dayOfMonth=newDate.getDate();
+      let month=newDate.getMonth();
+      let year=newDate.getFullYear();
+      let localDate=new Date (year, month, dayOfMonth);
+      console.log("localDate is", localDate)
+      setTransportInfo({...transportInfo, date:localDate})
+  }
+  
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker
-
-        label="Date"
-        value={value}
-        loading={isLoading}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
-        onMonthChange={handleMonthChange}
-        renderInput={(params) => <TextField {...params} sx={{width:"50%"}}/>}
-        renderLoading={() => <CalendarPickerSkeleton />}
-        renderDay={(day, _value, DayComponentProps) => {
-          const isSelected =
-            !DayComponentProps.outsideCurrentMonth &&
-            highlightedDays.indexOf(day.getDate()) > 0;
-
-          return (
-            <Badge
-              key={day.toString()}
-              overlap="circular"
-              badgeContent={isSelected ? '🌚' : undefined}
-            >
-              <PickersDay {...DayComponentProps} />
-            </Badge>
-          );
-        }}
-      />
+       <DatePicker
+          label="Date"
+          value={transportInfo.date}
+          minDate={new Date('2017-01-01')}
+          onChange={getDate}
+          renderInput={(params) => <TextField {...params} sx={{width:"50%"}}/>}
+        />
     </LocalizationProvider>
   );
 }
