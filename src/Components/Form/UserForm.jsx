@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Autocomplete,
@@ -53,6 +53,15 @@ const UserForm = (props) => {
 
   const [userInfo, setUserInfo] = useState(defaultUserInfo);
   const [isShowMessage, setIsShowMessage]=useState(false);
+
+  useEffect(() => {
+    const fetchUserRoles = async (email) => {
+      let response = await fetch(`/get/${email}`);
+      let userInfo = await response.json();
+      if (userInfo.firstName && userInfo.lastName){setUserInfo(userInfo)}
+    };
+    fetchUserRoles(email);
+  }, []);
 
   const getLanguages = (e) => {
     const {value, checked}=e.target;
@@ -144,7 +153,7 @@ const UserForm = (props) => {
             name="age"
             label="Age"
             type="number"
-            value={userInfo.age}
+            // value={userInfo.age}
             InputProps={{ inputProps: { min: 1 } }}
             sx={{ py: 1, px: 1 }}
             onChange={(e) => {
@@ -164,8 +173,7 @@ const UserForm = (props) => {
             </FormLabel>
             <RadioGroup
               name="gender"
-              value={userInfo.gender}
-              onChange={(e) => {
+               onChange={(e) => {
                 const value = e.target.value;
                 setUserInfo({
                   ...userInfo,
