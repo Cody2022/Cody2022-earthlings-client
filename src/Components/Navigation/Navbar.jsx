@@ -7,6 +7,8 @@ import { Box } from "@mui/system";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useTranslation} from "react-i18next";
 import SelectLanguage from "../Translator/SelectLanguage"
+import Header from "./Header";
+import { menuButton } from "../Styles/Styles";
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -35,9 +37,11 @@ const Navbar = () => {
               alt="application logo"
             />
           </Link>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             {t("i_am_T")}<span> </span>{t("here_T")}
           </Typography>
+          <Header className={menuButton}> 
+          </Header>
           <SelectLanguage />
           {!isAuthenticated && (
             <Button
@@ -62,7 +66,7 @@ const Navbar = () => {
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
               >
-                {user.email}
+                {user.name}
               </Button>
               <Menu
                 id="demo-positioned-menu"

@@ -11,11 +11,6 @@ import "flag-icon-css/css/flag-icons.min.css";
 
 const languages = [
   {
-    code: 'fr',
-    name: 'Français',
-    country_code: 'fr',
-  },
-  {
     code: 'en',
     name: 'English',
     country_code: 'gb',

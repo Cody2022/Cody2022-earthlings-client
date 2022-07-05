@@ -5,7 +5,6 @@ import BigCalendar from "./Components/Calendar/BigCalendar";
 import Footer from "./Components/Navigation/Footer";
 
 import { Home, Profile, Enter, Admin, Newcomer, Volunteer } from "./Components/Pages/pages";
-import Rooms from "./Components/Messenger/Rooms/Rooms";
 import CalendarPicker from "./Components/Calendar/CalendarPicker";
 import RequestForm from "./Components/Form/RequestForm";
 import ChatPage from "./Components/Pages/ChatPage";
