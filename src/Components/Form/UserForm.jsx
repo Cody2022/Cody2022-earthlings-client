@@ -40,7 +40,7 @@ const UserForm = (props) => {
   const defaultUserInfo = {
     firstName: "",
     lastName: "",
-    age: 0,
+    age: 1,
     gender:"",
     isNewcomer:false,
     isVolunteer:false,
@@ -144,8 +144,8 @@ const UserForm = (props) => {
             name="age"
             label="Age"
             type="number"
-            InputProps={{ inputProps: { min: 1 } }}
             value={userInfo.age}
+            InputProps={{ inputProps: { min: 1 } }}
             sx={{ py: 1, px: 1 }}
             onChange={(e) => {
               const value = e.target.value;
