@@ -5,7 +5,6 @@ const ChatRoom = ({ chatText, own }) => {
   return (
     <Box>
       <div>
-        <span>{chatText.sender}: </span>
         {own ? (
           <Typography
             variant="p"
@@ -16,19 +15,19 @@ const ChatRoom = ({ chatText, own }) => {
               color: "white",
             }}
           >
-            {chatText.message}
+            {chatText.sender}: {chatText.message}
           </Typography>
         ) : (
             <Typography
-            variant="p"
+              variant="p"
               sx={{
               padding: 0.5,
               borderRadius: 20,
               backgroundColor: "#c9d3f2",
-                color: "black",
+              color: "black",
             }}
           >
-            {chatText.message}
+            {chatText.sender}: {chatText.message}
           </Typography>
         )}
       </div>
