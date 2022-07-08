@@ -98,17 +98,17 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
+  const { order, orderBy, numSelected, rowCount } =
     props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
+//   const createSortHandler = (property) => (event) => {
+//     onRequestSort(event, property);
+//   };
 
   return (
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
-          <Checkbox
+          {/* <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -116,7 +116,7 @@ function EnhancedTableHead(props) {
             inputProps={{
               'aria-label': 'select all desserts',
             }}
-          />
+          /> */}
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
@@ -128,7 +128,7 @@ function EnhancedTableHead(props) {
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+            //   onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
@@ -146,8 +146,8 @@ function EnhancedTableHead(props) {
 
 EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
+//   onRequestSort: PropTypes.func.isRequired,
+//   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
@@ -210,7 +210,6 @@ EnhancedTableToolbar.propTypes = {
 
 export default function VolunteerTransportList(props) {
     const transportList=props.transportList;
-    console.log("import transportList", transportList)
     const { user } = useAuth0();
     const email = user.email;
     const rows=[];
@@ -221,11 +220,7 @@ export default function VolunteerTransportList(props) {
       let languages=transportInfo.languages.join(", ")
       let accessories=transportInfo.accessories.join(", ")
       rows.push(createData(startTime, endTime, languages, accessories, transportInfo.maxPassengers));
-      console.log("rows is", rows);
     });
-
-console.log("rows is", rows)
-
 
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('startTime');
@@ -267,6 +262,8 @@ console.log("rows is", rows)
     }
 
     setSelected(newSelected);
+
+    console.log("selected is", selected)
   };
 
   const handleChangePage = (event, newPage) => {
@@ -302,8 +299,8 @@ console.log("rows is", rows)
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
+            //   onSelectAllClick={handleSelectAllClick}
+            //   onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
             <TableBody>
