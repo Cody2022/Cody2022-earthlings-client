@@ -24,10 +24,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
-function createData(date, startTime, endTime, languages, accessories, maxPassengers) {
+function createData(data_startTime, endTime, languages, accessories, maxPassengers) {
   return {
-    date,
-    startTime,
+    data_startTime,
     endTime,
     languages,
     accessories,
@@ -67,15 +66,9 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'date',
+    id: 'data_startTime',
     numeric: false,
     disablePadding: true,
-    label: 'Date',
-  },
-  {
-    id: 'startTime',
-    numeric: true,
-    disablePadding: false,
     label: 'Start Time',
   },
   {
@@ -223,12 +216,11 @@ export default function VolunteerTransportList(props) {
     const rows=[];
 
     transportList.forEach((transportInfo) => {
-      let date=new Date (transportInfo.date).toLocaleDateString();
       let startTime=new Date (transportInfo.startTime).toLocaleString();
       let endTime=new Date (transportInfo.endTime).toLocaleString();
       let languages=transportInfo.languages.join(", ")
       let accessories=transportInfo.accessories.join(", ")
-      rows.push(createData(date, startTime, endTime, languages, accessories, transportInfo.maxPassengers));
+      rows.push(createData(startTime, endTime, languages, accessories, transportInfo.maxPassengers));
       console.log("rows is", rows);
     });
 
@@ -250,19 +242,19 @@ console.log("rows is", rows)
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.date);
+      const newSelecteds = rows.map((n) => n.data_startTime);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, date) => {
-    const selectedIndex = selected.indexOf(date);
+  const handleClick = (event, data_startTime) => {
+    const selectedIndex = selected.indexOf(data_startTime);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, date);
+      newSelected = newSelected.concat(selected, data_startTime);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -290,7 +282,7 @@ console.log("rows is", rows)
     setDense(event.target.checked);
   };
 
-  const isSelected = (date) => selected.indexOf(date) !== -1;
+  const isSelected = (data_startTime) => selected.indexOf(data_startTime) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -311,7 +303,7 @@ console.log("rows is", rows)
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
-            //   onRequestSort={handleRequestSort}
+              onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
             <TableBody>
@@ -320,17 +312,17 @@ console.log("rows is", rows)
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.date);
+                  const isItemSelected = isSelected(row.data_startTime);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.date)}
+                      onClick={(event) => handleClick(event, row.data_startTime)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.date}
+                      key={row.data_startTime}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -348,9 +340,8 @@ console.log("rows is", rows)
                         scope="row"
                         padding="none"
                       >
-                        {row.date}
+                        {row.data_startTime}
                       </TableCell>
-                      <TableCell align="center">{row.startTime}</TableCell>
                       <TableCell align="center">{row.endTime}</TableCell>
                       <TableCell align="center">{row.languages}</TableCell>
                       <TableCell align="center">{row.accessories}</TableCell>
