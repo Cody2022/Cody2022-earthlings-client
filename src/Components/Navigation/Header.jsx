@@ -7,22 +7,22 @@ function Header() {
     <>
     <header className='header'>
         <div>
-        <Link className='links' component={useNavigate} color="white" to="/">
+        <Link className='links' color="white" to="/">
             <Button color="inherit">Home</Button>
           </Link>
-          <Link className='links' component={useNavigate} color="white" to="/newcomer">
+          <Link className='links' color="white" to="/newcomer">
             <Button color="inherit">Newcomer</Button>
           </Link>
-          <Link className='links' component={useNavigate} color="white" to="/Volunteer">
+          <Link className='links' color="white" to="/Volunteer">
             <Button color="inherit">Volunteer</Button>
           </Link>
-          <Link className='links' component={useNavigate} color="white" to="/profile">
+          <Link className='links' color="white" to="/profile">
             <Button color="inherit">Profile</Button>
           </Link>
-          <Link className='links' component={useNavigate} color="white" to="/chat">
+          <Link className='links' color="white" to="/chat">
             <Button color="inherit">Chat</Button>
           </Link>
-          <Link className='links' component={useNavigate} color="white" to="/admin">
+          <Link className='links' color="white" to="/admin">
             <Button color="inherit">Admin</Button>
           </Link>
         </div>
