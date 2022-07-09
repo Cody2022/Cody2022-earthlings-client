@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import "./VolunteerTransportList.css"
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -20,7 +19,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
@@ -108,16 +107,7 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
-          {/* <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          /> */}
-        </TableCell>
+         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -167,17 +157,7 @@ const EnhancedTableToolbar = (props) => {
         }),
       }}
     >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
+     <Typography
           sx={{ flex: '1 1 100%' }}
           variant="h6"
           id="tableTitle"
@@ -185,22 +165,7 @@ const EnhancedTableToolbar = (props) => {
         >
           Schedule
         </Typography>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
+     </Toolbar>
   );
 };
 
@@ -210,21 +175,61 @@ EnhancedTableToolbar.propTypes = {
 
 export default function VolunteerTransportList(props) {
     const transportList=props.transportList;
+    const rerender=props.rerender;
+    const setRerender=props.setRerender;
     const { user } = useAuth0();
     const email = user.email;
     const rows=[];
 
     transportList.forEach((transportInfo) => {
-      let startTime=new Date (transportInfo.startTime).toLocaleString();
-      let endTime=new Date (transportInfo.endTime).toLocaleString();
+      let startTime=new Date (transportInfo.startTime).toLocaleString('en-US', {
+        hour12: false,
+        day:    'numeric',
+        month:  'numeric',
+        year:   'numeric',
+        hour:   '2-digit',
+        minute: '2-digit',});
+      let endTime=new Date (transportInfo.endTime).toLocaleString('en-US', {
+        day:    'numeric',
+        month:  'numeric',
+        year:   'numeric',
+        hour:   '2-digit',
+        minute: '2-digit',
+    });
       let languages=transportInfo.languages.join(", ")
       let accessories=transportInfo.accessories.join(", ")
       rows.push(createData(startTime, endTime, languages, accessories, transportInfo.maxPassengers));
     });
+    
+    const [selected, setSelected] = React.useState([]);
+ 
+    const deleteTransportInfo = async ({email, startTime}) => {
+        const response = await fetch(`/transport/delete`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({email, startTime}),
+        });
+        return response.json();
+      };
+      
+    const handleDelete = async (event) => {
+      event.preventDefault();
+      if (selected.length > 0) {
+        selected.forEach(async (element) => {
+        let startTime = new Date(element);
+          const deletedTransportInfo = await deleteTransportInfo({
+            email: email,
+            startTime: startTime,
+          });
+        });
+      }
+      setRerender(!rerender);
+    };
 
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('startTime');
-  const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -260,10 +265,7 @@ export default function VolunteerTransportList(props) {
         selected.slice(selectedIndex + 1),
       );
     }
-
     setSelected(newSelected);
-
-    console.log("selected is", selected)
   };
 
   const handleChangePage = (event, newPage) => {
@@ -286,21 +288,21 @@ export default function VolunteerTransportList(props) {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ width: "100%" , paddingTop: 3}}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={dense ? "small" : "medium"}
           >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-            //   onSelectAllClick={handleSelectAllClick}
-            //   onRequestSort={handleRequestSort}
+              //   onSelectAllClick={handleSelectAllClick}
+              //   onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
             <TableBody>
@@ -315,7 +317,9 @@ export default function VolunteerTransportList(props) {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.data_startTime)}
+                      onClick={(event) =>
+                        handleClick(event, row.data_startTime)
+                      }
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -327,7 +331,7 @@ export default function VolunteerTransportList(props) {
                           color="primary"
                           checked={isItemSelected}
                           inputProps={{
-                            'aria-labelledby': labelId,
+                            "aria-labelledby": labelId,
                           }}
                         />
                       </TableCell>
@@ -367,6 +371,13 @@ export default function VolunteerTransportList(props) {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+        { (selected.length>0) &&
+          <Tooltip title="Delete">
+            <IconButton onClick={handleDelete}>
+              <DeleteForeverIcon sx={{ color: "red" }} />
+            </IconButton>
+          </Tooltip>
+        }
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
