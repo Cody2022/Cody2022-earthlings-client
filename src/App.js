@@ -9,6 +9,7 @@ import Rooms from "./Components/Messenger/Rooms/Rooms";
 import CalendarPicker from "./Components/Calendar/CalendarPicker";
 import RequestForm from "./Components/Form/RequestForm";
 import ChatPage from "./Components/Pages/ChatPage";
+import AccommodationForm from "./Components/Form/AccommodationForm";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/calendar" element={<BigCalendar />} />
         {/* <Route path="/schedule" element={<CalendarPicker />} /> */}
         <Route path="/request" element={<RequestForm />} />
+        <Route path="/accommodation" element={<AccommodationForm />} />
 
       </Routes>
 
