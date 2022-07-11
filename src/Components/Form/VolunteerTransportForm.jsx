@@ -3,29 +3,29 @@ import { Button, Checkbox, Container, FormControlLabel, FormGroup, FormLabel, Gr
 import React, { useState } from 'react';
 import ServerRequestDatePicker from "./ServerRequestDatePicker";
 import StartEndTimePicker from './StartEndTimePicker';
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
-
-const VolunTransportForm = () => {
+const VolunTransportForm = (props) => {
+    const rerender=props.rerender;
+    const setRerender=props.setRerender;
     const { user, isLoading } = useAuth0();
     let email=user.email;
-    console.log("user.email is", user.email)
 
+    let today=new Date();
+    today=new Date(today.getFullYear(),today.getMonth(), today.getDate(),0,0,0);  //Grab Year, Month, and Day only
+    
     const defaultTransportInfo = {
       email:email,
-      date: new Date(),
-      startTime: new Date(),
-      endTime: new Date(),
+      date: today,
+      startTime: new Date().setSeconds(0,0),
+      endTime: new Date().setSeconds(0,0),
       languages: [],
       accessories: [],
       maxPassengers: 1,
     };
   
-
     const [transportInfo, setTransportInfo] = useState(defaultTransportInfo);
-
-    console.log("default date", defaultTransportInfo.date)
 
     const getLanguages = (e) => {
         const {value, checked}=e.target;
@@ -74,38 +74,53 @@ const VolunTransportForm = () => {
 
       const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("transportInfo.date is", transportInfo.date)
-        console.log("transportInfo.date typeof", typeof transportInfo.date)
-        console.log("transportInfo.startTime is", transportInfo.startTime)
-        console.log("transportInfo.endTime is", transportInfo.endTime)
         try {
           const newTransportInfo=await createTransportInfo(transportInfo);
+          setRerender(!rerender);
         }catch{
           console.log("Error in creating Transport Form")
         }
       };
 
+      /* Get all transport listings of a volunteer with email*/
       const getTransportInfo = async (email) => {
         let response = await fetch(`/transport/get/${email}`);
         let transportInfo = await response.json();
-        console.log(transportInfo)
         return transportInfo;
       };
 
-      const handleGet = async (event) => {
-        event.preventDefault();
-        console.log("test")
-        const foundTransportInfo=await getTransportInfo("volunteer@gmail.com");
-        // console.log("foundTransportInfo is", foundTransportInfo)
-        console.log("foundTransportInfo startTime is", foundTransportInfo.startTime)
-        console.log("foundTransportInfo startTime type is", typeof foundTransportInfo.startTime)
-        console.log("foundTransportInfo startTime new Date is", new Date(foundTransportInfo.startTime))
-        console.log("foundTransportInfo startTime new Date - getDate is", new Date(foundTransportInfo.startTime).toLocaleDateString())
-      }
-      
 
+      const deleteTransportInfo = async (transportInfo) => {
+        const response = await fetch(`/transport/delete`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(transportInfo),
+        });
+        return response.json();
+      };
+      
+      const handleDelete = async (event) => {
+        event.preventDefault();
+        try {
+          let {email, startTime}=transportInfo;
+          const deletedTransportInfo=await deleteTransportInfo({email, startTime});
+        }catch (error){
+          console.log("Error in deleting Transport list", error)
+        }
+      };
+
+   if (isLoading) {
+        return <div>isLoading...</div>;
+    }
+    
   return (
-    <Container>
+    <Container  style={{
+      display: "flex",
+      // flexDirection: "column",
+      justifyContent: "center",
+    }}>
       <Grid
         container
         style={{
@@ -113,10 +128,10 @@ const VolunTransportForm = () => {
           flexDirection: "column",
           justifyContent: "center",
         }}
-        sx={{ width: "55%", marginTop: 5, marginBottom: 10 }}
+        sx={{ width: "80%", marginTop: 3, marginBottom: 5 }}
       >
-        <Grid item marginBottom={2}>
-          <Typography fontWeight={"bold"}>Volunteer Transportation Form</Typography>
+        <Grid item marginBottom={2} display={"flex"} justifyContent={"center"}>
+          <Typography justifyContent={"center"} fontWeight={"bold"}>Transportation Service Availability Form</Typography>
         </Grid>
 
         <Grid item style={{ marginTop: 10 }}>
@@ -186,14 +201,14 @@ const VolunTransportForm = () => {
             <FormControlLabel
               control={<Checkbox />}
               name="accessories"
-              value="carseat"
+              value="Carseat"
               label="Carseat"
               onChange={getAccessories}
             />
             <FormControlLabel
               control={<Checkbox />}
               name="accessories"
-              value="medicalEquip"
+              value="MedicalEquip"
               label="Medical Equipment"
               onChange={getAccessories}
             />
@@ -229,16 +244,6 @@ const VolunTransportForm = () => {
           >
             Submit
           </Button>
-
-          {/* <Button
-            sx={{ my: 2 }}
-            variant="contained"
-            color="primary"
-            type="submit"
-            onClick={handleGet}
-          >
-            Get transport
-          </Button> */}
         </Grid>
       </Grid>
     </Container>
