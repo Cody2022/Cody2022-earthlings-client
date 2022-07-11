@@ -17,7 +17,7 @@ const ChatPage = () => {
   const [arrivalMessage, setArrivalMessage] = useState(null)
   const socket = useRef();
   const scrollRef = useRef();
-
+// set socket connection in useEffect in order to not be called every rerender
   useEffect(() => {
     socket.current = io("http://localhost:5000");
     socket.current.on("getMessage", data => {
@@ -37,7 +37,9 @@ const ChatPage = () => {
 
   useEffect(() => {
     const grabUser = async () => {
+      //send event to server
       socket.current.emit("addUser", user.email)
+      //Take event from server
       socket.current.on("getUsers", users => {
         console.log(users)
       })
@@ -84,7 +86,7 @@ const ChatPage = () => {
     };
 
     const receiverId = currentChat.members.find(member => member !== user.email);
-
+//Send the message
     socket.current.emit("sendMessage", {
       senderId: user.email,
       receiverId,
