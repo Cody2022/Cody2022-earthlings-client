@@ -1,5 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Box, Grid, ListItem, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, Input, ListItem, Paper, Typography } from "@mui/material";
+import * as React from "react";
+import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
@@ -147,12 +149,15 @@ const ChatPage = () => {
           </span>
         )}
         <Box p={1}>
-        <input
+        <Input
           placeholder="Write Something"
           onChange={(e) => setNewMessage(e.target.value)}
-          value={newMessage}
+            value={newMessage}
         />
-          <button onClick={handleSubmit}>Send</button>
+          <Button variant="contained" endIcon={<SendIcon />} onClick={handleSubmit} sx={{
+            borderRadius: 5,
+            marginLeft: '20px'
+          }}>Send</Button>
           </Box>
       </Paper>
     </Box>
