@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../Loading/Loading';
-import {useNavigate} from "react-router-dom"
+import {Navigate, useNavigate} from "react-router-dom"
 
 import Carousel from '../ImageCarousel/Carousel';
 
@@ -35,29 +35,27 @@ const Enter = () => {
     isNewcomer === undefined &&
     isVolunteer === undefined
   ) {
-    navigate ("/profile");
+    return <Navigate to="/profile" /> 
   }
   /*User is Admin: direct to admin page*/
   if (isAdmin) {
-    navigate("/admin");
+    return <Navigate to="/admin" />
   }
   
   /*User is newcomer: direct to newcomer page*/
   if (isNewcomer && !isVolunteer) {
-    navigate("/newcomer");
+    return <Navigate to="/newcomer" />;
   }
   /*User is volunteer: direct to volunteer page*/
   if (!isNewcomer && isVolunteer) {
-    navigate("/volunteer");
+    return <Navigate to="/volunteer" />;
   }
 
-  else {
-    return (
+ return (
       <div>
         <Carousel />
       </div>
     );
-  }
 };
 
 export default withAuthenticationRequired(Enter, {

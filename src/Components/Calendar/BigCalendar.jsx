@@ -21,31 +21,21 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-// const events = [
-//   {
-//     title: "Big Meeting",
-//     allDay: true,
-//     start: new Date(2022, 6, 0),
-//     end: new Date(2022, 6, 0),
-//   },
-//   {
-//     title: "Vacation",
-//     start: new Date(2022, 6, 7),
-//     end: new Date(2022, 6, 10),
-//   },
-//   {
-//     title: "Conference",
-//     start: new Date(2022, 6, 20),
-//     end: new Date(2022, 6, 23),
-//   },
-// ];
+const events = [
+  {
+    title: "Big Meeting",
+    allDay: true,
+    start: new Date(2022, 6, 0),
+    end: new Date(2022, 6, 0),
+  }
+];
 
 function BigCalendar() {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState();
 
   function handleAddEvent() {
-    setAllEvents([...allEvents, newEvent]);
+    setAllEvents([...allEvents, events]);
   }
 
   useEffect(() => {
@@ -68,18 +58,18 @@ function BigCalendar() {
   return (
     <div className="App">
       <h1>Calendar</h1>
-      <h2>My Availibility</h2>
+      <h2>My Availibality</h2>
       <div>
         <input
           type="text"
           placeholder="Add Tasks"
-          style={{ width: "20%", marginRight: "10px" }}
+          style={{ width: "20%", marginRight: "20px" }}
           value={newEvent.title}
           onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
         />
         <DatePicker
           placeholderText="Start Date"
-          style={{ marginRight: "10px" }}
+          style={{ width: "20%", marginRight: "20px" }}
           selected={newEvent.start}
           onChange={(start) => setNewEvent({ ...newEvent, start })}
         />
@@ -88,7 +78,7 @@ function BigCalendar() {
           selected={newEvent.end}
           onChange={(end) => setNewEvent({ ...newEvent, end })}
         />
-        <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>
+        <button style={{ width: "15%", marginTop: "28px" }} onClick={handleAddEvent}>
           Submit
         </button>
       </div>
@@ -97,7 +87,7 @@ function BigCalendar() {
         events={allEvents}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500, margin: "50px" }}
+        style={{ height: 400, margin: "30px" }}
       />
     </div>
   );

@@ -8,6 +8,7 @@ import { Home, Profile, Enter, Admin, Newcomer, Volunteer } from "./Components/P
 import CalendarPicker from "./Components/Calendar/CalendarPicker";
 import RequestForm from "./Components/Form/RequestForm";
 import ChatPage from "./Components/Pages/ChatPage";
+import TranslationForm from "./Components/Form/TranslationForm";
 
 function App() {
   return (
@@ -25,8 +26,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/calendar" element={<BigCalendar />} />
-        {/* <Route path="/schedule" element={<CalendarPicker />} /> */}
         <Route path="/request" element={<RequestForm />} />
+        <Route path="/translateForm" element={<TranslationForm />} />
+
 
       </Routes>
 
