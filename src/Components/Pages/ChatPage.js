@@ -1,9 +1,14 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { Box, Button, Grid, Input, ListItem, Paper, Typography } from "@mui/material";
+import * as React from "react";
+import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
+import {io} from "socket.io-client"
 import ChatRoom from "../Messenger/ChatRoom";
 import Conversation from "../Messenger/Conversation";
+
 
 const ChatPage = () => {
   const { user, isLoading } = useAuth0();
@@ -11,7 +16,40 @@ const ChatPage = () => {
   const [currentChat, setCurrentChat] = useState(false);
   const [messageList, setMessageList] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null)
+  const socket = useRef();
   const scrollRef = useRef();
+// set socket connection in useEffect in order to not be called every rerender
+  useEffect(() => {
+    socket.current = io("http://localhost:5000");
+    socket.current.on("getMessage", data => {
+      setArrivalMessage({
+        sender: data.senderId,
+        message: data.message,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  //Update message list if there is any changes in arrival messages
+  useEffect(() => {
+    arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
+    setMessageList((prev) => [...prev, arrivalMessage])
+  }, [arrivalMessage, currentChat])
+
+  useEffect(() => {
+    const grabUser = async () => {
+      //send event to server
+      socket.current.emit("addUser", user.email)
+      //Take event from server
+      socket.current.on("getUsers", users => {
+        console.log(users)
+      })
+    }
+    if (isLoading === false) {
+      grabUser();
+    }
+  }, [user, isLoading]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -27,9 +65,6 @@ const ChatPage = () => {
     }
     // eslint-disable-next-line
   }, [isLoading]);
-
-  
-  console.log(`Current chat is:`, currentChat);
   
   //Fetch messages
   useEffect(() => {
@@ -44,8 +79,6 @@ const ChatPage = () => {
     getMessages();
   }, [currentChat._id])
 
-  console.log(`Message list is`, messageList)
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const chatText = {
@@ -53,6 +86,14 @@ const ChatPage = () => {
       message: newMessage,
       conversationId: currentChat._id
     };
+
+    const receiverId = currentChat.members.find(member => member !== user.email);
+//Send the message
+    socket.current.emit("sendMessage", {
+      senderId: user.email,
+      receiverId,
+      message: newMessage,
+    });
 
     try {
       const res = await axios.post('/messages/', chatText);
@@ -67,50 +108,59 @@ const ChatPage = () => {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({behavior: "smooth"});
   }, [messageList])
-  
+
   if (isLoading) {
     return <div>isLoading...</div>;
   }
   return (
-    <div>
-      <h1>This is the official chat messenger page. Coming Soon!!</h1>
-      <p>List of conversations:</p>
-      <div>
-        <input placeholder="Search for friends" />
+    <Box sx={{
+      display: 'flex',
+      padding: 1
+    }}>
+      <Paper elevation={24} sx={{
+      }}>
+        <Typography variant="h6" gutterBottom={true} sx={{
+          padding: 1
+        }}>My Connections</Typography>
         {conversationList.map((c) => (
-          <div onClick={() => setCurrentChat(c)}>
+          <ListItem onClick={() => setCurrentChat(c)}>
             <Conversation
               conversation={c}
               currentUser={user}
               isLoading={isLoading}
             />
-          </div>
+          </ListItem>
         ))}
-      </div>
-      <div>
+      </Paper>
+      <Paper elevation={24} sx={{
+        width: 1
+      }}>
         {currentChat ? (
-          <div>
+          <Grid>
             {messageList.map((m) => (
-              <div ref={scrollRef}>
-                <ChatRoom chatText={m} own={m.sender === user._id} />
-              </div>
+              <ListItem ref={scrollRef}>
+                <ChatRoom chatText={m} own={m.sender === user.email} />
+              </ListItem>
             ))}
-          </div>
+          </Grid>
         ) : (
           <span style={{ display: "flex", justifyContent: "center" }}>
             Open a conversation to start a chat
           </span>
         )}
-      </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <input
+        <Box p={1}>
+        <Input
           placeholder="Write Something"
           onChange={(e) => setNewMessage(e.target.value)}
-          value={newMessage}
+            value={newMessage}
         />
-        <button onClick={handleSubmit}>Send</button>
-      </div>
-    </div>
+          <Button variant="contained" endIcon={<SendIcon />} onClick={handleSubmit} sx={{
+            borderRadius: 5,
+            marginLeft: '20px'
+          }}>Send</Button>
+          </Box>
+      </Paper>
+    </Box>
   );
 };
 

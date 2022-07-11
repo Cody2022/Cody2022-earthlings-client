@@ -1,7 +1,8 @@
 {
-    "welcome_to_earthlings": "Welcome to Earthlings Translation!!!",
+    "welcome_to_earthlings": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\nLorem Ipsum has been the industry's standard dummy text ever since the\n1500s, when an unknown printer took a galley of type and scrambled it to\nmake a type specimen book. It has survived not only five centuries, but\nalso the leap into electronic typesetting, remaining essentially\nunchanged. It was popularised in the 1960s with the release of Letraset\nsheets containing Lorem Ipsum passages, and more recently with desktop\npublishing software like Aldus PageMaker including versions of Lorem\nIpsum.",
     "login_T": "LOGIN",
     "logout_T": "LOG OUT",
     "i_am_T": "I Am",
-    "here_T": "Here"
+    "here_T": "Here",
+    "app_title": "I Am Here"
 }

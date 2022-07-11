@@ -42,7 +42,7 @@ const card = (
 const BrowseCategories = () => {
   return (
     <Box sx={{display:"flex", justifyContent:"center"}}>
-      <Card item style={{width:550, display:"flex", justifyContent:"center", flexDirection: "column"}} variant="outlined">{card}</Card>
+      <Card style={{width:550, display:"flex", justifyContent:"center", flexDirection: "column"}} variant="outlined">{card}</Card>
     </Box>
   );
 }

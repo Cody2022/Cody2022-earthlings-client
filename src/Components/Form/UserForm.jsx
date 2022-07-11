@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Autocomplete,
@@ -40,11 +40,11 @@ const UserForm = (props) => {
   const defaultUserInfo = {
     firstName: "",
     lastName: "",
-    age: 0,
+    age: 1,
     gender:"",
     isNewcomer:false,
     isVolunteer:false,
-    languages: [],
+    languages: new Array (),
     educationLevel: "",
     address: "",
     city: "",
@@ -53,6 +53,32 @@ const UserForm = (props) => {
 
   const [userInfo, setUserInfo] = useState(defaultUserInfo);
   const [isShowMessage, setIsShowMessage]=useState(false);
+
+  useEffect(() => {
+    const fetchUserRoles = async (email) => {
+      let response = await fetch(`/get/${email}`);
+      let userInfoInDB = await response.json();
+      let firstName=userInfoInDB.firstName?userInfoInDB.firstName:userInfo.firstName;
+      let lastName=userInfoInDB.lastName?userInfoInDB.lastName:userInfo.lastName;
+      let age=userInfoInDB.age?userInfoInDB.age:userInfo.age;
+      let gender=userInfoInDB.gender?userInfoInDB.gender:userInfo.gender;
+      let languages=userInfoInDB.languages?userInfoInDB.languages:userInfo.languages;
+      let educationLevel=userInfoInDB.educationLevel?userInfoInDB.educationLevel:userInfo.educationLevel;
+      let address=userInfoInDB.address?userInfoInDB.address:userInfo.address;
+      let city=userInfoInDB.city?userInfoInDB.city:userInfo.city;
+      setUserInfo({...userInfo,
+        firstName: firstName,
+        lastName: lastName,
+        age: age,
+        gender:gender,
+        languages: languages,
+        educationLevel:educationLevel,
+        address: address,
+        city: city,
+      })
+    };
+    fetchUserRoles(email);
+  }, []);
 
   const getLanguages = (e) => {
     const {value, checked}=e.target;
@@ -102,7 +128,7 @@ const UserForm = (props) => {
   };
 
   return (
-    <Container >
+    <Container>
       <Grid container alignItems="center" justify="center" direction="column">
         <Grid container sx={{ alignItems: "center", justifyContent: "center" }}>
           <TextField
@@ -119,7 +145,7 @@ const UserForm = (props) => {
                 ...userInfo,
                 firstName: value,
               });
-              setLabel(value)
+              setLabel(value);
             }}
           />
           <TextField
@@ -144,7 +170,8 @@ const UserForm = (props) => {
             name="age"
             label="Age"
             type="number"
-            value={userInfo.age}
+            value={`${userInfo.age}`}
+            InputProps={{ inputProps: { min: 1 } }}
             sx={{ py: 1, px: 1 }}
             onChange={(e) => {
               const value = e.target.value;
@@ -208,16 +235,59 @@ const UserForm = (props) => {
             </FormLabel>
 
             <FormControlLabel
-              control={<Checkbox />}
+              control={
+                <Checkbox checked={userInfo.languages.includes("English")} />
+              }
               name="languages"
               label="English"
               value="English"
               onChange={getLanguages}
             />
-            <FormControlLabel control={<Checkbox />} name="languages" value="French" label="French" onChange={getLanguages}/>
-            <FormControlLabel control={<Checkbox />} name="languages" value="Ukrainian" label="Ukrainian" onChange={getLanguages} />
-            <FormControlLabel control={<Checkbox />} name="languages" value="Mandarin" label="Mandarin" onChange={getLanguages}/>
-            <FormControlLabel control={<Checkbox />} name="languages" value="Somali" label="Somali" onChange={getLanguages}/>
+            <FormControlLabel
+              control={
+                <Checkbox checked={userInfo.languages.includes("French")} />
+              }
+              name="languages"
+              value="French"
+              label="French"
+              onChange={getLanguages}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox checked={userInfo.languages.includes("Ukrainian")} />
+              }
+              name="languages"
+              value="Ukrainian"
+              label="Ukrainian"
+              onChange={getLanguages}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox checked={userInfo.languages.includes("Mandarin")} />
+              }
+              name="languages"
+              value="Mandarin"
+              label="Mandarin"
+              onChange={getLanguages}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox checked={userInfo.languages.includes("Somali")} />
+              }
+              name="languages"
+              value="Somali"
+              label="Somali"
+              onChange={getLanguages}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox checked={userInfo.languages.includes("Other")} />
+              }
+              name="languages"
+              value="Other"
+              label="Other"
+              onChange={getLanguages}
+            />
           </FormGroup>
         </Grid>
 
@@ -233,6 +303,7 @@ const UserForm = (props) => {
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="row-radio-buttons-group"
+              value={userInfo.educationLevel}
               onChange={(e) => {
                 const value = e.target.value;
                 setUserInfo({
@@ -315,12 +386,11 @@ const UserForm = (props) => {
             options={provinces}
             size="small"
             sx={{ px: 2, width: 200 }}
-            onChange={(event, value) => 
-              {setUserInfo({...userInfo, province:value.label})
+            onChange={(event, value) => {
+              setUserInfo({ ...userInfo, province: value.label });
             }}
             renderInput={(params) => (
-              <TextField {...params} label="Province/Territory"
-               />
+              <TextField {...params} label="Province/Territory" />
             )}
           />
         </Grid>
@@ -328,13 +398,9 @@ const UserForm = (props) => {
         <Grid container sx={{ display: "flex", justifyContent: "center" }}>
           <FormControl>
             <FormLabel sx={{ fontWeight: "bold", color: "black" }}>
-             Select Your Role*
+              Select Your Role*
             </FormLabel>
-            <RadioGroup
-              row
-              name="role"
-              onChange={getRole}
-            >
+            <RadioGroup row name="role" onChange={getRole}>
               <FormControlLabel
                 key="newcomer"
                 name="isNewcomer"
@@ -347,12 +413,19 @@ const UserForm = (props) => {
                 name="isVolunteer"
                 value="volunteer"
                 control={<Radio size="small" />}
-                label="Volunteer" 
+                label="Volunteer"
               />
             </RadioGroup>
           </FormControl>
         </Grid>
-        {isShowMessage && <Alert severity="warning" style={{color:"purple", fontWeight:"bold"}}> Select your role please!</Alert>}
+        {isShowMessage && (
+          <Alert
+            severity="warning"
+            style={{ color: "purple", fontWeight: "bold" }}
+          >
+            Select your role please!
+          </Alert>
+        )}
 
         <Button
           sx={{ my: 2 }}
@@ -362,7 +435,7 @@ const UserForm = (props) => {
           onClick={handleSubmit}
         >
           Save Changes
-        </Button>      
+        </Button>
       </Grid>
     </Container>
   );

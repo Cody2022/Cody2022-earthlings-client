@@ -6,14 +6,34 @@ import AccommodationList from "../AccommodationList";
 import { Typography } from "@mui/material";
 
 export const Volunteer = () => {
+     const [rerender, setRerender]=useState(false);
+     const {user}=useAuth0();
+     const email=user.email;
+     const [transportList, setTransportList]=useState();
+
+     useEffect(() => {
+         const fetchTransportListByEmail = async (email) => {
+         let response = await fetch(`/transport/get/${email}`);
+         let transportList = await response.json();
+         return transportList;
+       };
+       const getTransportList = async (email) => {
+         const fetchedTransportList = await fetchTransportListByEmail(email);
+         setTransportList(fetchedTransportList);
+       };
+       getTransportList(email);
+     }, [email, rerender]);
+
+
   return (
-    <div>
-      <AccommodationForm />
-      <Typography variant="h4" mx={5} my={2}> Accommodation Availability Listing </Typography>
-      <AccommodationList />
+    <div style={{background: "rgba(221, 238, 137, 0.6)"}}>
+      <Container sytle={{marginBottom:5}}>
+        {transportList && <VolunteerTransportList transportList={transportList} rerender={rerender} setRerender={setRerender}/>}
+        <VolunTransportForm rerender={rerender} setRerender={setRerender} />
+       </Container>
     </div>
-    );
-};
+  )
+}
 
 export default withAuthenticationRequired(Volunteer, {
   onRedirecting: () => <Loading />,

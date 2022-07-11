@@ -34,11 +34,11 @@ const Enter = () => {
     isNewcomer === undefined &&
     isVolunteer === undefined
   ) {
-    return <Navigate to="/profile" />;
+    return <Navigate to="/profile" /> 
   }
   /*User is Admin: direct to admin page*/
   if (isAdmin) {
-    return <Navigate to="/admin" />;
+    return <Navigate to="/admin" />
   }
 
   /*User is newcomer: direct to newcomer page*/
@@ -50,11 +50,11 @@ const Enter = () => {
     return <Navigate to="/volunteer" />;
   }
 
-  return (
-    <div>
-      <Carousel />
-    </div>
-  );
+ return (
+      <div>
+        <Carousel />
+      </div>
+    );
 };
 
 export default withAuthenticationRequired(Enter, {
