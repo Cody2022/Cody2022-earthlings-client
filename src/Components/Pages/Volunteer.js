@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../Loading/Loading";
-import VolunTransportForm from '../Form/VolunteerTransportForm';
-import VolunteerTransportList from '../Form/VolunteerTransportList';
-import { Container } from '@mui/system';
+import AccommodationForm from "../Form/AccommodationForm";
+import AccommodationList from "../AccommodationList";
+import { Typography } from "@mui/material";
+import VolunteerTransportList from "../Form/VolunteerTransportList";
+import VolunTransportForm from "../Form/VolunteerTransportForm";
+import { Container } from "react-bootstrap";
 
 export const Volunteer = () => {
      const [rerender, setRerender]=useState(false);
@@ -36,5 +39,5 @@ export const Volunteer = () => {
 }
 
 export default withAuthenticationRequired(Volunteer, {
-    onRedirecting: () => <Loading />,
-  });;
+  onRedirecting: () => <Loading />,
+});
