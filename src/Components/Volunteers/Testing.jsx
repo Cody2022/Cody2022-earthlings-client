@@ -11,12 +11,17 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Volunteer from "../Pages/Volunteer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import StarIcon from "@mui/icons-material/Star";
 import axios from "axios";
+import moment from "moment";
 
 const Testing = () => {
+  const date_create = moment().format("DD-MM-YYYY");
   const [usersList, setUserList] = useState([]);
   useEffect(() => {
     const usersList = async () => {
@@ -24,7 +29,6 @@ const Testing = () => {
         // let response = await fetch("/users");
         const response = await fetch("/volunteerusers");
         const usersInfo = await response.json();
-        console.log(`superheroes is:`, usersInfo);
         return setUserList(usersInfo);
       } catch (ex) {
         console.log(ex);
@@ -35,8 +39,8 @@ const Testing = () => {
 
   return (
     <div>
-      {usersList.map((users) => (
-        <Card key={users._id} sx={{ maxWidth: 345 }}>
+      {usersList.map((user) => (
+        <Card key={user._id} sx={{ maxWidth: 345 }}>
           <CardMedia
             component="img"
             height="194"
@@ -45,8 +49,40 @@ const Testing = () => {
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary">
-              Name: {users.name}
+              <li> Name: {user.name} </li>
+              <li>Email: {user.email}</li>
+              <li>Languages: {user.languages.join(", ")}</li>
+              <li>Memmber Since: {date_create}</li>
             </Typography>
+            <List
+              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+              aria-label="contacts"
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <StarIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Volunteer Name" primaryTypographyProps={user.name} />
+                  <ListItemText primaryTypographyProps={user.name} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText inset primary={user.email} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText primary={user.languages.join(", ")} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText primary={date_create} />
+                </ListItemButton>
+              </ListItem>
+            </List>
           </CardContent>
           <CardActions disableSpacing>
             <IconButton aria-label="add to favorites">
@@ -55,17 +91,9 @@ const Testing = () => {
             <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>
-            {/* <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore> */}
           </CardActions>
           <Collapse timeout="auto" unmountOnExit>
-            <CardContent>
+            {/* <CardContent>
               <Typography paragraph>Method:</Typography>
               <Typography paragraph>
                 Heat 1/2 cup of the broth in a pot until simmering, add saffron
@@ -75,7 +103,7 @@ const Testing = () => {
                 Set aside off of the heat to let rest for 10 minutes, and then
                 serve.
               </Typography>
-            </CardContent>
+            </CardContent> */}
           </Collapse>
         </Card>
       ))}
