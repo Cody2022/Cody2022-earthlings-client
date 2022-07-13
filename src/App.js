@@ -12,15 +12,10 @@ import {
   Newcomer,
   Volunteer,
 } from "./Components/Pages/pages";
-import CalendarPicker from "./Components/Calendar/CalendarPicker";
 import RequestForm from "./Components/Form/RequestForm";
 import ChatPage from "./Components/Pages/ChatPage";
 import AccommodationForm from "./Components/Form/AccommodationForm";
-import TranslationForm from "./Components/Form/NewComersForms.jsx/TranslationForm";
-import volunteersProfile from "./Components/Volunteers/volunteersProfile";
 import Testing from "./Components/Volunteers/Testing";
-import BigCalendarTest from "./Components/Calendar/BigCalendarTest";
-import VolunTransportForm from "./Components/Form/VolunteerTransportForm";
 
 function App() {
   return (
@@ -40,7 +35,7 @@ function App() {
         <Route path="/calendar" element={<BigCalendar />} />
         <Route path="/request" element={<RequestForm />} />
         <Route path="/accommodation" element={<AccommodationForm />} />
-        <Route path="/translateForm" element={<TranslationForm />} />
+        {/* <Route path="/translateForm" element={<TranslationForm />} /> */}
         <Route path="/testProfile" element={<Testing />} />
       </Routes>
 
