@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../Loading/Loading";
 import backgroundImage from "../../images/profile-background.jpg";
-import userImage from "../../images/i-am-here-logo.png";
+// import userImage from "../../images/i-am-here-logo.png";
+// import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { Box } from "@mui/system";
-import { Avatar, Chip, Container, Divider } from "@mui/material";
+import {  Chip, Container, Divider } from "@mui/material";
 import UserForm from "../Form/UserForm";
+import ProfilePicUpload from "../Form/ProfilePicUpload";
+import ProfilePicRetrieval from "../Form/ProfilePicRetrieval";
+// import ProfilePicUpload from "../Form/ProfilePicUpload";
 
 
 const Profile = () => {
@@ -41,18 +45,17 @@ const Profile = () => {
         backgroundSize: "cover",
       }}
     >
-      <Container style={{display: "flex", justifyContent: 'center'}}>
-      <Avatar
-        alt="User"
-        src={userImage}
-        sx={{width:0.15, height:0.2}}        
-      />
+      <Container style={{ display: "flex", justifyContent: "center" }}>
+        <ProfilePicUpload />
       </Container>
       <Divider>
-          <Chip sx={{weight:200, height:50, fontWeight:"bold"}} label={label} />
+        <Chip
+          sx={{ weight: 200, height: 50, fontWeight: "bold" }}
+          label={label}
+        />
       </Divider>
-       <br/>
-      <UserForm email={email} setLabel={setLabel}/>          
+      <br />
+      <UserForm email={email} setLabel={setLabel} />
     </Box>
   );
 };
