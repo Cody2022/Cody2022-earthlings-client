@@ -39,10 +39,7 @@ function App() {
         <Route path="/request" element={<RequestForm />} />
         <Route path="/accommodation" element={<AccommodationForm />} />
         <Route path="/translateForm" element={<TranslationForm />} />
-<<<<<<< HEAD
         <Route path="/testProfile" element={<Testing />} />
-=======
->>>>>>> b44e7d46607f04c6b48e0ae2ca106cab30217dcc
       </Routes>
 
       <Footer />
