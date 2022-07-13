@@ -15,6 +15,7 @@ const Navbar = () => {
 
   const navigate=useNavigate();
   const { user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  // console.log(user.email);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
