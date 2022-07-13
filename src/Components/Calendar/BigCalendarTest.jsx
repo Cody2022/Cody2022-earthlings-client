@@ -6,6 +6,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import "react-datepicker/dist/react-datepicker.css";
 import "../../App.css";
 import apiClient from "../helpers/apiClient";
@@ -21,29 +22,21 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const events = [
-  {
-    title: "Big Meeting",
-    allDay: true,
-    start: new Date(2022, 6, 0),
-    end: new Date(2022, 6, 0),
-  }
-];
-
-const BigCalendar = () => {
-  const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
+const BigCalendarTest = () => {
+  const [newEvent, setNewEvent] = useState({ task: "", selectDate: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState([]);
 
   const submitToApi = useCallback(() => {
-    if(newEvent.title === ""){
+    if(newEvent.task === ""){
       return;
     }
     apiClient.post(
-      "/schedule",
+      "/volunteers/calendar",
       JSON.stringify({
-        title: newEvent.title,
-        startDate: newEvent.start,
-        endDate: newEvent.end,
+        task: newEvent.task,
+        selectDate: newEvent.task,
+        startTime: newEvent.start,
+        endTime: newEvent.end,
       }),
       {
         headers: {
@@ -56,7 +49,7 @@ const BigCalendar = () => {
   const handleAddEvent = () => {
     setAllEvents([...allEvents, newEvent]);
     submitToApi();
-    console.log("hahas", newEvent)
+    console.log("newEvent", newEvent)
   }
 
   return (
@@ -68,17 +61,23 @@ const BigCalendar = () => {
           type="text"
           placeholder="Add Tasks"
           style={{ width: "20%", marginRight: "20px" }}
-          value={newEvent.title}
-          onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+          value={newEvent.task}
+          onChange={(e) => setNewEvent({ ...newEvent, task: e.target.value })}
         />
-        <DatePicker
+         <DatePicker
           placeholderText="Start Date"
+          style={{ width: "20%", marginRight: "20px" }}
+          selected={newEvent.selectDate}
+          onChange={(start) => setNewEvent({ ...newEvent, start })}
+        />
+        <TimePicker
+          placeholderText="Start Time"
           style={{ width: "20%", marginRight: "20px" }}
           selected={newEvent.start}
           onChange={(start) => setNewEvent({ ...newEvent, start })}
         />
         <DatePicker
-          placeholderText="End Date"
+          placeholderText="End Time"
           selected={newEvent.end}
           onChange={(end) => setNewEvent({ ...newEvent, end })}
         />
@@ -97,4 +96,4 @@ const BigCalendar = () => {
   );
 }
 
-export default BigCalendar;
+export default BigCalendarTest;

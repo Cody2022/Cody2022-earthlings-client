@@ -16,9 +16,10 @@ import CalendarPicker from "./Components/Calendar/CalendarPicker";
 import RequestForm from "./Components/Form/RequestForm";
 import ChatPage from "./Components/Pages/ChatPage";
 import AccommodationForm from "./Components/Form/AccommodationForm";
-import TranslationForm from "./Components/Form/TranslationForm";
+import TranslationForm from "./Components/Form/NewComersForms.jsx/TranslationForm";
 import volunteersProfile from "./Components/Volunteers/volunteersProfile";
 import Testing from "./Components/Volunteers/Testing";
+import BigCalendarTest from "./Components/Calendar/BigCalendarTest";
 
 function App() {
   return (
@@ -39,10 +40,7 @@ function App() {
         <Route path="/request" element={<RequestForm />} />
         <Route path="/accommodation" element={<AccommodationForm />} />
         <Route path="/translateForm" element={<TranslationForm />} />
-<<<<<<< HEAD
         <Route path="/testProfile" element={<Testing />} />
-=======
->>>>>>> b44e7d46607f04c6b48e0ae2ca106cab30217dcc
       </Routes>
 
       <Footer />

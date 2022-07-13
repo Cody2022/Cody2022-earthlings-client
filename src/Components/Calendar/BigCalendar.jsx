@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../App.css";
 import apiClient from "../helpers/apiClient";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -21,27 +22,36 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const events = [
-  {
-    title: "Big Meeting",
-    allDay: true,
-    start: new Date(2022, 6, 0),
-    end: new Date(2022, 6, 0),
-  }
-];
+// const events = [
+//   {
+//     title: "Big Meeting",
+//     allDay: true,
+//     start: new Date(2022, 6, 0),
+//     end: new Date(2022, 6, 0),
+//   },
+// ];
+
+const apiScheduleToModel = (apiSchedule) => ({
+  title: apiSchedule.title,
+  start: apiSchedule.startDate,
+  end: apiSchedule.endDate,
+});
 
 const BigCalendar = () => {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState([]);
+  const { user } = useAuth0();
+  const userEmail = user?.email;
 
   const submitToApi = useCallback(() => {
-    if(newEvent.title === ""){
+    if (newEvent.title === "") {
       return;
     }
     apiClient.post(
       "/schedule",
       JSON.stringify({
         title: newEvent.title,
+        email: userEmail,
         startDate: newEvent.start,
         endDate: newEvent.end,
       }),
@@ -51,13 +61,27 @@ const BigCalendar = () => {
         },
       }
     );
-  }, [newEvent]);
+  }, [newEvent, userEmail]);
 
   const handleAddEvent = () => {
-    setAllEvents([...allEvents, newEvent]);
+    setAllEvents((prev) => [...prev, newEvent]);
     submitToApi();
-    console.log("hahas", newEvent)
-  }
+    console.log("newEvents", newEvent);
+  };
+
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        const response = await apiClient.get(
+          `schedule/${encodeURIComponent(user.email)}`
+        );
+        const apiSchedules = JSON.parse(response?.data ?? '');
+        setAllEvents(apiSchedules.map(apiScheduleToModel));
+      })();
+    }
+  }, [user]);
+
+  // console.log(`allEvent ${allEvents}`);
 
   return (
     <div className="App">
@@ -82,7 +106,10 @@ const BigCalendar = () => {
           selected={newEvent.end}
           onChange={(end) => setNewEvent({ ...newEvent, end })}
         />
-        <button style={{ width: "15%", marginTop: "28px" }} onClick={handleAddEvent}>
+        <button
+          style={{ width: "15%", marginTop: "28px" }}
+          onClick={handleAddEvent}
+        >
           Submit
         </button>
       </div>
@@ -95,6 +122,6 @@ const BigCalendar = () => {
       />
     </div>
   );
-}
+};
 
 export default BigCalendar;
