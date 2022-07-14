@@ -15,7 +15,7 @@ const ProfilePicUpload = () => {
     const triggerFileExplorer = () => inputRef.current.click();
 
   //use axios to create a profile picture
-  const createImage = (image) => axios.post("/uploadpicture", image);
+  const createImage = (image) => axios.post("/image/uploadpicture", image);
 
   const addImage = async (picture) => {
     try {

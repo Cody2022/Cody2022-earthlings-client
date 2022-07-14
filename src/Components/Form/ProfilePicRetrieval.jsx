@@ -6,7 +6,7 @@ const ProfilePicRetrieval = () => {
 
         useEffect(() => {
           const getImage = async () => {
-            let response = await fetch(`/62d0046d1f0599c23067063a`);
+            let response = await fetch(`/image/62d038eabee3f0194a75b502`);
               let data = await response.json();
               console.log(`Data is: ${data}`)
             setImage(data);
