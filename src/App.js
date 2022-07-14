@@ -16,11 +16,12 @@ import CalendarPicker from "./Components/Calendar/CalendarPicker";
 import RequestForm from "./Components/Form/RequestForm";
 import ChatPage from "./Components/Pages/ChatPage";
 import AccommodationForm from "./Components/Form/AccommodationForm";
-import TranslationForm from "./Components/Form/NewComersForms.jsx/TranslationForm";
+import TranslationForm from "./Components/Form/TranslationForm";
 import volunteersProfile from "./Components/Volunteers/volunteersProfile";
 import Testing from "./Components/Volunteers/Testing";
 import BigCalendarTest from "./Components/Calendar/BigCalendarTest";
 import VolunTransportForm from "./Components/Form/VolunteerTransportForm";
+import TranslationSubmit from "./Components/Form/NewComersForms.jsx/TranslationSubmit";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/translateForm" element={<TranslationForm />} />
         <Route path="/testProfile" element={<Testing />} />
         <Route path="/transport" element={<VolunTransportForm />} />
+        <Route path="/NewForm" element={<TranslationSubmit />} />
         
       </Routes>
 
