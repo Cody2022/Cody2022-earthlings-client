@@ -9,7 +9,6 @@ import {io} from "socket.io-client"
 import ChatRoom from "../Messenger/ChatRoom";
 import Conversation from "../Messenger/Conversation";
 
-
 const ChatPage = () => {
   const { user, isLoading } = useAuth0();
   const [conversationList, setConversationList] = useState([]);
@@ -144,9 +143,9 @@ const ChatPage = () => {
             ))}
           </Grid>
         ) : (
-          <span style={{ display: "flex", justifyContent: "center" }}>
+            <Typography variant='h5'>
             Open a conversation to start a chat
-          </span>
+          </Typography>
         )}
         <Box p={1}>
         <Input

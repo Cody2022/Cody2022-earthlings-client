@@ -15,6 +15,7 @@ const Navbar = () => {
 
   const navigate=useNavigate();
   const { user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  // console.log(user.email);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -83,10 +84,16 @@ const Navbar = () => {
                   horizontal: "left",
                 }}
               >
-                <MenuItem onClick={() => navigate("/profile")}>
+                <MenuItem onClick={() => {
+                  navigate("/profile")
+                  handleClose();
+                }}>
                   Profile
                 </MenuItem>
-                <MenuItem onClick={() => navigate("/chat")}>Chat Messenger</MenuItem>
+                <MenuItem onClick={() => {
+                  navigate("/chat")
+                  handleClose();
+                }}>Chat Messenger</MenuItem>
                 <MenuItem onClick={() => logoutWithRedirect()}>Logout</MenuItem>
               </Menu>
             </>

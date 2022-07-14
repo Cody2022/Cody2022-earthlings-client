@@ -6,10 +6,10 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import "react-datepicker/dist/react-datepicker.css";
 import "../../App.css";
 import apiClient from "../helpers/apiClient";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -22,38 +22,21 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-// const events = [
-//   {
-//     title: "Big Meeting",
-//     allDay: true,
-//     start: new Date(2022, 6, 0),
-//     end: new Date(2022, 6, 0),
-//   },
-// ];
-
-const apiScheduleToModel = (apiSchedule) => ({
-  title: apiSchedule.title,
-  start: apiSchedule.startDate,
-  end: apiSchedule.endDate,
-});
-
-const BigCalendar = () => {
-  const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
+const BigCalendarTest = () => {
+  const [newEvent, setNewEvent] = useState({ task: "", selectDate: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState([]);
-  const { user } = useAuth0();
-  const userEmail = user?.email;
 
   const submitToApi = useCallback(() => {
-    if (newEvent.title === "") {
+    if(newEvent.task === ""){
       return;
     }
     apiClient.post(
-      "/schedule",
+      "/volunteers/calendar",
       JSON.stringify({
-        title: newEvent.title,
-        email: userEmail,
-        startDate: newEvent.start,
-        endDate: newEvent.end,
+        task: newEvent.task,
+        selectDate: newEvent.task,
+        startTime: newEvent.start,
+        endTime: newEvent.end,
       }),
       {
         headers: {
@@ -61,27 +44,13 @@ const BigCalendar = () => {
         },
       }
     );
-  }, [newEvent, userEmail]);
+  }, [newEvent]);
 
   const handleAddEvent = () => {
-    setAllEvents((prev) => [...prev, newEvent]);
+    setAllEvents([...allEvents, newEvent]);
     submitToApi();
-    console.log("newEvents", newEvent);
-  };
-
-  useEffect(() => {
-    if (user) {
-      (async () => {
-        const response = await apiClient.get(
-          `schedule/${encodeURIComponent(user.email)}`
-        );
-        const apiSchedules = JSON.parse(response?.data ?? '');
-        setAllEvents(apiSchedules.map(apiScheduleToModel));
-      })();
-    }
-  }, [user]);
-
-  // console.log(`allEvent ${allEvents}`);
+    console.log("newEvent", newEvent)
+  }
 
   return (
     <div className="App">
@@ -92,24 +61,27 @@ const BigCalendar = () => {
           type="text"
           placeholder="Add Tasks"
           style={{ width: "20%", marginRight: "20px" }}
-          value={newEvent.title}
-          onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+          value={newEvent.task}
+          onChange={(e) => setNewEvent({ ...newEvent, task: e.target.value })}
         />
-        <DatePicker
+         <DatePicker
           placeholderText="Start Date"
+          style={{ width: "20%", marginRight: "20px" }}
+          selected={newEvent.selectDate}
+          onChange={(start) => setNewEvent({ ...newEvent, start })}
+        />
+        <TimePicker
+          placeholderText="Start Time"
           style={{ width: "20%", marginRight: "20px" }}
           selected={newEvent.start}
           onChange={(start) => setNewEvent({ ...newEvent, start })}
         />
         <DatePicker
-          placeholderText="End Date"
+          placeholderText="End Time"
           selected={newEvent.end}
           onChange={(end) => setNewEvent({ ...newEvent, end })}
         />
-        <button
-          style={{ width: "15%", marginTop: "28px" }}
-          onClick={handleAddEvent}
-        >
+        <button style={{ width: "15%", marginTop: "28px" }} onClick={handleAddEvent}>
           Submit
         </button>
       </div>
@@ -122,6 +94,6 @@ const BigCalendar = () => {
       />
     </div>
   );
-};
+}
 
-export default BigCalendar;
+export default BigCalendarTest;
