@@ -13,7 +13,7 @@ const AccommodationList = () => {
   useEffect(() => {
     const getAccomList = async () => {
       try {
-        let response = await fetch("/accommodation/listings");
+        let response = await fetch(`/accommodation/listings`);
         let accomLists = await response.json();
         console.log("accomList is", accomLists);
         return setAccomList(accomLists);

@@ -3,7 +3,8 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../Loading/Loading";
 import { Categories } from '../Category/Categories';
 import { Box } from '@mui/system';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
+import AccommodationList from '../AccommodationList';
 
 export const Newcomer = () => {
   return (
@@ -13,6 +14,8 @@ export const Newcomer = () => {
         Newcomer
       </Grid>
       <Categories />
+      <Typography variant='h6' mx={3}>Available Accommodations</Typography>
+      <AccommodationList />
     </Box>
   )
 }
