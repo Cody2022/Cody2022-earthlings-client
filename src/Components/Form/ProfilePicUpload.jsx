@@ -1,25 +1,30 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { Avatar, Button, IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { Box } from "@mui/system";
 import ProfilePicRetrieval from "./ProfilePicRetrieval";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ProfilePicUpload = () => {
-    const inputRef = useRef();
+  const { user } = useAuth0();
+  const inputRef = useRef();
   const [profilePicture, setProfilePicture] = useState({
     profilePic: "",
   });
-    
-    //When pressed on camera icon, file explorer pops up
-    const triggerFileExplorer = () => inputRef.current.click();
+
+  //When pressed on camera icon, file explorer pops up
+  const triggerFileExplorer = () => inputRef.current.click();
 
   //use axios to create a profile picture
   const createImage = (image) => axios.post("/image/uploadpicture", image);
 
-  const addImage = async (picture) => {
+  const addImage = async (image) => {
     try {
-      await createImage(picture);
+      let imgOBject = {
+        ...image, email: user.email
+      }
+      await createImage(imgOBject);
     } catch (err) {
       console.log(err.message);
     }
@@ -27,7 +32,7 @@ const ProfilePicUpload = () => {
 
   //On submit of picture
   const handleSubmit = (e) => {
-      e.preventDefault();
+    e.preventDefault();
     addImage(profilePicture);
   };
 
@@ -46,24 +51,34 @@ const ProfilePicUpload = () => {
   };
 
   //Convert to base64 by the convertToBase64 function
-    const handleFileUpload = async (e) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
     setProfilePicture({ ...profilePicture, profilePic: base64 });
-    };
+  };
 
-    console.log(`Profile picture is: ${profilePicture}`)
-    
+  console.log(`Profile picture is: ${profilePicture}`);
+
   return (
-      <Box style={{ display: "flex", justifyContent: "center" }}>
-          <ProfilePicRetrieval />
-          <input type='file' label='Image' name='myFile' accept='.jpeg, .png, .jpg' ref={inputRef} onChange={(e) => handleFileUpload(e)} style={{display: 'none'}} />
-          <IconButton onClick={() => {
-              triggerFileExplorer();
-          }}>
-              <AddAPhotoIcon fontSize="small" />
+    <Box style={{ display: "flex", justifyContent: "center" }}>
+      <ProfilePicRetrieval />
+      <input
+        type="file"
+        label="Image"
+        name="myFile"
+        accept=".jpeg, .png, .jpg"
+        ref={inputRef}
+        onChange={(e) => handleFileUpload(e)}
+        style={{ display: "none" }}
+      />
+      <IconButton
+        onClick={() => {
+          triggerFileExplorer();
+        }}
+      >
+        <AddAPhotoIcon fontSize="small" />
       </IconButton>
-              <Button onClick={handleSubmit}>Submit</Button>
+      <Button onClick={handleSubmit}>Submit</Button>
     </Box>
   );
 };
