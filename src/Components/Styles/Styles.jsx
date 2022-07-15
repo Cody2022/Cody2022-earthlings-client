@@ -6,3 +6,12 @@ export const menuButton = {
   marginLeft: "38px",
 
 }
+
+//Translate Form Styles
+export const translateFormStyles = {
+  backgroundImage: "linear-gradient(120deg, #fefdfa 40%, #FFFF00 100%)",
+  padding: "18px",
+  paddingTop: "60px",
+  paddingBottom: "60px",
+  fontFamily: "Arial",
+};

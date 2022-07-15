@@ -26,7 +26,7 @@ const Conversation = ({ conversation, currentUser, isLoading }) => {
   }
 
   return (
-    <div>
+    <div style={{cursor: 'pointer'}}>
       {user.firstName} {user.lastName} - {user.email}
     </div>
   );
