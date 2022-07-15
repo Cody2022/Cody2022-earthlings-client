@@ -19,6 +19,9 @@ import Loading from "../Loading/Loading";
 const AccommodationForm = (props) => {
   const { user, isLoading } = useAuth0();
   const email = user?.email;
+  let accomListRender=props.accomListRender;
+  let setAccomListRender=props.setAccomListRender;
+
   console.log("user is", email);
 
   const defaultAccomListInfo = {
@@ -56,6 +59,7 @@ const AccommodationForm = (props) => {
     console.log("accomInfo.email is", accomListInfo.email);
     try {
       const newAccomInfo = await createAccomList(accomListInfo);
+      setAccomListRender(!accomListRender)
     } catch {
       console.log("Error in creating Accommodation Form");
     }
