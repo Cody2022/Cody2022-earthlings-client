@@ -6,9 +6,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Loading from "../Loading/Loading";
-import NewcomerTransportForm from '../Form/NewcomerTransportForm';
+import NewcomerTransportSearchByTime from '../Form/NewcomerTransportSearchByTime';
 // import NewcomerTransportList from "../Form/NewcomerTransportList";
-import TransportationData from '../Form/TransportationDataCard'
+import TransportationData from '../Form/TransportationDataCard';
+import NewcomerTransportSearchByLanguages from "../Form/NewcomerTransportSearchByLanguages";
 
 
 const NewcomerTransport = () => {
@@ -31,50 +32,102 @@ const NewcomerTransport = () => {
       }
     };
     getAllTransportListings();
-  }, []);
+  }, [value]);
 
   return (
     <Container>
-      <Box sx={{ width: '100%', display:'flex', justifyContent:"center", margin: 5, border:1}}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        textColor="secondary"
-        indicatorColor="secondary"
-        aria-label="full width tabs example"
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          margin: 5,
+          border: 1,
+        }}
       >
-        <Tab sx={{textTransform: 'capitalize', color:"black", ontFamily: 'Raleway', fontSize: '1.2rem'}} value="one" label="View All" />
-        <Tab sx={{textTransform: 'capitalize', color:"black", fontSize: '1.2rem'}} value="two" label="Search by Date and Time" />
-        <Tab sx={{textTransform: 'capitalize', color:"black", fontSize: '1.2rem'}} value="three" label="Search by Language" />
-      </Tabs>
-    </Box>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          textColor="secondary"
+          indicatorColor="secondary"
+          aria-label="full width tabs example"
+        >
+          <Tab
+            sx={{
+              textTransform: "capitalize",
+              color: "black",
+              ontFamily: "Raleway",
+              fontSize: "1.2rem",
+            }}
+            value="one"
+            label="View All"
+          />
+          <Tab
+            sx={{
+              textTransform: "capitalize",
+              color: "black",
+              fontSize: "1.2rem",
+            }}
+            value="two"
+            label="Search by Date and Time"
+          />
+          <Tab
+            sx={{
+              textTransform: "capitalize",
+              color: "black",
+              fontSize: "1.2rem",
+            }}
+            value="three"
+            label="Search by Language"
+          />
+        </Tabs>
+      </Box>
 
-    <Grid container sx={{display:"flex", justifyContent:"center"}}>
-      { value==="two" &&
-        <Grid item sx={{display:"flex", justifyContent:"center"}} >
-          <NewcomerTransportForm transportList={transportList} setTransportList={setTransportList}/>
-        </Grid>
-      }
-      <Grid container display={"flex"} >
-            {transportList ? (
-              transportList.map((transportInfo, index) => {
-                return (
-                    <TransportationData key={index} transportInfo={transportInfo} />
-                );
-              })
-            ) : (
-              <Typography component="div" variant="h3">
-                Loading...
-              </Typography>
-            )}
-
-            {transportList?.length<1 && 
-              <Typography component="div" variant="h5" color={"green"} marginBottom={"5"}>
-                Sorry, we couldn't find any results matching your search. Try other date-time or languages please.
-              </Typography>
-            }
+      <Grid container sx={{ display: "flex", justifyContent: "center" }}>
+        {value === "two" && (
+          <Grid item sx={{ display: "flex", justifyContent: "center" }}>
+            <NewcomerTransportSearchByTime
+              transportList={transportList}
+              setTransportList={setTransportList}
+            />
           </Grid>
+        )}
+
+        {value === "three" && (
+          <Grid item sx={{ display: "flex", justifyContent: "center" }}>
+            <NewcomerTransportSearchByLanguages
+              transportList={transportList}
+              setTransportList={setTransportList}
+            />
+          </Grid>
+        )}
+
+        <Grid container display={"flex"}>
+          {transportList ? (
+            transportList.map((transportInfo, index) => {
+              return (
+                <TransportationData key={index} transportInfo={transportInfo} />
+              );
+            })
+          ) : (
+            <Typography component="div" variant="h3">
+              Loading...
+            </Typography>
+          )}
+
+          {transportList?.length < 1 && (
+            <Typography
+              component="div"
+              variant="h5"
+              color={"green"}
+              marginBottom={"5"}
+            >
+              Sorry, we couldn't find any results matching your search. Try
+              other time or languages please.
+            </Typography>
+          )}
         </Grid>
+      </Grid>
     </Container>
   );
 };

@@ -5,7 +5,9 @@ import { Categories } from '../Category/Categories';
 import { Box } from '@mui/system';
 import { Grid } from '@mui/material';
 
+
 export const Newcomer = () => {
+  
   return (
     <Box
      style={{background:"#10e1eb54", backgroundSize: "cover"}}>
@@ -13,6 +15,7 @@ export const Newcomer = () => {
         Newcomer
       </Grid>
       <Categories />
+       
     </Box>
   )
 }

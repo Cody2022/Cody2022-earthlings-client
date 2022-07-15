@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../Loading/Loading";
-import VolunTransportForm from '../Form/VolunteerTransportForm';
+import VolunteerTransportForm from '../Form/VolunteerTransportForm';
 import VolunteerTransportList from '../Form/VolunteerTransportList';
 import { Container } from '@mui/system';
 
@@ -24,12 +24,11 @@ export const Volunteer = () => {
        getTransportList(email);
      }, [email, rerender]);
 
-
   return (
     <div style={{background: "rgba(221, 238, 137, 0.6)"}}>
       <Container sytle={{marginBottom:5}}>
         {transportList && <VolunteerTransportList transportList={transportList} rerender={rerender} setRerender={setRerender}/>}
-        <VolunTransportForm rerender={rerender} setRerender={setRerender} />
+        <VolunteerTransportForm rerender={rerender} setRerender={setRerender} />
        </Container>
     </div>
   )

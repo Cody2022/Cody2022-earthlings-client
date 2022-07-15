@@ -4,7 +4,7 @@ import Navbar from "./Components/Navigation/Navbar";
 import BigCalendar from "./Components/Calendar/BigCalendar";
 import Footer from "./Components/Navigation/Footer";
 
-import { Home, Profile, Enter, Admin, Newcomer, Volunteer } from "./Components/Pages/pages";
+import { Home, Profile, Enter, Admin, Newcomer, Volunteer, NewcomerTransport } from "./Components/Pages/pages";
 import CalendarPicker from "./Components/Calendar/CalendarPicker";
 import RequestForm from "./Components/Form/RequestForm";
 import ChatPage from "./Components/Pages/ChatPage";
@@ -27,7 +27,7 @@ function App() {
         <Route path="/calendar" element={<BigCalendar />} />
         {/* <Route path="/schedule" element={<CalendarPicker />} /> */}
         <Route path="/request" element={<RequestForm />} />
-
+        <Route path="/newcomertransport" element={<NewcomerTransport />} />
       </Routes>
 
       <Footer />
