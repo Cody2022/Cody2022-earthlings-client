@@ -19,10 +19,15 @@ import ListItemText from "@mui/material/ListItemText";
 import StarIcon from "@mui/icons-material/Star";
 import axios from "axios";
 import moment from "moment";
+import { Grid } from "@mui/material";
 
 const Testing = () => {
   const date_create = moment().format("DD-MM-YYYY");
   const [usersList, setUserList] = useState([]);
+  // const [scheduleLists, setScheduleLists] = useState([]);
+  // const [titleSchedule, setTitleSchedule] = useState('');
+  // const [emailSchedule, setEmailSchedule] = useState('');
+
   useEffect(() => {
     const usersList = async () => {
       try {
@@ -37,8 +42,36 @@ const Testing = () => {
     usersList();
   }, []);
 
+  // useEffect(() => {
+  //   const scheduleLists = async () => {
+  //     try {
+  //       // let response = await fetch("/users");
+  //       const response = await fetch("/schedule");
+  //       const scheduleInfo = await response.json();
+  //       return setScheduleLists(scheduleInfo);
+  //     } catch (ex) {
+  //       console.log(ex);
+  //     }
+  //   };
+  //   scheduleLists();
+  // }, []);
+  
+  // useEffect(() => {
+  //   const scheduleLists = () => {
+  //   try {
+  //     let taskList =  scheduleLists.map((e) => {
+  //       return setEmailSchedule(e.email)
+  //     })
+  //   }catch (ex) {
+  //     console.log(ex);
+  //   }
+  // };
+  //  scheduleLists();
+  // }, []);
+
   return (
     <div>
+      <Grid item>
       {usersList.map((user) => (
         <Card key={user._id} sx={{ maxWidth: 345 }}>
           <CardMedia
@@ -52,7 +85,7 @@ const Testing = () => {
               <li> Name: {user.name} </li>
               <li>Email: {user.email}</li>
               <li>Languages: {user.languages.join(", ")}</li>
-              <li>Memmber Since: {date_create}</li>
+              <li>Member Since: {date_create}</li>
             </Typography>
             <List
               sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
@@ -83,30 +116,10 @@ const Testing = () => {
                 </ListItemButton>
               </ListItem>
             </List>
-          </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-          </CardActions>
-          <Collapse timeout="auto" unmountOnExit>
-            {/* <CardContent>
-              <Typography paragraph>Method:</Typography>
-              <Typography paragraph>
-                Heat 1/2 cup of the broth in a pot until simmering, add saffron
-                and set aside for 10 minutes.
-              </Typography>
-              <Typography>
-                Set aside off of the heat to let rest for 10 minutes, and then
-                serve.
-              </Typography>
-            </CardContent> */}
-          </Collapse>
+          </CardContent>     
         </Card>
       ))}
+      </Grid>
     </div>
   );
 };

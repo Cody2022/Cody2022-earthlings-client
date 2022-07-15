@@ -22,35 +22,26 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-// const events = [
-//   {
-//     title: "Big Meeting",
-//     allDay: true,
-//     start: new Date(2022, 6, 0),
-//     end: new Date(2022, 6, 0),
-//   },
-// ];
-
 const apiScheduleToModel = (apiSchedule) => ({
-  title: apiSchedule.title,
+  task: apiSchedule.task,
   start: apiSchedule.startDate,
   end: apiSchedule.endDate,
 });
 
 const BigCalendar = () => {
-  const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
+  const [newEvent, setNewEvent] = useState({ task: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState([]);
   const { user } = useAuth0();
   const userEmail = user?.email;
 
   const submitToApi = useCallback(() => {
-    if (newEvent.title === "") {
+    if (newEvent.task === "") {
       return;
     }
     apiClient.post(
       "/schedule",
       JSON.stringify({
-        title: newEvent.title,
+        task: newEvent.task,
         email: userEmail,
         startDate: newEvent.start,
         endDate: newEvent.end,
@@ -92,8 +83,8 @@ const BigCalendar = () => {
           type="text"
           placeholder="Add Tasks"
           style={{ width: "20%", marginRight: "20px" }}
-          value={newEvent.title}
-          onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+          value={newEvent.task}
+          onChange={(e) => setNewEvent({ ...newEvent, task: e.target.value })}
         />
         <DatePicker
           placeholderText="Start Date"
