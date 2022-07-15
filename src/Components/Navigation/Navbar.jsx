@@ -91,6 +91,12 @@ const Navbar = () => {
                   Profile
                 </MenuItem>
                 <MenuItem onClick={() => {
+                  navigate("/calendar")
+                  handleClose();
+                }}>
+                  Calendar
+                </MenuItem>
+                <MenuItem onClick={() => {
                   navigate("/chat")
                   handleClose();
                 }}>Chat Messenger</MenuItem>
