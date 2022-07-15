@@ -42,7 +42,9 @@ const NewcomerTransport = () => {
           display: "flex",
           justifyContent: "center",
           margin: 5,
-          border: 1,
+          border: 2,
+          borderColor: 'green',
+          borderRadius: '16px'
         }}
       >
         <Tabs
@@ -50,14 +52,13 @@ const NewcomerTransport = () => {
           onChange={handleChange}
           textColor="secondary"
           indicatorColor="secondary"
-          aria-label="full width tabs example"
         >
           <Tab
             sx={{
               textTransform: "capitalize",
               color: "black",
-              ontFamily: "Raleway",
-              fontSize: "1.2rem",
+              ontFamily: "Arial",
+              fontSize: "1.4rem",
             }}
             value="one"
             label="View All"
@@ -66,6 +67,7 @@ const NewcomerTransport = () => {
             sx={{
               textTransform: "capitalize",
               color: "black",
+              ontFamily: "Arial",
               fontSize: "1.2rem",
             }}
             value="two"
@@ -75,6 +77,7 @@ const NewcomerTransport = () => {
             sx={{
               textTransform: "capitalize",
               color: "black",
+              ontFamily: "Arial",
               fontSize: "1.2rem",
             }}
             value="three"

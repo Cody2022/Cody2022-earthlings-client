@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-import { Button, Card, Collapse, Link, List, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { Button, Card, Collapse, Container, Link, List, ListItemButton, ListItemText, Typography } from "@mui/material";
 import Popover from '@mui/material/Popover';
+
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+
 
 
 const TransportationData = (props) => {
@@ -24,8 +29,8 @@ const TransportationData = (props) => {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <Card sx={{pl:1, margin:1, minWidth:310 }} xs={12} sm={6} md={4}>
-      <Typography variant="h5">
+    <Card sx={{ pl: 1, margin: 1, minWidth: 300, display:"grid", alignContent: 'space-around', borderRadius:5, boxShadow: 5}} xs={12} sm={6} md={3}>
+      <Typography variant="h6">
         {new Date(transportInfo.date).toDateString()}
       </Typography>
       <Typography>
@@ -50,40 +55,61 @@ const TransportationData = (props) => {
           minute: "2-digit",
         })}
       </Typography>
-      <Typography >Languages:</Typography>
-      <ul style={{marginTop:4, marginBottom:4}}>
+      <Typography>Languages:</Typography>
+      <ul style={{ marginTop: 2, marginBottom: 4 }}>
         {transportInfo.languages.map((language, index) => {
           return <li key={index}>{language}</li>;
         })}
       </ul>
       <Typography>Accessories:</Typography>
-      <ul style={{marginTop:4, marginBottom:4}}>
+      <ul style={{ marginTop: 4, marginBottom: 4 }}>
         {transportInfo.accessories.map((accessory, index) => {
           return <li key={index}>{accessory}</li>;
         })}
       </ul>
-      
-      <div>
-      <Button style={{marginTop: 5, marginBottom:3}} aria-describedby={id} variant="contained" onClick={handleClick}>
-        About the Volunteer
-      </Button>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-      >
-        {volunteerProfile && 
-        <div>
-          <Typography sx={{ p: 2 }}>{volunteerProfile.email}</Typography>
-          <Typography sx={{ p: 2 }}>First name:{volunteerProfile.firstName}</Typography>
-        </div>}
-      </Popover>
-    </div>
+
+        <Button
+          style={{ marginTop: 3, marginBottom: 3 }}
+          aria-describedby={id}
+          variant="contained"
+          onClick={handleClick}
+        >
+          About the Volunteer
+        </Button>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+        >
+          {volunteerProfile && (
+            <Card sx={{ maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                alt={volunteerProfile.firstName}
+                height="140"
+                image="/static/images/cards/contemplative-reptile.jpg"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  First name: {volunteerProfile.firstName}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Volunteer brief introduction
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Chat</Button>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>
+          )}
+        </Popover>
+ 
     </Card>
   );
 };
