@@ -16,6 +16,7 @@ const TransportationData = (props) => {
       <Typography variant="h5">
         {new Date(transportInfo.date).toDateString()}
       </Typography>
+      <Typography >{transportInfo.email}</Typography>
       <Typography>
         Start Time:{" "}
         {new Date(transportInfo.startTime).toLocaleString("en-US", {
@@ -38,48 +39,19 @@ const TransportationData = (props) => {
           minute: "2-digit",
         })}
       </Typography>
-      <Typography sx={{ pl: 0 , paddingTop:0 , paddingBottom:0, marginBottom:1 }}>Languages:</Typography>
-      <ul>
+      <Typography >Languages:</Typography>
+      <ul style={{marginTop:4, marginBottom:4}}>
         {transportInfo.languages.map((language, index) => {
           return <li key={index}>{language}</li>;
         })}
       </ul>
       <Typography>Accessories:</Typography>
-      <ul>
+      <ul style={{marginTop:4, marginBottom:4}}>
         {transportInfo.accessories.map((accessory, index) => {
           return <li key={index}>{accessory}</li>;
         })}
       </ul>
-      {/* <List
-        sx={{ width: "100%", maxWidth: 330, bgcolor: "background.paper" }}
-        component="nav"
-      >
-        <ListItemButton sx={{ pl: 0 , paddingTop:0 , paddingBottom:0 }}onClick={handleClick}>
-          <ListItemText sx={{display:"flex"}} primary="Languages:" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-         { transportInfo.languages.map((language, index) => {
-          return <ListItemText sx={{ pl: 4, }} key={index}>{language}</ListItemText>;
-        })}
-        </Collapse>
-      </List>
-
-      <List
-        sx={{ width: "100%", maxWidth: 330, bgcolor: "background.paper" }}
-        component="nav"
-      >
-        <ListItemButton sx={{ pl: 0 , paddingTop:0 , paddingBottom:0 }}onClick={handleClick}>
-          <ListItemText sx={{display:"flex"}} primary="Languages:" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-         { transportInfo.languages.map((language, index) => {
-          return <ListItemText sx={{ pl: 4, }} key={index}>{language}</ListItemText>;
-        })}
-        </Collapse>
-      </List> */}
-      <Button sx={{ color: "blue" }}>About the volunteer</Button>
+      <Button sx={{ color: "blue" }}>About the volunteer(Will link the volunteer profile later)</Button>
     </Card>
   );
 };
