@@ -236,7 +236,7 @@ const VolunTransportForm = (props) => {
             <FormControlLabel
               control={<Checkbox />}
               name="accessories"
-              value="MedicalEquip"
+              value="Medical Equipment"
               label="Medical Equipment"
               onChange={getAccessories}
             />

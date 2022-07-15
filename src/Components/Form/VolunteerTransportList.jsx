@@ -190,6 +190,7 @@ export default function VolunteerTransportList(props) {
         hour:   '2-digit',
         minute: '2-digit',});
       let endTime=new Date (transportInfo.endTime).toLocaleString('en-US', {
+        hour12: false,
         day:    'numeric',
         month:  'numeric',
         year:   'numeric',
