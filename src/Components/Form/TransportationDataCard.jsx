@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Card, Collapse, Link, List, ListItemButton, ListItemText, Typography } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import Popover from '@mui/material/Popover';
+
 
 const TransportationData = (props) => {
   const transportInfo = props.transportInfo;
-  const [open, setOpen] = React.useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [volunteerProfile, setVolunteerProfile]=useState()
 
-  const handleClick = () => {
-    setOpen(!open);
-  }
+  const handleClick =async (event) => {
+    setAnchorEl(event.currentTarget); 
+    let response = await fetch(`/get/${transportInfo.email}`);
+    let foundVolunteerProfile = await response.json();
+    console.log(foundVolunteerProfile)
+    setVolunteerProfile(foundVolunteerProfile)
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   return (
-    <Card sx={{pl:1, margin:1, height: "100%", minWidth: 330 }}>
+    <Card sx={{pl:1, margin:1, minWidth:310 }} xs={12} sm={6} md={4}>
       <Typography variant="h5">
         {new Date(transportInfo.date).toDateString()}
       </Typography>
-      <Typography >{transportInfo.email}</Typography>
       <Typography>
         Start Time:{" "}
         {new Date(transportInfo.startTime).toLocaleString("en-US", {
@@ -51,7 +62,28 @@ const TransportationData = (props) => {
           return <li key={index}>{accessory}</li>;
         })}
       </ul>
-      <Button sx={{ color: "blue" }}>About the volunteer(Will link the volunteer profile later)</Button>
+      
+      <div>
+      <Button style={{marginTop: 5, marginBottom:3}} aria-describedby={id} variant="contained" onClick={handleClick}>
+        About the Volunteer
+      </Button>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        {volunteerProfile && 
+        <div>
+          <Typography sx={{ p: 2 }}>{volunteerProfile.email}</Typography>
+          <Typography sx={{ p: 2 }}>First name:{volunteerProfile.firstName}</Typography>
+        </div>}
+      </Popover>
+    </div>
     </Card>
   );
 };

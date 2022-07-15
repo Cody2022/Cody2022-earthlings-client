@@ -97,13 +97,12 @@ const NewcomerTransportSearchByTime = (props) => {
   };
 
   return (
-    <Container>
-      <Grid
+     <Grid
         container
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          alignContent: "center",
         }}
         sx={{ width: "100%", marginTop: 2, marginBottom: 5 }}
       >
@@ -115,14 +114,14 @@ const NewcomerTransportSearchByTime = (props) => {
               minDate={new Date("2018-01-01")}
               onChange={getDate}
               renderInput={(params) => (
-                <TextField {...params} sx={{ width: "80%" }} />
+                <TextField {...params}  />
               )}
             />
           </LocalizationProvider>
         </Grid>
-        <Grid item marginBottom={2}>
+        <Grid item marginBottom={1}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Stack spacing={1} width={"80%"}>
+            <Stack spacing={1} >
               <TimePicker
                 label="Time"
                 value={transportInfo.startTime}
@@ -142,10 +141,8 @@ const NewcomerTransportSearchByTime = (props) => {
           >
             Search by Date and Time
           </Button>     
-
         </Grid>
       </Grid>
-    </Container>
   );
 };
 

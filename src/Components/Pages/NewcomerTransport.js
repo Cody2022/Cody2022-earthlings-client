@@ -83,9 +83,8 @@ const NewcomerTransport = () => {
         </Tabs>
       </Box>
 
-      <Grid container sx={{ display: "flex", justifyContent: "center" }}>
         {value === "two" && (
-          <Grid item sx={{ display: "flex", justifyContent: "center" }}>
+          <Grid sx={{ display: "flex", justifyContent: "center" }}>
             <NewcomerTransportSearchByTime
               transportList={transportList}
               setTransportList={setTransportList}
@@ -102,7 +101,7 @@ const NewcomerTransport = () => {
           </Grid>
         )}
 
-        <Grid container display={"flex"}>
+        <Grid container display={"flex"} justifyContent={"center"}>
           {transportList ? (
             transportList.map((transportInfo, index) => {
               return (
@@ -110,7 +109,7 @@ const NewcomerTransport = () => {
               );
             })
           ) : (
-            <Typography component="div" variant="h3">
+            <Typography display={"flex"} justifyContent={"center"} color={"blue"} component="div" variant="h3">
               Loading...
             </Typography>
           )}
@@ -127,7 +126,6 @@ const NewcomerTransport = () => {
             </Typography>
           )}
         </Grid>
-      </Grid>
     </Container>
   );
 };

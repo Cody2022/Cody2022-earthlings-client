@@ -69,7 +69,8 @@ const NewcomerTransportSearchByLanguages = (props) => {
     <Grid container style={{
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center",
+      alignContent: "center",
+      marginBottom:5
     }}>
       <Grid item>
         <FormGroup row sx={{ py: 1 }}>
@@ -77,7 +78,7 @@ const NewcomerTransportSearchByLanguages = (props) => {
             sx={{ py: 2, px: 2, fontWeight: "bold", color: "black" }}
             id="demo-row-radio-buttons-group-label"
           >
-            Language
+            Language(s):
           </FormLabel>
 
           <FormControlLabel
