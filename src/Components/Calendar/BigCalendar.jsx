@@ -22,15 +22,6 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-// const events = [
-//   {
-//     title: "Big Meeting",
-//     allDay: true,
-//     start: new Date(2022, 6, 0),
-//     end: new Date(2022, 6, 0),
-//   },
-// ];
-
 const apiScheduleToModel = (apiSchedule) => ({
   title: apiSchedule.title,
   start: apiSchedule.startDate,
