@@ -9,10 +9,9 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-
-import avatar1 from "../../images/avatar1.jpg";
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 const ExpandMore = styled((props) => {
@@ -27,10 +26,45 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function VolunteerCard() {
+  const { user } = useAuth0();
+  console.log(`User is: `, user)
+  const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
+  const [image, setImage] = React.useState("")
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+//Get image by email
+    React.useEffect(() => {
+      const getImage = async () => {
+        let response = await fetch(`/image/cass@gmail.com`);
+        let data = await response.json();
+        console.log(`Data is:`, data);
+        setImage(data);
+      };
+      getImage();
+    }, []);
+  
+  console.log("Users image is:", image)
+
+  //Use fetch to create a new conversation
+  const createConversation = async () => {
+    const newConversation = {
+      members: {
+        senderEmail: user.email,
+        recieverEmail: image.email
+      },
+    };
+
+    const data = JSON.stringify(newConversation)
+    await fetch("/conversation", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: data
+    });
   };
 
   return (
@@ -42,7 +76,7 @@ export default function VolunteerCard() {
       <CardMedia
         component="img"
         height="150"
-        image={avatar1}
+        image={image.profilePic}
         alt="volunteerImage"
       />
       <CardContent>
@@ -51,7 +85,10 @@ export default function VolunteerCard() {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-         <Button size="medium" sx={{color:"purple", fontFamily: 'Raleway'}} >Contact me</Button>
+        <Button size="medium" sx={{ color: "purple", fontFamily: 'Raleway' }} onClick={() => {
+          navigate("/chat")
+          createConversation();
+        }}>Contact me</Button>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
