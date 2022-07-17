@@ -12,9 +12,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-import ServerRequestDatePicker from "./ServerRequestDatePicker";
-import StartEndTimePicker from "./StartEndTimePicker";
+import React, { useEffect, useState } from "react";
+import ServerRequestDatePicker from "../Form/ServerRequestDatePicker";
+import StartEndTimePicker from "../Form/StartEndTimePicker";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FormControl } from "react-bootstrap";
 
@@ -25,47 +25,30 @@ const TranslateRequestForm = (props) => {
   const email = user?.email;
   console.log("user is", email);
 
-  let today = new Date();
-  today = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate(),
-    0,
-    0,
-    0
-  ); //Grab Year, Month, and Day only
+const [translateInfo, setTranslateInfo] = useState();
+  useEffect(()=>{
+    let today = new Date();
+    today = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+      0,
+      0,
+      0
+    ); //Grab Year, Month, and Day only
+    if(user){
+      const defaultTranslateInfo = {
+        email: email,
+        date: today,
+        startTime: new Date().setSeconds(0, 0),
+        endTime: new Date().setSeconds(0, 0),
+        fromLanguages: [],
+        toLanguages: [],
+      };
+      setTranslateInfo(defaultTranslateInfo)
+    }
 
-  const defaultTranslateInfo = {
-    //task: task,
-    via: "",
-    email: email,
-    date: today,
-    startTime: new Date().setSeconds(0, 0),
-    endTime: new Date().setSeconds(0, 0),
-    fromLanguages: [],
-    toLanguages: [],
-  };
-
-  const [translateInfo, setTranslateInfo] = useState(defaultTranslateInfo);
-
-  const getType = (e) => {
-    const { value, checked } = e.target;
-    const { via } = translateInfo;
-    // Case 1 : The user checks the selection
-    if (checked) {
-        setTranslateInfo({
-          ...translateInfo,
-          via: [...via, value],
-        });
-      }
-      // Case 2  : The user unchecks the selection
-      else {
-        setTranslateInfo({
-          ...translateInfo,
-          via: via.filter((e) => e !== value),
-        });
-      }
-  }
+},[user])
 
   const getLanguages = (e) => {
     const { value, checked } = e.target;
@@ -89,24 +72,24 @@ const TranslateRequestForm = (props) => {
 
   const getTranslate = (e) => {
     const { value, checked } = e.target;
-    const { toLanguages } = translateInfo;
+    const { toLanguage } = translateInfo;
     // Case 1 : The user checks the box
     if (checked) {
       setTranslateInfo({
         ...translateInfo,
-        accessories: [...toLanguages, value],
+        toLanguage: [...toLanguage, value],
       });
     }
     // Case 2  : The user unchecks the box
     else {
       setTranslateInfo({
         ...translateInfo,
-        toLanguages: toLanguages.filter((e) => e !== value),
+        toLanguage: toLanguage.filter((e) => e !== value),
       });
     }
   };
 
-  const createTranslateInfo = async (translateInfo) => {
+  const createTranslateInfo = async () => {
     const response = await fetch(`/translate/create`, {
       method: "POST",
       headers: {
@@ -120,45 +103,15 @@ const TranslateRequestForm = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const newTranslateInfo = await createTranslateInfo(translateInfo);
+      const newTranslateInfo = await createTranslateInfo();
       setRerender(!rerender);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  /* Get all translate listings of a volunteer with email*/
-  const getTranslateInfo = async (email) => {
-    let response = await fetch(`/translate/get/${email}`);
-    let translateInfo = await response.json();
-    return translateInfo;
-  };
-
-  const deleteTranslateInfo = async (translateInfo) => {
-    const response = await fetch(`/translate/delete`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(translateInfo),
-    });
-    return response.json();
-  };
-  const handleDelete = async (event) => {
-    event.preventDefault();
-    try {
-      let { email, startTime } = translateInfo;
-      const deletedTranslateInfo = await deleteTranslateInfo({
-        email,
-        startTime,
-      });
-    } catch (error) {
-      console.log("Error in deleting translate list", error);
-    }
-  };
-
-  if (isLoading) {
-    return <div>isLoading...</div>;
+  if (isLoading || !user || !translateInfo) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -182,22 +135,7 @@ const TranslateRequestForm = (props) => {
           <Typography justifyContent={"center"} fontWeight={"bold"}>
             Translation Request Form
           </Typography>
-        </Grid>
-
-        {/* <Grid item style={{ marginTop: 10 }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">VIA</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="VIA"
-            >
-              <MenuItem >Chat</MenuItem>
-              <MenuItem >Appointment In Person</MenuItem>
-              <MenuItem >Document</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid> */}
+        </Grid> 
 
         <Grid item style={{ marginTop: 10 }}>
           <ServerRequestDatePicker
@@ -224,7 +162,7 @@ const TranslateRequestForm = (props) => {
 
             <FormControlLabel
               control={<Radio />}
-              name="accessories"
+              name="fromLanguage"
               label="English"
               value="English"
               onChange={getLanguages}
@@ -232,7 +170,7 @@ const TranslateRequestForm = (props) => {
 
             <FormControlLabel
               control={<Radio />}
-              name="accessories"
+              name="fromLanguage"
               value="Ukrainian"
               label="Ukrainian"
               onChange={getLanguages}
@@ -251,14 +189,14 @@ const TranslateRequestForm = (props) => {
 
             <FormControlLabel
               control={<Radio />}
-              name="accessories"
+              name="toLanguage"
               label="English"
               value="English"
               onChange={getTranslate}
             />
             <FormControlLabel
               control={<Radio />}
-              name="accessories"
+              name="toLanguage"
               value="Ukrainian"
               label="Ukrainian"
               onChange={getTranslate}

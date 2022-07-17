@@ -2,7 +2,7 @@ import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
@@ -28,9 +28,18 @@ const apiScheduleToModel = (apiSchedule) => ({
   end: apiSchedule.endDate,
 });
 
+const apiBookingToModel = (apiBooking) => ({
+  volunteerEmail: apiBooking.volunteerEmail,
+  newcomerEmail: apiBooking.newcomerEmail,
+  task: apiBooking.task,
+  start: apiBooking.startDate,
+  end: apiBooking.endDate,
+});
+
 const BigCalendar = () => {
   const [newEvent, setNewEvent] = useState({ task: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const { user } = useAuth0();
   const userEmail = user?.email;
 
@@ -61,16 +70,35 @@ const BigCalendar = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (userEmail) {
       (async () => {
         const response = await apiClient.get(
-          `schedule/${encodeURIComponent(user.email)}`
+          `schedule/${encodeURIComponent(userEmail)}`
         );
-        const apiSchedules = JSON.parse(response?.data ?? '');
+        const apiSchedules = JSON.parse(response?.data ?? "");
         setAllEvents(apiSchedules.map(apiScheduleToModel));
       })();
+      (async () => {
+        const response = await apiClient.get(
+          `bookings/${encodeURIComponent(userEmail)}`
+        );
+        const data = JSON.parse(response?.data ?? '{"bookings": []}');
+        setBookings(data.bookings.map(apiBookingToModel));
+      })();
     }
-  }, [user]);
+  }, [userEmail]);
+
+  const calendarEntries = useMemo(
+    () => [...allEvents, ...bookings],
+    [allEvents, bookings]
+  );
+
+  const eventPropGetter = useCallback((event, start, end, isSelected) => {
+    if (event.volunteerEmail) {
+      return { style: { backgroundColor: "red" } };
+    }
+    return {};
+  }, []);
 
   // console.log(`allEvent ${allEvents}`);
 
@@ -106,10 +134,11 @@ const BigCalendar = () => {
       </div>
       <Calendar
         localizer={localizer}
-        events={allEvents}
+        events={calendarEntries}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 400, margin: "30px" }}
+        eventPropGetter={eventPropGetter}
       />
     </div>
   );
