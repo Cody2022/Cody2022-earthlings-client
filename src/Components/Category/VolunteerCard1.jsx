@@ -62,23 +62,23 @@ export default function VolunteerCard() {
   }, []);
 
   //Use fetch to create a new conversation
-  const createConversation = async () => {
-    const newConversation = {
-      members: {
-        senderEmail: user.email,
-        recieverEmail: volunteer.email,
-      },
+    const createConversation = async () => {
+      const newConversation = {
+        members: {
+          senderEmail: user.email,
+          recieverEmail: volunteer.email,
+        },
+      };
+  
+      const data = JSON.stringify(newConversation);
+      await fetch("/conversation", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: data,
+      });
     };
-
-    const data = JSON.stringify(newConversation);
-    await fetch("/conversation", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: data,
-    });
-  };
 
   return (
     <Card
