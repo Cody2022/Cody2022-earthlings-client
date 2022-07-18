@@ -29,7 +29,6 @@ const ExpandMore = styled((props) => {
 
 export default function VolunteerCard() {
   const { user } = useAuth0();
-  console.log(`User is: `, user);
   const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
   const [volunteer, setVolunteer] = React.useState("");
@@ -45,7 +44,6 @@ export default function VolunteerCard() {
     const getImage = async () => {
       let response = await fetch(`/image/cass@gmail.com`);
       let data = await response.json();
-      console.log(`Data is:`, data);
       setVolunteer(data);
     };
     getImage();
