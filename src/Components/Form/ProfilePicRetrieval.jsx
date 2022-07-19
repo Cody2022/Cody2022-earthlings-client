@@ -6,9 +6,6 @@ const ProfilePicRetrieval = () => {
   const { user } = useAuth0();
   console.log(`User is:`, user.email);
   const [image, setImage] = useState("");
-  
-  console.log(`Image is:`, image);
-
 
   useEffect(() => {
     const getImage = async () => {

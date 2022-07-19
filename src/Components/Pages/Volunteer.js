@@ -14,6 +14,7 @@ export const Volunteer = () => {
   const { user } = useAuth0();
   const email = user.email;
   const [transportList, setTransportList] = useState();
+  const [accomListRender, setAccomListRender]=useState(false)
 
     useEffect(() => {
       const fetchTransportListByEmail = async (email) => {
@@ -43,11 +44,11 @@ export const Volunteer = () => {
       <Typography mx={5} variant="h4">
         Accommodation Availablility Form
         </Typography>
-        <AccommodationForm />
+        <AccommodationForm accomListRender={accomListRender} setAccomListRender={setAccomListRender}/>
       <Typography mx={5} variant="h4">
         Accommodation Posted by: {email}
       </Typography>
-      <VolunteerListing />
+      <VolunteerListing accomListRender={accomListRender} setAccomListRender={setAccomListRender}/>
     </div>
   );
 };

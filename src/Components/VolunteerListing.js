@@ -7,10 +7,11 @@ import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useParams } from "react-router-dom";
 
-const VolunteerListing = () => {
+const VolunteerListing = (props) => {
   const { user, isLoading } = useAuth0();
   const email = user?.email;
   console.log("user is", email);
+  let accomListRender=props.accomListRender;
   const [volunteerList, setVolunteerList] = useState();
   const params = useParams();
   const id = params.id;
@@ -27,7 +28,7 @@ const VolunteerListing = () => {
       }
     };
     getVolunteerList();
-  }, [email]);
+  }, [email, accomListRender]);
 
   const handleDelete = async (id) => {
     console.log(`user id is: ${id}`);

@@ -11,8 +11,12 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
-import avatar2 from "../../images/avatar2.jpg";
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 
 const ExpandMore = styled((props) => {
@@ -27,31 +31,98 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function VolunteerCard() {
+  const { user } = useAuth0();
+  const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
+  const [volunteer, setVolunteer] = React.useState("");
+  const [volunteerInfo, setVolunteerInfo] = useState("");
+
+  const fullName = volunteerInfo.firstName + " " + volunteerInfo.lastName;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  //Get volunteer by email
+  React.useEffect(() => {
+    const getImage = async () => {
+      let response = await fetch(`/image/ben12@gmail.com`);
+      let data = await response.json();
+      setVolunteer(data);
+    };
+    getImage();
+  }, []);
+
+  useEffect(() => {
+    const getFeaturedVolunteerInfo = async () => {
+      try {
+        const response = await axios.get("/name?email=ben12@gmail.com");
+        setVolunteerInfo(response.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    getFeaturedVolunteerInfo();
+  }, []);
+
+  //Use fetch to create a new conversation
+  const createConversation = async () => {
+    const newConversation = {
+      members: {
+        senderEmail: user.email,
+        recieverEmail: volunteer.email,
+      },
+    };
+
+    const data = JSON.stringify(newConversation);
+    await fetch("/conversation", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: data,
+    });
+  };
+
   return (
-    <Card sx={{borderRadius:1, border: 1 }} style={{width:250, backgroundColor:"rgba(48, 233, 252, 0.21)"}}>
+    <Card
+      sx={{ borderRadius: 1, border: 1 }}
+      style={{ width: 250, backgroundColor: "rgba(48, 233, 252, 0.21)" }}
+    >
       <CardHeader
-        title="Volunteer Name-2"
-        titleTypographyProps={{fontSize: "1rem", color:"black", align:"left"}}
+        title={fullName}
+        titleTypographyProps={{
+          fontSize: "1rem",
+          color: "black",
+          align: "left",
+        }}
       />
       <CardMedia
         component="img"
         height="140"
-        image={avatar2}
+        image={volunteer.profilePic}
         alt="volunteerImage"
       />
       <CardContent>
         <Typography variant="body3" color="text.secondary">
-         Volunteer brief introduction ....
+          Lives in: {volunteerInfo.city}, {volunteerInfo.province}
+          <br />
+          Speaks: {volunteerInfo.languages}
+          <br />
+          Email: {volunteerInfo.email}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-         <Button size="medium" sx={{color:"purple", fontFamily: 'Raleway'}} >Contact me</Button>
+        <Button
+          size="medium"
+          sx={{ color: "purple", fontFamily: "Raleway" }}
+          onClick={() => {
+            navigate("/chat");
+            createConversation();
+          }}
+        >
+          Contact me
+        </Button>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -64,9 +135,7 @@ export default function VolunteerCard() {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>More information:</Typography>
-          <Typography paragraph>
-            Contact Information.
-          </Typography>
+          <Typography paragraph>Contact Information.</Typography>
         </CardContent>
       </Collapse>
     </Card>
