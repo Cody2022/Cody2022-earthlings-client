@@ -17,7 +17,7 @@ const TransportationData = (props) => {
     setAnchorEl(event.currentTarget); 
     let response = await fetch(`/get/${transportInfo.email}`);
     let foundVolunteerProfile = await response.json();
-    console.log(foundVolunteerProfile)
+    // console.log(foundVolunteerProfile)
     setVolunteerProfile(foundVolunteerProfile)
   };
 
@@ -99,13 +99,12 @@ const TransportationData = (props) => {
                   First name: {volunteerProfile.firstName}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Volunteer brief introduction
+                  {volunteerProfile.bio}
                 </Typography>
               </CardContent>
               <CardActions>
                 <Button size="small">Chat</Button>
-                <Button size="small">Learn More</Button>
-              </CardActions>
+               </CardActions>
             </Card>
           )}
         </Popover>
