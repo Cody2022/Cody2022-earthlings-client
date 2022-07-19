@@ -1,38 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import { Container } from '@mui/system';
-import { Grid, Typography } from '@mui/material';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import { Container } from "@mui/system";
+import { Grid, Typography } from "@mui/material";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 import Loading from "../Loading/Loading";
-import NewcomerTransportSearchByTime from '../Form/NewcomerTransportSearchByTime';
+import NewcomerTransportSearchByTime from "../Form/NewcomerTransportSearchByTime";
 // import NewcomerTransportList from "../Form/NewcomerTransportList";
-import TransportationData from '../Form/TransportationDataCard';
+import TransportationData from "../Form/TransportationDataCard";
 import NewcomerTransportSearchByLanguages from "../Form/NewcomerTransportSearchByLanguages";
-
+import apiClient from "../helpers/apiClient";
 
 const NewcomerTransport = () => {
+  const { user } = useAuth0();
   const [transportList, setTransportList] = useState();
-  const [value, setValue] = React.useState('one');
+  const [value, setValue] = React.useState("one");
+  const userEmail = user.email;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log("value:", value)
+    console.log("value:", value);
   };
 
   useEffect(() => {
     const getAllTransportListings = async () => {
       try {
-        let response = await fetch(`/transport/getall`);
-        let allTransportListings = await response.json();
-        return setTransportList(allTransportListings);
+        const response = await apiClient.get(
+          `/schedule/overlaps?email=${encodeURIComponent(
+            userEmail
+          )}&task=transport`
+        );
+        const data = JSON.parse(response.data ?? '{"overlaps": []}');
+        return setTransportList(data.overlaps);
       } catch (error) {
         console.log(error);
       }
     };
     getAllTransportListings();
-  }, [value]);
+  }, [value, userEmail]);
 
   return (
     <Container>
@@ -83,53 +89,59 @@ const NewcomerTransport = () => {
         </Tabs>
       </Box>
 
-        {value === "two" && (
-          <Grid sx={{ display: "flex", justifyContent: "center" }}>
-            <NewcomerTransportSearchByTime
-              transportList={transportList}
-              setTransportList={setTransportList}
-            />
-          </Grid>
-        )}
-
-        {value === "three" && (
-          <Grid item sx={{ display: "flex", justifyContent: "center" }}>
-            <NewcomerTransportSearchByLanguages
-              transportList={transportList}
-              setTransportList={setTransportList}
-            />
-          </Grid>
-        )}
-
-        <Grid container display={"flex"} justifyContent={"center"}>
-          {transportList ? (
-            transportList.map((transportInfo, index) => {
-              return (
-                <TransportationData key={index} transportInfo={transportInfo} />
-              );
-            })
-          ) : (
-            <Typography display={"flex"} justifyContent={"center"} color={"blue"} component="div" variant="h3">
-              Loading...
-            </Typography>
-          )}
-
-          {transportList?.length < 1 && (
-            <Typography
-              component="div"
-              variant="h5"
-              color={"green"}
-              marginBottom={"5"}
-            >
-              Sorry, we couldn't find any results matching your search. Try
-              other time or languages please.
-            </Typography>
-          )}
+      {value === "two" && (
+        <Grid sx={{ display: "flex", justifyContent: "center" }}>
+          <NewcomerTransportSearchByTime
+            transportList={transportList}
+            setTransportList={setTransportList}
+          />
         </Grid>
+      )}
+
+      {value === "three" && (
+        <Grid item sx={{ display: "flex", justifyContent: "center" }}>
+          <NewcomerTransportSearchByLanguages
+            transportList={transportList}
+            setTransportList={setTransportList}
+          />
+        </Grid>
+      )}
+
+      <Grid container display={"flex"} justifyContent={"center"}>
+        {transportList ? (
+          transportList.map((transportInfo, index) => {
+            return (
+              <TransportationData key={index} transportInfo={transportInfo} />
+            );
+          })
+        ) : (
+          <Typography
+            display={"flex"}
+            justifyContent={"center"}
+            color={"blue"}
+            component="div"
+            variant="h3"
+          >
+            Loading...
+          </Typography>
+        )}
+
+        {transportList?.length < 1 && (
+          <Typography
+            component="div"
+            variant="h5"
+            color={"green"}
+            marginBottom={"5"}
+          >
+            Sorry, we couldn't find any results matching your search. Try other
+            time or languages please.
+          </Typography>
+        )}
+      </Grid>
     </Container>
   );
 };
 
 export default withAuthenticationRequired(NewcomerTransport, {
-    onRedirecting: () => <Loading />,
-  });;
+  onRedirecting: () => <Loading />,
+});

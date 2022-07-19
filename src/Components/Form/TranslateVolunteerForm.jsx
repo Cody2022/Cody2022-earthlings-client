@@ -1,31 +1,30 @@
 import {
   Button,
+  Checkbox,
   Container,
   FormControlLabel,
   FormGroup,
   FormLabel,
   Grid,
-  InputLabel,
-  MenuItem,
-  Radio,
-  Select,
-  TextField,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ServerRequestDatePicker from "../Form/ServerRequestDatePicker";
-import StartEndTimePicker from "../Form/StartEndTimePicker";
+import ServerRequestDatePicker from "./ServerRequestDatePicker";
+import StartEndTimePicker from "./StartEndTimePicker";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FormControl } from "react-bootstrap";
 
-const TranslateRequestForm = (props) => {
+const TranslateVolunteerForm = (props) => {
   const rerender = props.rerender;
   const setRerender = props.setRerender;
   const { user, isLoading } = useAuth0();
   const email = user?.email;
   console.log("user is", email);
 
-const [translateInfo, setTranslateInfo] = useState();
+  const [translateInfo, setTranslateInfo] = useState();
+  const [fromLanguage, setfromLanguage] = useState([]);
+  const [toLanguage, settoLaguage] = useState([]);
+
   useEffect(()=>{
     let today = new Date();
     today = new Date(
@@ -42,30 +41,30 @@ const [translateInfo, setTranslateInfo] = useState();
         date: today,
         startTime: new Date().setSeconds(0, 0),
         endTime: new Date().setSeconds(0, 0),
-        fromLanguages: [],
-        toLanguages: [],
+        fromLanguage: [],
+        toLanguage: [],
       };
       setTranslateInfo(defaultTranslateInfo)
     }
 
 },[user])
 
-  const getLanguages = (e) => {
+
+  const getLanguage = (e) => {
     const { value, checked } = e.target;
-    const { fromLanguages } = translateInfo;
-    const { toLanguages } = translateInfo;
+    const { fromLanguage } = translateInfo;
     // Case 1 : The user checks the box
     if (checked) {
       setTranslateInfo({
         ...translateInfo,
-        fromLanguages: [...fromLanguages, value],
+        fromLanguage: [...fromLanguage, value],
       });
     }
     // Case 2  : The user unchecks the box
     else {
       setTranslateInfo({
         ...translateInfo,
-        fromLanguages: fromLanguages.filter((e) => e !== value),
+        fromLanguage: fromLanguage.filter((e) => e !== value),
       });
     }
   };
@@ -133,7 +132,7 @@ const [translateInfo, setTranslateInfo] = useState();
       >
         <Grid item marginBottom={2} display={"flex"} justifyContent={"center"}>
           <Typography justifyContent={"center"} fontWeight={"bold"}>
-            Translation Request Form
+            Volunteer Translation Form
           </Typography>
         </Grid> 
 
@@ -161,19 +160,36 @@ const [translateInfo, setTranslateInfo] = useState();
             </FormLabel>
 
             <FormControlLabel
-              control={<Radio />}
+              control={<Checkbox />}
               name="fromLanguage"
               label="English"
               value="English"
-              onChange={getLanguages}
+              onChange={getLanguage}
             />
 
             <FormControlLabel
-              control={<Radio />}
+              control={<Checkbox />}
               name="fromLanguage"
               value="Ukrainian"
               label="Ukrainian"
-              onChange={getLanguages}
+              onChange={getLanguage}
+            />
+
+            <FormControlLabel
+              control={<Checkbox />}
+              name="fromLanguage"
+              value="Somali"
+              label="Somali"
+              onChange={getLanguage}
+              
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              name="fromLanguage"
+              value="Mandarin"
+              label="Mandarin"
+              onChange={getLanguage}
+              
             />
           </FormGroup>
         </Grid>
@@ -188,17 +204,31 @@ const [translateInfo, setTranslateInfo] = useState();
             </FormLabel>
 
             <FormControlLabel
-              control={<Radio />}
+              control={<Checkbox />}
               name="toLanguage"
               label="English"
               value="English"
               onChange={getTranslate}
             />
             <FormControlLabel
-              control={<Radio />}
+              control={<Checkbox />}
               name="toLanguage"
               value="Ukrainian"
               label="Ukrainian"
+              onChange={getTranslate}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              name="toLanguage"
+              value="Somali"
+              label="Somali"
+              onChange={getTranslate}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              name="toLanguage"
+              value="Mandarin"
+              label="Mandarin"
               onChange={getTranslate}
             />
           </FormGroup>
@@ -220,4 +250,4 @@ const [translateInfo, setTranslateInfo] = useState();
   );
 };
 
-export default TranslateRequestForm;
+export default TranslateVolunteerForm;
