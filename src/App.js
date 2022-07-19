@@ -12,7 +12,6 @@ import volunteersProfile from "./Components/Volunteers/volunteersProfile";
 import Testing from "./Components/Volunteers/Testing";
 import BigCalendarTest from "./Components/Calendar/BigCalendarTest";
 import VolunTransportForm from "./Components/Form/VolunteerTransportForm";
-import TranslationSubmit from "./Components/Form/NewComersForms.jsx/TranslationSubmit";
 
 function App() {
   return (
@@ -35,8 +34,6 @@ function App() {
         <Route path="/accommodation" element={<AccommodationForm />} />
         <Route path="/testProfile" element={<Testing />} />
         <Route path="/transport" element={<VolunTransportForm />} />
-        <Route path="/NewForm" element={<TranslationSubmit />} />
-        
       </Routes>
 
       <Footer />
