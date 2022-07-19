@@ -5,13 +5,11 @@ import BigCalendar from "./Components/Calendar/BigCalendar";
 import Footer from "./Components/Navigation/Footer";
 
 import { Home, Profile, Enter, Admin, Newcomer, Volunteer, NewcomerTransport } from "./Components/Pages/pages";
-import RequestForm from "./Components/Form/RequestForm";
 import ChatPage from "./Components/Pages/ChatPage";
 import AccommodationForm from "./Components/Form/AccommodationForm";
-import volunteersProfile from "./Components/Volunteers/volunteersProfile";
-import Testing from "./Components/Volunteers/Testing";
-import BigCalendarTest from "./Components/Calendar/BigCalendarTest";
 import VolunTransportForm from "./Components/Form/VolunteerTransportForm";
+import TranslateVolunteerForm from "./Components/Form/TranslateVolunteerForm";
+import TranslateFilterLists from "./Components/Form/TranslateFilterLists";
 
 function App() {
   return (
@@ -29,10 +27,11 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/calendar" element={<BigCalendar />} />
-        <Route path="/request" element={<RequestForm />} />
         <Route path="/newcomertransport" element={<NewcomerTransport />} />
         <Route path="/accommodation" element={<AccommodationForm />} />
-        <Route path="/testProfile" element={<Testing />} />
+        {/* <Route path="/testProfile" element={<VolunteersProfile />} /> */}
+        <Route path="/translateForm" element={<TranslateVolunteerForm />} />
+        <Route path="/translateList" element={<TranslateFilterLists />} />
         <Route path="/transport" element={<VolunTransportForm />} />
       </Routes>
 

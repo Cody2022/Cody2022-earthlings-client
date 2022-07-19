@@ -17,6 +17,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import translation from "../../images/translation.jpg";
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,6 +34,8 @@ const ExpandMore = styled((props) => {
 
 export default function TranslationCard() {
   const [expanded, setExpanded] = React.useState(false);
+  const navigate=useNavigate();
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -54,7 +59,13 @@ export default function TranslationCard() {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-         <Button size="medium" sx={{color:"blue"}} >Get Assistance</Button>
+      <Button
+          size="medium"
+          sx={{ color: "blue" }}
+          onClick={() => navigate("/translateList")}
+        >
+          Get Assistance
+        </Button>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
