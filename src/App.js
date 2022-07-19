@@ -29,18 +29,11 @@ function App() {
         <Route path="/calendar" element={<BigCalendar />} />
         <Route path="/newcomertransport" element={<NewcomerTransport />} />
         <Route path="/accommodation" element={<AccommodationForm />} />
-<<<<<<< HEAD
         <Route path="/testProfile" element={<VolunteersProfile />} />
         <Route path="/translateRequest" element={<TranslateVolunteerForm />} />
         <Route path="/translateForm" element={<TranslateVolunteerForm />} />
         <Route path="/translateList" element={<TranslateFilterLists />} />
                 
-=======
-        <Route path="/testProfile" element={<Testing />} />
-        <Route path="/transport" element={<VolunTransportForm />} />
-        {/* <Route path="/NewForm" element={<TranslationSubmit />} /> */}
-        
->>>>>>> 703d65dedbf0e9cb734733da53439d8ec04226c8
       </Routes>
 
       <Footer />
