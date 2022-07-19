@@ -80,6 +80,7 @@ export default function VolunteerCard() {
       },
       body: data,
     });
+    navigate("/chat")
   };
 
   return (
@@ -114,11 +115,7 @@ export default function VolunteerCard() {
         <Button
           size="medium"
           sx={{ color: "purple", fontFamily: "Raleway" }}
-          onClick={() => {
-            navigate("/chat");
-            createConversation();
-          }}
-        >
+          onClick={() => { createConversation() }} >
           Contact me
         </Button>
         <ExpandMore
