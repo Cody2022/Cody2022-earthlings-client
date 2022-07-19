@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
-import avatar2 from "../../images/avatar2.jpg";
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
