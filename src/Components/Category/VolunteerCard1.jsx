@@ -34,7 +34,7 @@ export default function VolunteerCard() {
   const [volunteer, setVolunteer] = React.useState("");
   const [volunteerInfo, setVolunteerInfo] = useState("");
 
-  const fullName = volunteerInfo.firstName + " " + volunteerInfo.lastName
+  const fullName = volunteerInfo.firstName + " " + volunteerInfo.lastName;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -62,27 +62,28 @@ export default function VolunteerCard() {
   }, []);
 
   //Use fetch to create a new conversation
-    const createConversation = async () => {
-      const newConversation = {
-        members: {
-          senderEmail: user.email,
-          recieverEmail: volunteer.email,
-        },
-      };
-  
-      const data = JSON.stringify(newConversation);
-      await fetch("/conversation", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: data,
-      });
+  const createConversation = async () => {
+    const newConversation = {
+      members: {
+        senderEmail: user.email,
+        recieverEmail: volunteer.email,
+      },
+    };
+
+    const data = JSON.stringify(newConversation);
+    await fetch("/conversation", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: data,
+    });
+    navigate("/chat");
   };
-  
-    if (!user || !volunteer ||!volunteerInfo) {
-      return <div>Loading...</div>;
-    }
+
+  if (!user || !volunteer || !volunteerInfo) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Card
@@ -105,8 +106,10 @@ export default function VolunteerCard() {
       />
       <CardContent>
         <Typography variant="body3" color="text.secondary">
-          Lives in: {volunteerInfo.city}, {volunteerInfo.province}<br />
-          Speaks: {volunteerInfo.languages.join(", ")}<br />
+          Lives in: {volunteerInfo.city}, {volunteerInfo.province}
+          <br />
+          Speaks: {volunteerInfo.languages.join(", ")}
+          <br />
           Email: {volunteerInfo.email}
         </Typography>
       </CardContent>
@@ -115,7 +118,6 @@ export default function VolunteerCard() {
           size="medium"
           sx={{ color: "purple", fontFamily: "Raleway" }}
           onClick={() => {
-            navigate("/chat");
             createConversation();
           }}
         >
@@ -133,8 +135,7 @@ export default function VolunteerCard() {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>More information:</Typography>
-          <Typography paragraph>
-          </Typography>
+          <Typography paragraph></Typography>
         </CardContent>
       </Collapse>
     </Card>
