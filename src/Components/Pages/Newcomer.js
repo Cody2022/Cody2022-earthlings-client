@@ -17,8 +17,8 @@ export const Newcomer = () => {
       </Grid>
       <Categories />
        
-      <Typography variant='h6' mx={3}>Available Accommodations</Typography>
-      <AccommodationList />
+      {/* <Typography variant='h6' mx={3}>Available Accommodations</Typography> */}
+      {/* <AccommodationList /> */}
     </Box>
   )
 }
