@@ -78,7 +78,11 @@ export default function VolunteerCard() {
         },
         body: data,
       });
-    };
+  };
+  
+    if (!user || !volunteer ||!volunteerInfo) {
+      return <div>Loading...</div>;
+    }
 
   return (
     <Card
@@ -102,7 +106,7 @@ export default function VolunteerCard() {
       <CardContent>
         <Typography variant="body3" color="text.secondary">
           Lives in: {volunteerInfo.city}, {volunteerInfo.province}<br />
-          Speaks: {volunteerInfo.languages}<br />
+          Speaks: {volunteerInfo.languages.join(", ")}<br />
           Email: {volunteerInfo.email}
         </Typography>
       </CardContent>
