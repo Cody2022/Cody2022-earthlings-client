@@ -133,12 +133,15 @@ const TransportationData = (props) => {
             <CardMedia
               component="img"
               alt={volunteerProfile.firstName}
-              height="150"
+              height="200"
               image={volunteerWithPicture.profilePic}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                First name: {volunteerProfile.firstName}
+              <Typography gutterBottom variant="h6" component="div">
+                Name: {volunteerProfile.firstName}
+              </Typography>
+              <Typography variant="body1" color="text.primary">
+                Email: {volunteerProfile.email}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 {volunteerProfile.bio}
