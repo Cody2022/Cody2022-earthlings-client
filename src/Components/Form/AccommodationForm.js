@@ -50,13 +50,6 @@ const AccommodationForm = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("email is", email);
-    console.log("accomInfo.startDate is", accomListInfo.startDate);
-    console.log("accomInfo.endDate is", accomListInfo.endDate);
-    console.log("accomInfo.numberOfRooms is", accomListInfo.numberOfRooms);
-    console.log("accomInfo.maxNumTenants is", accomListInfo.maxNumTenants);
-    console.log("accomInfo.accessibleHome is", accomListInfo.accessibleHome);
-    console.log("accomInfo.email is", accomListInfo.email);
     try {
       const newAccomInfo = await createAccomList(accomListInfo);
       setAccomListRender(!accomListRender)
@@ -71,7 +64,7 @@ const AccommodationForm = (props) => {
   return (
     <Container>
       <Typography
-        variant="h4"
+        variant="h6"
         component="h2"
         color="blue"
         align="center"
@@ -342,7 +335,7 @@ const AccommodationForm = (props) => {
       </Grid>
       <br />
 
-      <Grid container justify="center">
+      <Grid container sx={{m:1, display:"flex", justifyContent:"center", alignItems:"center"}}>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
           <Button
             onClick={handleSubmit}

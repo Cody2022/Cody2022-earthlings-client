@@ -14,6 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {useNavigate } from "react-router-dom";
 
 import housing from "../../images/housing.jpg";
 import { Button } from '@mui/material';
@@ -31,6 +32,7 @@ const ExpandMore = styled((props) => {
 
 export default function AccommodationCard() {
   const [expanded, setExpanded] = React.useState(false);
+  const navigate=useNavigate();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -54,7 +56,13 @@ export default function AccommodationCard() {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-         <Button size="medium" sx={{color:"blue"}} >Get Assistance</Button>
+         <Button 
+         size="medium" 
+         sx={{color:"blue"}} 
+         onClick={() => navigate("/newcomeraccommodation")}
+         >
+          Get Assistance
+          </Button>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

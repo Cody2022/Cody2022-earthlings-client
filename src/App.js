@@ -4,7 +4,7 @@ import Navbar from "./Components/Navigation/Navbar";
 import BigCalendar from "./Components/Calendar/BigCalendar";
 import Footer from "./Components/Navigation/Footer";
 
-import { Home, Profile, Enter, Admin, Newcomer, Volunteer, NewcomerTransport } from "./Components/Pages/pages";
+import { Home, Profile, Enter, Admin, Newcomer, Volunteer, NewcomerTransport, NewcomerAccommodation } from "./Components/Pages/pages";
 import RequestForm from "./Components/Form/RequestForm";
 import ChatPage from "./Components/Pages/ChatPage";
 import AccommodationForm from "./Components/Form/AccommodationForm";
@@ -12,7 +12,7 @@ import volunteersProfile from "./Components/Volunteers/volunteersProfile";
 import Testing from "./Components/Volunteers/Testing";
 import BigCalendarTest from "./Components/Calendar/BigCalendarTest";
 import VolunTransportForm from "./Components/Form/VolunteerTransportForm";
-import TranslationSubmit from "./Components/Form/NewComersForms.jsx/TranslationSubmit";
+// import TranslationSubmit from "./Components/Form/NewComersForms.jsx/TranslationSubmit";
 
 function App() {
   return (
@@ -35,7 +35,8 @@ function App() {
         <Route path="/accommodation" element={<AccommodationForm />} />
         <Route path="/testProfile" element={<Testing />} />
         <Route path="/transport" element={<VolunTransportForm />} />
-        <Route path="/NewForm" element={<TranslationSubmit />} />
+        <Route path="/newcomeraccommodation" element={<NewcomerAccommodation />} />
+        {/* <Route path="/NewForm" element={<TranslationSubmit />} /> */}
         
       </Routes>
 

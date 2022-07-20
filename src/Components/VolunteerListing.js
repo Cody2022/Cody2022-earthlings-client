@@ -6,12 +6,13 @@ import Loading from "./Loading/Loading";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useParams } from "react-router-dom";
+import { Container } from "@mui/system";
 
 const VolunteerListing = (props) => {
-  const { user, isLoading } = useAuth0();
+  const { user } = useAuth0();
   const email = user?.email;
   console.log("user is", email);
-  let accomListRender=props.accomListRender;
+  let accomListRender = props.accomListRender;
   const [volunteerList, setVolunteerList] = useState();
   const params = useParams();
   const id = params.id;
@@ -46,7 +47,8 @@ const VolunteerListing = (props) => {
   };
 
   return (
-    <Grid container>
+    <Container>
+    <Grid container sx={{m:1, display:"flex", justifyContent:"center", alignItems:"center"}}>
       {volunteerList ? (
         volunteerList.map((accomInfo, index) => {
           return (
@@ -69,6 +71,7 @@ const VolunteerListing = (props) => {
         </Typography>
       )}
     </Grid>
+    </Container>
   );
 };
 
