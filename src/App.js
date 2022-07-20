@@ -14,11 +14,20 @@ import TranslateFilterLists from "./Components/Form/TranslateFilterLists";
 
 function App() {
   return (
-    <div>
-      <header className="navbar">
-        <Navbar />
-      </header>
-
+    <div style={{
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
+      <div>
+        <header className="navbar">
+          <Navbar />
+        </header>
+      </div>
+      
+      <div style={{
+        flexGrow: 2
+    }}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/enter" element={<Enter />} />
@@ -37,7 +46,8 @@ function App() {
         <Route path="/newcomeraccommodation" element={<NewcomerAccommodation />} />
         {/* <Route path="/NewForm" element={<TranslationSubmit />} /> */}
         
-      </Routes>
+        </Routes>
+        </div>
 
       <Footer />
     </div>
