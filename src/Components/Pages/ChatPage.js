@@ -147,8 +147,11 @@ const ChatPage = () => {
             Open a conversation to start a chat
           </Typography>
         )}
-        <Box p={1}>
-        <Input
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+          <Input
+            sx={{
+              width: '80%'
+            }}
           placeholder="Write Something"
           onChange={(e) => setNewMessage(e.target.value)}
             value={newMessage}
