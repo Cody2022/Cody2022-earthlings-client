@@ -35,7 +35,6 @@ export default function VolunteerCard() {
   const [volunteerInfo, setVolunteerInfo] = useState("");
 
   const fullName = volunteerInfo.firstName + " " + volunteerInfo.lastName
-  const languages = volunteerInfo.languages.join(', ')
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -103,7 +102,7 @@ export default function VolunteerCard() {
       <CardContent>
         <Typography variant="body3" color="text.secondary">
           Lives in: {volunteerInfo.city}, {volunteerInfo.province}<br />
-          Speaks: {languages}<br />
+          Speaks: {volunteerInfo.languages}<br />
           Email: {volunteerInfo.email}
         </Typography>
       </CardContent>
