@@ -132,4 +132,4 @@ const NewcomerTransport = () => {
 
 export default withAuthenticationRequired(NewcomerTransport, {
     onRedirecting: () => <Loading />,
-  });;
+  });; 

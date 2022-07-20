@@ -11,8 +11,10 @@ import {
   Grid,
   Radio,
   RadioGroup,
+  TextareaAutosize,
   TextField,
 } from "@mui/material";
+
 import { Container } from "@mui/system";
 import {useNavigate} from "react-router-dom"
 
@@ -49,6 +51,7 @@ const UserForm = (props) => {
     address: "",
     city: "",
     province: "",
+    bio:""
   };
 
   const [userInfo, setUserInfo] = useState(defaultUserInfo);
@@ -66,6 +69,7 @@ const UserForm = (props) => {
       let educationLevel=userInfoInDB.educationLevel?userInfoInDB.educationLevel:userInfo.educationLevel;
       let address=userInfoInDB.address?userInfoInDB.address:userInfo.address;
       let city=userInfoInDB.city?userInfoInDB.city:userInfo.city;
+      let bio=userInfoInDB.bio?userInfoInDB.bio:userInfo.bio;
       setUserInfo({...userInfo,
         firstName: firstName,
         lastName: lastName,
@@ -75,6 +79,7 @@ const UserForm = (props) => {
         educationLevel:educationLevel,
         address: address,
         city: city,
+        bio: bio,
       })
     };
     fetchUserRoles(email);
@@ -426,7 +431,21 @@ const UserForm = (props) => {
             Select your role please!
           </Alert>
         )}
-
+        <TextareaAutosize
+          maxRows={6}
+          label="Short Bio"
+          aria-label="maximum height"
+          placeholder="Short Bio"
+          value={userInfo.bio}
+          style={{ width: 600, height:50 }}
+          onChange={(e) => {
+            const value = e.target.value;
+            setUserInfo({
+              ...userInfo,
+              bio: value,
+            });
+          }}
+        />
         <Button
           sx={{ my: 2 }}
           variant="contained"

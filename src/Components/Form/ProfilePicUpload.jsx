@@ -57,8 +57,6 @@ const ProfilePicUpload = () => {
     setProfilePicture({ ...profilePicture, profilePic: base64 });
   };
 
-  console.log(`Profile picture is: ${profilePicture}`);
-
   return (
     <Box style={{ display: "flex", justifyContent: "center" }}>
       <ProfilePicRetrieval />

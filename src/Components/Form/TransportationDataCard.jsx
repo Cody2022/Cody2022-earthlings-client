@@ -1,19 +1,53 @@
 import React, { useState } from "react";
-import { Button, Card, Collapse, Link, List, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Button, Card, Collapse, Container, Link, List, ListItemButton, ListItemText, Typography } from "@mui/material";
 import Popover from '@mui/material/Popover';
+
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { useNavigate } from "react-router-dom";
+
 
 
 const TransportationData = (props) => {
   const transportInfo = props.transportInfo;
   const [anchorEl, setAnchorEl] = useState(null);
   const [volunteerProfile, setVolunteerProfile]=useState()
+  const [volunteerWithPicture, setVolunteerWithPicture] = useState("");
+  const { user } = useAuth0();
+  const navigate = useNavigate();
+
+ 
+ //Use fetch to create a new conversation
+    const createConversation = async (volunteerEmail) => {
+      const newConversation = {
+        members: {
+          senderEmail: user.email,
+          recieverEmail: volunteerEmail,
+        },
+      };
+  
+      const data = JSON.stringify(newConversation);
+      await fetch("/conversation", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: data,
+      });
+    };
+
 
   const handleClick =async (event) => {
     setAnchorEl(event.currentTarget); 
     let response = await fetch(`/get/${transportInfo.email}`);
     let foundVolunteerProfile = await response.json();
-    console.log(foundVolunteerProfile)
+    // console.log(foundVolunteerProfile)
     setVolunteerProfile(foundVolunteerProfile)
+    let responseForImage = await fetch(`/image/${transportInfo.email}`);
+    let volunteerData = await responseForImage.json();
+    setVolunteerWithPicture(volunteerData);
   };
 
   const handleClose = () => {
@@ -24,8 +58,21 @@ const TransportationData = (props) => {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <Card sx={{pl:1, margin:1, minWidth:310 }} xs={12} sm={6} md={4}>
-      <Typography variant="h5">
+    <Card
+      sx={{
+        pl: 1,
+        margin: 1,
+        minWidth: 300,
+        display: "grid",
+        alignContent: "space-around",
+        borderRadius: 5,
+        boxShadow: 5,
+      }}
+      xs={12}
+      sm={6}
+      md={3}
+    >
+      <Typography variant="h6">
         {new Date(transportInfo.date).toDateString()}
       </Typography>
       <Typography>
@@ -50,21 +97,25 @@ const TransportationData = (props) => {
           minute: "2-digit",
         })}
       </Typography>
-      <Typography >Languages:</Typography>
-      <ul style={{marginTop:4, marginBottom:4}}>
+      <Typography>Languages:</Typography>
+      <ul style={{ marginTop: 2, marginBottom: 4 }}>
         {transportInfo.languages.map((language, index) => {
           return <li key={index}>{language}</li>;
         })}
       </ul>
       <Typography>Accessories:</Typography>
-      <ul style={{marginTop:4, marginBottom:4}}>
+      <ul style={{ marginTop: 4, marginBottom: 4 }}>
         {transportInfo.accessories.map((accessory, index) => {
           return <li key={index}>{accessory}</li>;
         })}
       </ul>
-      
-      <div>
-      <Button style={{marginTop: 5, marginBottom:3}} aria-describedby={id} variant="contained" onClick={handleClick}>
+
+      <Button
+        style={{ marginTop: 3, marginBottom: 3 }}
+        aria-describedby={id}
+        variant="contained"
+        onClick={handleClick}
+      >
         About the Volunteer
       </Button>
       <Popover
@@ -73,17 +124,44 @@ const TransportationData = (props) => {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
       >
-        {volunteerProfile && 
-        <div>
-          <Typography sx={{ p: 2 }}>{volunteerProfile.email}</Typography>
-          <Typography sx={{ p: 2 }}>First name:{volunteerProfile.firstName}</Typography>
-        </div>}
+        {volunteerProfile && (
+          <Card sx={{ maxWidth: 345 }}>
+            <CardMedia
+              component="img"
+              alt={volunteerProfile.firstName}
+              height="200"
+              image={volunteerWithPicture.profilePic}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h6" component="div">
+                Name: {volunteerProfile.firstName}
+              </Typography>
+              <Typography variant="body1" color="text.primary">
+                Email: {volunteerProfile.email}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {volunteerProfile.bio}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button
+                size="medium"
+                sx={{ color: "purple", fontFamily: "Raleway" }}
+                onClick={() => {
+                  navigate("/chat");
+                  createConversation(volunteerProfile.email);
+                }}
+              >
+                Chat with me
+              </Button>
+            </CardActions>
+          </Card>
+        )}
       </Popover>
-    </div>
     </Card>
   );
 };
