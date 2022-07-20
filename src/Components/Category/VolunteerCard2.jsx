@@ -99,7 +99,7 @@ export default function VolunteerCard() {
       />
       <CardMedia
         component="img"
-        height="140"
+        height="150"
         image={volunteer.profilePic}
         alt="volunteerImage"
       />
