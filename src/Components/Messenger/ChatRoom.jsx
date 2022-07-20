@@ -3,13 +3,22 @@ import React from "react";
 
 const ChatRoom = ({ chatText, own }) => {
   return (
-    <Box>
-      <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: own ? "flex-start" : "flex-end",
+        width: "90%",
+        margin: 2
+      }}
+    >
+      <Box>
         {own ? (
           <Typography
             variant="p"
             sx={{
-              padding: 0.5,
+              padding: 1,
+              paddingLeft: 1,
               borderRadius: 20,
               backgroundColor: "#0A4289",
               color: "white",
@@ -18,10 +27,11 @@ const ChatRoom = ({ chatText, own }) => {
             {chatText.sender}: {chatText.message}
           </Typography>
         ) : (
-            <Typography
-              variant="p"
-              sx={{
-              padding: 0.5,
+          <Typography
+            variant="p"
+            sx={{
+              padding: 1,
+              paddingLeft: 1,
               borderRadius: 20,
               backgroundColor: "#c9d3f2",
               color: "black",
@@ -30,8 +40,8 @@ const ChatRoom = ({ chatText, own }) => {
             {chatText.sender}: {chatText.message}
           </Typography>
         )}
-      </div>
-    </Box>
+      </Box>
+    </div>
   );
 };
 
