@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import volunteeringImage from "../../images/volunteer.jpg"
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Fade, Grid, ImageListItem, Paper, Popper, Typography } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material";
 
 
 export const Volunteer = () => {
