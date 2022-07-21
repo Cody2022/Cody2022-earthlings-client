@@ -9,18 +9,14 @@ const AccommodationList = () => {
   const email = user?.email;
   console.log("user is", email);
   const [accomList, setAccomList] = useState();
-
+  
   useEffect(() => {
     const getAccomList = async () => {
       try {
-        const response = await fetch(
-          `/schedule/overlaps?email=${encodeURIComponent(
-            email
-          )}&task=accommodation`
-        );
-        const data = await response.json();
-        console.log("accomList is", data);
-        return setAccomList(data.overlaps);
+        let response = await fetch(`/accommodation/listings`);
+        let accomLists = await response.json();
+        console.log("accomList is", accomLists);
+        return setAccomList(accomLists);
       } catch (ex) {
         console.log(ex);
       }
@@ -34,7 +30,8 @@ const AccommodationList = () => {
         accomList.map((accomInfo, index) => {
           return (
             <Grid xs={12} sm={6} md={3} item>
-              <AccomData accomInfo={accomInfo} />
+              <AccomData accomInfo={accomInfo}
+              />
             </Grid>
           );
         })

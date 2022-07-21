@@ -11,6 +11,7 @@ import AccommodationForm from "./Components/Form/AccommodationForm";
 import VolunTransportForm from "./Components/Form/VolunteerTransportForm";
 import TranslateVolunteerForm from "./Components/Form/TranslateVolunteerForm";
 import TranslateFilterLists from "./Components/Form/TranslateFilterLists";
+import TranslateNewcomerInfo from "./Components/Form/TranslateNewcomerInfo";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
         <Route path="/accommodation" element={<AccommodationForm />} />
         {/* <Route path="/testProfile" element={<VolunteersProfile />} /> */}
         <Route path="/translateForm" element={<TranslateVolunteerForm />} />
-        <Route path="/translateList" element={<TranslateFilterLists />} />
+        <Route path="/translateList" element={<TranslateNewcomerInfo />} />
         <Route path="/transport" element={<VolunTransportForm />} />
         <Route path="/newcomeraccommodation" element={<NewcomerAccommodation />} />
         {/* <Route path="/NewForm" element={<TranslationSubmit />} /> */}

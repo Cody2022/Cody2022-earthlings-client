@@ -62,8 +62,8 @@ function HomePage() {
           <h2>
               {`Hello, and Welcome to ${wordTyping[index].substring(0, subIndex)}${blink ? "|" : ""}`}
           </h2>
-          <a href='http://localhost:3000/engage'>
-          <Button type='button' className='mt-3' variant="outline-success"  size="lg">Get in touch</Button></a>
+          <a href='http://localhost:3000/translateForm'>
+          <Button type='button' className='mt-3' variant="outline-success"  size="lg">Translate Form</Button></a>
       </Col>
       <Col>
         <img alt='parks' src={images}/>
