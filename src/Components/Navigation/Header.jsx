@@ -7,22 +7,22 @@ function Header() {
     <>
     <header className='header'>
         <div>
-        <Link className='links' color="white" to="/">
+        <Link className='links' fontSize="28px" to="/">
             <Button color="inherit">Home</Button>
           </Link>
-          <Link className='links' color="white" to="/newcomer">
+          <Link className='links'  fontSize="28px"to="/newcomer">
             <Button color="inherit">Newcomer</Button>
           </Link>
-          <Link className='links' color="white" to="/Volunteer">
+          <Link className='links' fontSize="28px" to="/Volunteer">
             <Button color="inherit">Volunteer</Button>
           </Link>
-          <Link className='links' color="white" to="/profile">
+          <Link className='links' fontSize="28px" to="/profile">
             <Button color="inherit">Profile</Button>
           </Link>
-          <Link className='links' color="white" to="/chat">
+          <Link className='links' fontSize="28px" to="/chat">
             <Button color="inherit">Chat</Button>
           </Link>
-          <Link className='links' color="white" to="/admin">
+          <Link className='links' fontSize="28px" to="/admin">
             <Button color="inherit">Admin</Button>
           </Link>
         </div>

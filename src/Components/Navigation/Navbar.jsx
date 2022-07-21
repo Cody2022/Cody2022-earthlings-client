@@ -9,6 +9,7 @@ import { useTranslation} from "react-i18next";
 import SelectLanguage from "../Translator/SelectLanguage"
 import Header from "./Header";
 import { menuButton } from "../Styles/Styles";
+import Time from "./Time"
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -100,7 +101,7 @@ const Navbar = () => {
                   navigate("/chat")
                   handleClose();
                 }}>Chat Messenger</MenuItem>
-                <MenuItem onClick={() => logoutWithRedirect()}>Logout</MenuItem>
+                {/* <MenuItem onClick={() => logoutWithRedirect()}>Logout</MenuItem> */}
               </Menu>
             </>
           )}

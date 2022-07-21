@@ -80,7 +80,12 @@ export default function VolunteerCard() {
       },
       body: data,
     });
+    navigate("/chat")
   };
+
+          if (!user || !volunteer || !volunteerInfo) {
+            return <div>Loading...</div>;
+          }
 
   return (
     <Card
@@ -105,7 +110,7 @@ export default function VolunteerCard() {
         <Typography variant="body3" color="text.secondary">
           Lives in: {volunteerInfo.city}, {volunteerInfo.province}
           <br />
-          Speaks: {volunteerInfo.languages}
+          Speaks: {volunteerInfo.languages.join(', ')}
           <br />
           Email: {volunteerInfo.email}
         </Typography>
@@ -114,11 +119,7 @@ export default function VolunteerCard() {
         <Button
           size="medium"
           sx={{ color: "purple", fontFamily: "Raleway" }}
-          onClick={() => {
-            navigate("/chat");
-            createConversation();
-          }}
-        >
+          onClick={() => { createConversation() }} >
           Contact me
         </Button>
         <ExpandMore
