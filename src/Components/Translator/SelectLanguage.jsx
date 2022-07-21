@@ -11,16 +11,16 @@ import "flag-icon-css/css/flag-icons.min.css";
 
 const languages = [
   {
-    code: 'en',
-    name: 'English',
-    country_code: 'gb',
+    code: "en",
+    name: "English",
+    country_code: "gb",
   },
   {
-    code: 'ukr',
-    name: 'україни',
-    country_code: 'ua',
+    code: "ukr",
+    name: "Українська",
+    country_code: "ua",
   },
-]
+];
 
 function SelectLanguage(){
     const currentLanguageCode = cookies.get('i18next') || 'en'

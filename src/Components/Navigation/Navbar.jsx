@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import IAmHereLogo from "../../images/i-am-here-logo.png";
 import { Link, useNavigate } from "react-router-dom";
