@@ -2,47 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
-import volunteerImage from "../../images/volunteer.jpg"
-
-import VolunteerTransportForm from '../Form/VolunteerTransportForm';
-import VolunteerTransportList from '../Form/VolunteerTransportList';
-import { Container } from '@mui/system';
-import AccommodationForm from "../Form/AccommodationForm";
+import volunteeringImage from "../../images/volunteer.jpg"
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Fade, Grid, ImageListItem, Paper, Popper, Typography } from "@mui/material";
-import VolunteerListing from "../VolunteerListing";
-
 
 
 export const Volunteer = () => {
-  const [rerender, setRerender] = useState(false);
   const { user } = useAuth0();
   const email = user.email;
   const navigate=useNavigate();
-  const [transportList, setTransportList] = useState();
-  const [accomListRender, setAccomListRender]=useState(false)
-
-    // useEffect(() => {
-    //   const fetchTransportListByEmail = async (email) => {
-    //     let response = await fetch(`/transport/get/${email}`);
-    //     let transportList = await response.json();
-    //     return transportList;
-    //   };
-    //   const getTransportList = async (email) => {
-    //     const fetchedTransportList = await fetchTransportListByEmail(email);
-    //     setTransportList(fetchedTransportList);
-    //   };
-    //   getTransportList(email);
-    // }, [email, rerender]);
-
-    // const [anchorEl, setAnchorEl] = React.useState(null);
-    // const [open, setOpen] = React.useState(false);
-    // const [placement, setPlacement] = React.useState();
-
-    // const handleClick = (newPlacement) => (event) => {
-    //   setAnchorEl(event.currentTarget);
-    //   setOpen((prev) => placement !== newPlacement || !prev);
-    //   setPlacement(newPlacement);
-    // };
 
 
   return (
@@ -68,7 +35,7 @@ export const Volunteer = () => {
           variant="outlined"
           sx={{ display: "flex", justifyContent: "center" }}
         >
-          <img src={volunteerImage} />
+          <img src={volunteeringImage} />
         </Grid>
         <Grid item sx={{ mt: 5 }}>
           <Card sx={{ maxWidth: 600, mb: 2 }}>
@@ -128,7 +95,7 @@ export const Volunteer = () => {
                 One of the biggest challenges that newcomers could encounter would be a language barrier.
               </Typography>
             </CardContent>
-            <Button size="medium" sx={{ textTransform: "capitalize" }}>
+            <Button size="medium" sx={{ textTransform: "capitalize" }} onClick={()=>{navigate("/translateForm")}}>
               Provide Translation Service
             </Button>
           </Card>

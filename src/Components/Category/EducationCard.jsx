@@ -1,20 +1,15 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
 import school from "../../images/school.jpg";
 import { Button } from '@mui/material';
 
@@ -31,6 +26,7 @@ const ExpandMore = styled((props) => {
 
 export default function EducationCard() {
   const [expanded, setExpanded] = React.useState(false);
+  const navigate=useNavigate()
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -50,28 +46,28 @@ export default function EducationCard() {
       />
       <CardContent>
         <Typography variant="body3" color="text.secondary">
-         Get Assistance with Education
+         Need education resources? Click on "Get Assistance" to explore resources provided by governments and institutions.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-         <Button size="medium" sx={{color:"blue"}} >Get Assistance</Button>
-        <ExpandMore
+         <Button size="medium" sx={{color:"blue", textTransform:"capitalize"}} onClick={()=>{navigate("/education")}}>Get Assistance</Button>
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>More information:</Typography>
           <Typography paragraph>
             Get Education assistance.
           </Typography>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }

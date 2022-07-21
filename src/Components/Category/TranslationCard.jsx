@@ -42,7 +42,7 @@ export default function TranslationCard() {
   };
 
   return (
-    <Card sx={{borderRadius:5 }} style={{width:350, height: "fit-content"}}>
+    <Card sx={{borderRadius:5 }} style={{width:360, height: "fit-content"}}>
       <CardHeader
         title="Translation"
         titleTypographyProps={{fontSize: "1.2rem", color:"black", align:"center"}}
@@ -55,13 +55,13 @@ export default function TranslationCard() {
       />
       <CardContent>
         <Typography variant="body3" color="text.secondary">
-         Get Assistance with Translation
+        Need translation related help? Click on “Get Assistance” to search for volunteers who can help.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
       <Button
           size="medium"
-          sx={{ color: "blue" }}
+          sx={{ color: "blue", textTransform:"capitalize" }}
           onClick={() => navigate("/translateList")}
         >
           Get Assistance

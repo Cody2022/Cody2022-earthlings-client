@@ -18,24 +18,16 @@ const bull = (
 const card = (
   <React.Fragment>
     <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        I Am Here
-      </Typography>
       <Typography variant="h5" component="div">
-       Browse All Categories Enter Point
+      Welcome to the Newcomer Services Page.
       </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-       I am here
+      <Typography sx={{ m: 1.5 }} color="text.secondary">
+      To access any of the services or find resources, simply click on the "Get Assistance" for more information and to get started! 
       </Typography>
-      <Typography variant="body2">
-        Motto.
-        <br />
-        {"Information"}
-      </Typography>
+      <Typography variant="body1">
+      We are glad to be part of your journey in Canada!
+       </Typography>
     </CardContent>
-    <CardActions>
-      <Button size="small">Find More</Button>
-    </CardActions>
   </React.Fragment>
 );
 
