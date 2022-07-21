@@ -14,6 +14,7 @@ import TranslateFilterLists from "./Components/Form/TranslateFilterLists";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import TranslateNewcomerInfo from "./Components/Form/TranslateNewcomerInfo";
 
 function App() {
   const { user } = useAuth0();
@@ -64,7 +65,7 @@ function App() {
         <Route path="/accommodation" element={<AccommodationForm />} />
         {/* <Route path="/testProfile" element={<VolunteersProfile />} /> */}
         <Route path="/translateForm" element={<TranslateVolunteerForm />} />
-        <Route path="/translateList" element={<TranslateFilterLists />} />
+        <Route path="/translateList" element={<TranslateNewcomerInfo />} />
         <Route path="/transport" element={<VolunTransportForm />} />
         <Route path="/newcomeraccommodation" element={<NewcomerAccommodation />} />
         {/* <Route path="/NewForm" element={<TranslationSubmit />} /> */}

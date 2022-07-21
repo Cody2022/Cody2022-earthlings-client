@@ -8,7 +8,7 @@ function Header(props) {
     <>
     <header className='header'>
         <div>
-        <Link className='links' color="white" to="/">
+        <Link className='links' fontSize="28px" to="/">
             <Button color="inherit">Home</Button>
           </Link>
           {userData && userData.isNewcomer && <Link className='links' color="white" to="/newcomer">
@@ -20,10 +20,10 @@ function Header(props) {
           <Link className='links' color="white" to="/profile">
             <Button color="inherit">Profile</Button>
           </Link>
-          <Link className='links' color="white" to="/chat">
+          <Link className='links' fontSize="28px" to="/chat">
             <Button color="inherit">Chat</Button>
           </Link>
-          <Link className='links' color="white" to="/admin">
+          <Link className='links' fontSize="28px" to="/admin">
             <Button color="inherit">Admin</Button>
           </Link>
         </div>

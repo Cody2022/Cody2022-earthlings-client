@@ -97,7 +97,7 @@ const VolunteersProfile = () => {
             {user.name}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Hi my name is {user.name} and I am volunteer who speaks the following languages
+            Hi my name is {user.name} and I am volunteer who speaks the following languages 
             {user.languages.join("\r\n")}. I have been a volunteer member since {date_create}.
           </Typography>
         </Box>

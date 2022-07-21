@@ -13,13 +13,18 @@ import ServerRequestDatePicker from "./ServerRequestDatePicker";
 import StartEndTimePicker from "./StartEndTimePicker";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FormControl } from "react-bootstrap";
+import {useNavigate } from "react-router-dom";
+
 
 const TranslateVolunteerForm = (props) => {
   const rerender = props.rerender;
   const setRerender = props.setRerender;
   const { user, isLoading } = useAuth0();
+  const name = user?.name;
   const email = user?.email;
   console.log("user is", email);
+  const navigate=useNavigate();
+
 
   const [translateInfo, setTranslateInfo] = useState();
   const [fromLanguage, setfromLanguage] = useState([]);
@@ -37,6 +42,8 @@ const TranslateVolunteerForm = (props) => {
     ); //Grab Year, Month, and Day only
     if(user){
       const defaultTranslateInfo = {
+        task: "Translate",
+        name: name,
         email: email,
         date: today,
         startTime: new Date().setSeconds(0, 0),
@@ -107,6 +114,7 @@ const TranslateVolunteerForm = (props) => {
     } catch (error) {
       console.log(error.message);
     }
+    navigate("/Colunteers")
   };
 
   if (isLoading || !user || !translateInfo) {
@@ -131,7 +139,7 @@ const TranslateVolunteerForm = (props) => {
         sx={{ width: "80%", marginTop: 3, marginBottom: 5 }}
       >
         <Grid item marginBottom={2} display={"flex"} justifyContent={"center"}>
-          <Typography justifyContent={"center"} fontWeight={"bold"}>
+          <Typography variant= "h3" justifyContent={"center"} fontWeight={"bold"}>
             Volunteer Translation Form
           </Typography>
         </Grid> 

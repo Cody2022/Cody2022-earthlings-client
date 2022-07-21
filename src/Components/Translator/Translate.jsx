@@ -3,6 +3,7 @@ import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
+import { Col, Container, Row } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "bootstrap/dist/js/bootstrap.js";
 
@@ -30,7 +31,13 @@ i18n
 function Translate() {
   const { t } = useTranslation();
 
-  return <h2>{t("welcome_to_earthlings")}</h2>;
+  return  <Container>
+  <Row>
+    <Col>
+    <h1>{t("welcome_to_earthlings")}</h1>;
+    </Col>
+  </Row>
+</Container>
 }
 
 export default Translate;

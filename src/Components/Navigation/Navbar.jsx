@@ -9,6 +9,7 @@ import { useTranslation} from "react-i18next";
 import SelectLanguage from "../Translator/SelectLanguage"
 import Header from "./Header";
 import { menuButton } from "../Styles/Styles";
+import Time from "./Time"
 
 const Navbar = (props) => {
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ const Navbar = (props) => {
           <Header className={menuButton} userData={userData}> 
           </Header>
           <SelectLanguage />
+          <Time />
           {!isAuthenticated && (
             <Button
               onClick={() => {
