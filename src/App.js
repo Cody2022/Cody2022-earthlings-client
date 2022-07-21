@@ -11,8 +11,31 @@ import AccommodationForm from "./Components/Form/AccommodationForm";
 import VolunTransportForm from "./Components/Form/VolunteerTransportForm";
 import TranslateVolunteerForm from "./Components/Form/TranslateVolunteerForm";
 import TranslateFilterLists from "./Components/Form/TranslateFilterLists";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
+  const { user } = useAuth0();
+  console.log('user is: ', user)
+  const [userData, setUserData] = useState(false);
+
+    useEffect(() => {
+      const getFeaturedVolunteerInfo = async () => {
+        try {
+          const response = await axios.get("/name?email=" + user.email);
+          setUserData(response.data);
+          console.log(response.data)
+        } catch (err) {
+          console.log(err.message);
+        }
+      };
+      getFeaturedVolunteerInfo();
+    }, [user]);
+  console.log(`Logged in user is (${JSON.stringify(userData)})`)
+  
+
+      
   return (
     <div style={{
       height: '100vh',
@@ -21,7 +44,7 @@ function App() {
     }}>
       <div>
         <header className="navbar">
-          <Navbar />
+          <Navbar userData={userData} />
         </header>
       </div>
       
