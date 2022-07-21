@@ -88,7 +88,7 @@ export default function VolunteerCard() {
   return (
     <Card
       sx={{ borderRadius: 1, border: 1, marginBottom: 2 }}
-      style={{ width: 250, backgroundColor: "rgba(48, 233, 252, 0.21)" }}
+      style={{ width: 300, backgroundColor: "rgba(48, 233, 252, 0.21)" }}
     >
       <CardHeader
         title={fullName}
