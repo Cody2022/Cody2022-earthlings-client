@@ -39,7 +39,7 @@ export default function TransportCard() {
       style={{ width: 350, height: "fit-content" }}
     >
       <CardHeader
-        title="Transport"
+        title="Transportation"
         titleTypographyProps={{
           fontSize: "1.2rem",
           color: "black",
