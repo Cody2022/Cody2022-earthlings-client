@@ -96,15 +96,15 @@ const TranslateFilterDate = (props) => {
   };
 
   return (
-     <Grid
-        container
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignContent: "center",
-        }}
-        sx={{ width: "100%", marginTop: 2, marginBottom: 5 }}
-      >
+    <Grid
+    container
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignContent: "center",
+    }}
+    sx={{ width: "100%", marginTop: 2, marginBottom: 5 }}
+  >
         <Grid item marginBottom={1}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker

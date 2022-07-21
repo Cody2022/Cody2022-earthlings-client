@@ -45,6 +45,7 @@ const Navbar = () => {
           <Header className={menuButton}> 
           </Header>
           <SelectLanguage />
+          <Time />
           {!isAuthenticated && (
             <Button
               onClick={() => {
@@ -101,7 +102,7 @@ const Navbar = () => {
                   navigate("/chat")
                   handleClose();
                 }}>Chat Messenger</MenuItem>
-                {/* <MenuItem onClick={() => logoutWithRedirect()}>Logout</MenuItem> */}
+                <MenuItem onClick={() => logoutWithRedirect()}>Logout</MenuItem>
               </Menu>
             </>
           )}

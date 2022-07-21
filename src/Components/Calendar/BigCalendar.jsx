@@ -44,7 +44,7 @@ const apiBookingToModel = (apiBooking) => ({
 });
 
 const BigCalendar = () => {
-  const [newEvent, setNewEvent] = useState({ task: "Translate", start: "", end: "" });
+  const [newEvent, setNewEvent] = useState({ task: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState([]);
   const [bookings, setBookings] = useState([]);
   const { user } = useAuth0();
@@ -55,6 +55,7 @@ const BigCalendar = () => {
     if (newEvent.task === "") {
       return;
     }
+    
     apiClient.post(
       "/schedule",
       JSON.stringify({

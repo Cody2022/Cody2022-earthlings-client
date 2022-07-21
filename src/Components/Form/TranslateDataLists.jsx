@@ -14,8 +14,8 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import List from "@mui/material/List";
 import CardContent from "@mui/material/CardContent";
-import TranslateFilterDate from "./TranslateFilterDate";
-import TranslateFilterLists from "./TranslateFilterLists";
+
+
 
 const TranslateDataLists = () => {
   const [show, setShow] = useState(false);
@@ -48,37 +48,6 @@ const TranslateDataLists = () => {
     getTranslateList();
   }, []);
 
-  function filterByDate(dates) {
-    setfromDate(moment(dates[0]).format("DD-MM-YYYY"));
-  }
-
-  // function handleDateSelect(date) {
-  //   setfromDate({ date });
-  // }
-
-  function filterfrom(e) {
-    setfromLang(e);
-    if (e !== "English") {
-      const tempfromLang = duplicaterslots.filter((slot) =>
-        slot.fromLanguage.toLowerCase().includes(searchkey.toLowerCase())
-      );
-      setSlots(tempfromLang);
-    } else {
-      setSlots(duplicaterslots);
-    }
-  }
-
-  function filterTo(e) {
-    settoLang(e);
-    if (e !== "English") {
-      const temptoLang = duplicaterslots.filter((slot) =>
-        slot.toLanguage.toLowerCase().includes(searchkey.toLowerCase())
-      );
-      setSlots(temptoLang);
-    } else {
-      setSlots(duplicaterslots);
-    }
-  }
 
   const createBookingInfo = async (slot) => {
     console.log(slot);
@@ -102,75 +71,79 @@ const TranslateDataLists = () => {
 
   return (
     <div>
-        {/* <TranslateFilterDate/> */}
       <Grid container>
-        {/* <Container><TranslateFilterLists/></Container> */}
         {slots ? (
           slots.map((slot) => {
-              return (
-                <Box sx={{ boxshadow: 3, width: "100%" }}>
-                  <Card
-                    sx={{
-                      display: "inline-block",
-                      pl: 3,
-                      margin: 2,
-                      minWidth: 250,
-                    }}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                  >
-                    <CardContent>
-                      <TranslateIcon
-                        fontSize="large"
-                        size="large"
-                        sx={{ display: "flex", justifyContent: "flex-end" }}
-                      />
-                      <Typography variant="h2" color="text.primary">
-                        Translate Available
-                        <Typography
-                          variant="h5"
-                          align="center"
-                          sx={{ fontSize: 15 }}
-                        >
-                          Task: {slot.task}{" "}
-                        </Typography>
-                        <Typography sx={{ fontSize: 15 }}>
-                          Name: {slot.name}{" "}
-                        </Typography>
-                        <Typography sx={{ fontSize: 15 }}>
-                          Email: {slot.email}{" "}
-                        </Typography>
-                        <Typography>
-                          Available Start Date: {slot.date}
-                        </Typography>
-                        <Typography>
-                          Available Start Time: {slot.startTime}
-                        </Typography>
-                        <Typography>
-                          Available End Time: {slot.endTime}
-                        </Typography>
-                        <Typography>
-                          Translate From: {slot.fromLanguage}
-                        </Typography>
-                        <Typography>Translate To: {slot.toLanguage}</Typography>
+            return (
+              <Box sx={{ boxshadow: 3, width: "100%" }}>
+                <Card
+                  sx={{
+                    display: "inline-block",
+                    pl: 3,
+                    margin: 2,
+                    minWidth: 250,
+                  }}
+                  xs={12}
+                  sm={6}
+                  md={4}
+                >
+                  <CardContent>
+                    <TranslateIcon
+                      fontSize="large"
+                      size="large"
+                      sx={{ display: "flex", justifyContent: "flex-end" }}
+                    />
+                    <Typography variant="h2" color="text.primary">
+                      Translate Available
+                      <Typography variant="h6">
+                        {new Date(slot.date).toDateString()}
                       </Typography>
+                      <Typography variant="body2" color="text.primary">
+                        Volunteer Email: {slot.email}{" "}
+                      </Typography>
+                      <Typography>
+                        Available Start Date::{" "}
+                        {new Date(slot.startTime).toLocaleString("en-US", {
+                          hour12: false,
+                          day: "numeric",
+                          month: "numeric",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </Typography>
+                      <Typography>
+                        Available End Time::{" "}
+                        {new Date(slot.endTime).toLocaleString("en-US", {
+                          hour12: false,
+                          day: "numeric",
+                          month: "numeric",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </Typography>
+                      <Typography>
+                        Translate From: {slot.fromLanguage}
+                      </Typography>
+                      <Typography>Translate To: {slot.toLanguage}</Typography>
+                    </Typography>
 
-                      <Stack direction="row" spacing={5}>
-                        <Button variant="contained" onClick={handleShow}>
-                          Learn More
-                        </Button>
-                        <Button
-                          variant="contained"
-                          onClick={() => handleSubmit(slot)}
-                        >
-                          Booking
-                        </Button>
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                </Box>
-              );
+                    <Stack direction="row" spacing={5}>
+                      <Button variant="contained" onClick={handleShow}>
+                        Learn More
+                      </Button>
+                      <Button
+                        variant="contained"
+                        onClick={() => handleSubmit(slot)}
+                      >
+                        Booking
+                      </Button>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </Box>
+            );
           })
         ) : (
           <Typography component="div" variant="h3"></Typography>
