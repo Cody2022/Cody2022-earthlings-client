@@ -4,14 +4,14 @@ import Navbar from "./Components/Navigation/Navbar";
 import BigCalendar from "./Components/Calendar/BigCalendar";
 import Footer from "./Components/Navigation/Footer";
 
-import { Home, Profile, Enter, Admin, Newcomer, Volunteer, NewcomerTransport, NewcomerAccommodation } from "./Components/Pages/pages";
-import RequestForm from "./Components/Form/RequestForm";
+import { Home, Profile, Enter, Admin, Newcomer, Volunteer, NewcomerTransport, NewcomerAccommodation, Education } from "./Components/Pages/pages";
 import ChatPage from "./Components/Pages/ChatPage";
 import AccommodationForm from "./Components/Form/AccommodationForm";
 import VolunTransportForm from "./Components/Form/VolunteerTransportForm";
 import TranslateVolunteerForm from "./Components/Form/TranslateVolunteerForm";
-import TranslateFilterLists from "./Components/Form/TranslateFilterLists";
-import { useAuth0 } from "@auth0/auth0-react";
+import VolunteerTransport from "./Components/Pages/VolunteerTransport";
+import VolunteerAccommodation from "./Components/Pages/VolunteerAccommodation";
+import { useAuth0} from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import TranslateNewcomerInfo from "./Components/Form/TranslateNewcomerInfo";
@@ -63,12 +63,13 @@ function App() {
         <Route path="/calendar" element={<BigCalendar />} />
         <Route path="/newcomertransport" element={<NewcomerTransport />} />
         <Route path="/accommodation" element={<AccommodationForm />} />
-        {/* <Route path="/testProfile" element={<VolunteersProfile />} /> */}
         <Route path="/translateForm" element={<TranslateVolunteerForm />} />
         <Route path="/translateList" element={<TranslateNewcomerInfo />} />
         <Route path="/transport" element={<VolunTransportForm />} />
         <Route path="/newcomeraccommodation" element={<NewcomerAccommodation />} />
-        {/* <Route path="/NewForm" element={<TranslationSubmit />} /> */}
+        <Route path="/volunteertransport" element={<VolunteerTransport />}/>
+        <Route path="/volunteeraccommodation" element={<VolunteerAccommodation />}/>
+        <Route path="/education" element={<Education />}/>
         
         </Routes>
         </div>

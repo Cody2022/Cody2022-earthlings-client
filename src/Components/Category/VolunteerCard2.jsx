@@ -56,7 +56,7 @@ export default function VolunteerCard() {
       try {
         const response = await axios.get("/name?email=ben12@gmail.com");
         setVolunteerInfo(response.data);
-      } catch (err) {
+       } catch (err) {
         console.log(err.message);
       }
     };
@@ -83,10 +83,14 @@ export default function VolunteerCard() {
     navigate("/chat");
   };
 
+  if (!user || !volunteer || !volunteerInfo) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Card
       sx={{ borderRadius: 1, border: 1 }}
-      style={{ width: 250, backgroundColor: "rgba(48, 233, 252, 0.21)" }}
+      style={{ width: 300, backgroundColor: "rgba(48, 233, 252, 0.21)" }}
     >
       <CardHeader
         title={fullName}
@@ -106,7 +110,7 @@ export default function VolunteerCard() {
         <Typography variant="body3" color="text.secondary">
           Lives in: {volunteerInfo.city}, {volunteerInfo.province}
           <br />
-          Speaks: {volunteerInfo.languages}
+          Speaks: {volunteerInfo.languages.join(", ")}
           <br />
           Email: {volunteerInfo.email}
         </Typography>

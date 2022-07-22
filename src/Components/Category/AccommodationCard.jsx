@@ -52,25 +52,25 @@ export default function AccommodationCard() {
       />
       <CardContent>
         <Typography variant="body3" color="text.secondary">
-         Get Assistance with Accommodation
+        Need a place to stay? Click on “Get Assistance” to search for accommodations offered by our volunteers.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
          <Button 
          size="medium" 
-         sx={{color:"blue"}} 
+         sx={{color:"blue", textTransform:"capitalize" }} 
          onClick={() => navigate("/newcomeraccommodation")}
          >
           Get Assistance
           </Button>
-        <ExpandMore
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>

@@ -68,7 +68,7 @@ const AccommodationForm = (props) => {
         component="h2"
         color="blue"
         align="center"
-        mt={5}
+        pt={5}
       >
         Volunteer Accommodation Availablility Form
       </Typography>

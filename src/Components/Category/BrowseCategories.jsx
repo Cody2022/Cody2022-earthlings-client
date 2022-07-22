@@ -5,6 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Paper } from '@mui/material';
 
 const bull = (
   <Box
@@ -18,31 +19,35 @@ const bull = (
 const card = (
   <React.Fragment>
     <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        I Am Here
+      <Typography variant="h5" fontFamily="Comic Sans MS" component="div" display={"flex"} justifyContent={"center"}>
+      Welcome to the Newcomer Services Page
       </Typography>
-      <Typography variant="h5" component="div">
-       Browse All Categories Enter Point
+      <Typography sx={{ m: 1.5 }} color="text.secondary" display={"flex"} justifyContent={"center"}>
+      To access any of the services or find resources, simply click on the "Get Assistance" for more information and to get started! 
       </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-       I am here
-      </Typography>
-      <Typography variant="body2">
-        Motto.
-        <br />
-        {"Information"}
-      </Typography>
+      <Typography variant="h6" display={"flex"} justifyContent={"center"}>
+      We are glad to be part of your journey in Canada!
+       </Typography>
     </CardContent>
-    <CardActions>
-      <Button size="small">Find More</Button>
-    </CardActions>
   </React.Fragment>
 );
 
 const BrowseCategories = () => {
   return (
-    <Box sx={{display:"flex", justifyContent:"center"}}>
-      <Card style={{width:550, display:"flex", justifyContent:"center", flexDirection: "column"}} variant="outlined">{card}</Card>
+    <Box sx={{ display: "flex", justifyContent: "center"  }}>
+      <Paper
+        style={{
+          width: 550,
+          display: "flex",
+          alignContent:"center",
+          flexDirection: "column",
+          background:"rgba(95, 10, 246, 0)"
+        }}
+        // variant="outlined"
+        elevation={0}
+      >
+        {card}
+      </Paper>
     </Box>
   );
 }
