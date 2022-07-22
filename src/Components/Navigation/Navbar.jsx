@@ -10,12 +10,12 @@ import SelectLanguage from "../Translator/SelectLanguage"
 import Header from "./Header";
 import { menuButton } from "../Styles/Styles";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const { t } = useTranslation();
+  const userData = props.userData
 
   const navigate=useNavigate();
   const { user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
-  // console.log(user.email);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -24,8 +24,8 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const logoutWithRedirect = () => logout({ returnTo: window.location.origin });
 
+  const logoutWithRedirect = () => logout({ returnTo: window.location.origin });
 
   return (
     <Box>
@@ -41,7 +41,7 @@ const Navbar = () => {
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             {t("i_am_T")}<span> </span>{t("here_T")}
           </Typography>
-          <Header className={menuButton}> 
+          <Header className={menuButton} userData={userData}> 
           </Header>
           <SelectLanguage />
           {!isAuthenticated && (

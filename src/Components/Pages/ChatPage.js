@@ -116,8 +116,7 @@ const ChatPage = () => {
       display: 'flex',
       padding: 1
     }}>
-      <Paper elevation={24} sx={{
-      }}>
+      <Paper elevation={24}>
         <Typography variant="h6" gutterBottom={true} sx={{
           padding: 1
         }}>My Connections</Typography>
@@ -132,8 +131,15 @@ const ChatPage = () => {
         ))}
       </Paper>
       <Paper elevation={24} sx={{
-        width: 1
+        display: 'flex',
+        flexDirection: 'column',
+        width: 1,
+        height: '70vh'
       }}>
+          <Box style={{
+          flexGrow: 1,
+            overflow: 'auto'
+        }}>
         {currentChat ? (
           <Grid>
             {messageList.map((m) => (
@@ -146,9 +152,13 @@ const ChatPage = () => {
             <Typography variant='h5'>
             Open a conversation to start a chat
           </Typography>
-        )}
-        <Box p={1}>
-        <Input
+            )}
+            </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', borderTop: 'double'}} >
+          <Input
+            sx={{
+              width: '80%',
+            }}
           placeholder="Write Something"
           onChange={(e) => setNewMessage(e.target.value)}
             value={newMessage}
