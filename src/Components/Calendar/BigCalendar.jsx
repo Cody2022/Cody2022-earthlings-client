@@ -3,7 +3,7 @@ import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
-import { Calendar, dateFnsLocalizer, Views } from "react-big-calendar";
+import { Calendar, dateFnsLocalizer} from "react-big-calendar";
 // import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,8 +13,6 @@ import apiClient from "../helpers/apiClient";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment from "moment";
 
-
-let allViews = Object.keys(Views).map((k) => Views[k])
 
 //Calendar
 const locales = {
@@ -28,7 +26,6 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-
 const apiScheduleToModel = (apiSchedule) => ({
   title: apiSchedule.task + " volunteer will contact you.",
   start: apiSchedule.startDate,
@@ -38,7 +35,7 @@ const apiScheduleToModel = (apiSchedule) => ({
 const apiBookingToModel = (apiBooking) => ({
   volunteerEmail: apiBooking.volunteerEmail,
   newcomerEmail: apiBooking.newcomerEmail,
-  title: apiBooking.task + " " + apiBooking.newcomerEmail + " booked.",
+  title: apiBooking.task + " for " + apiBooking.newcomerEmail + " appointment is confirmed.",
   start: apiBooking.startTime,
   end: apiBooking.endTime,
 });
@@ -159,4 +156,5 @@ const BigCalendar = () => {
 };
 
 export default BigCalendar;
+
 
