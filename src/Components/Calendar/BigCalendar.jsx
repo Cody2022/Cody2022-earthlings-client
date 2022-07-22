@@ -30,7 +30,7 @@ const localizer = dateFnsLocalizer({
 
 
 const apiScheduleToModel = (apiSchedule) => ({
-  title: apiSchedule.task,
+  title: apiSchedule.task + " volunteer will contact you.",
   start: apiSchedule.startDate,
   end: apiSchedule.endDate,
 });
@@ -38,7 +38,7 @@ const apiScheduleToModel = (apiSchedule) => ({
 const apiBookingToModel = (apiBooking) => ({
   volunteerEmail: apiBooking.volunteerEmail,
   newcomerEmail: apiBooking.newcomerEmail,
-  title: apiBooking.task,
+  title: apiBooking.task + " " + apiBooking.newcomerEmail + " booked.",
   start: apiBooking.startTime,
   end: apiBooking.endTime,
 });
@@ -53,7 +53,7 @@ const BigCalendar = () => {
 
   const submitToApi = useCallback(() => {
     if (newEvent.task === "") {
-      return;
+      return newEvent.task === "Translator";
     }
     
     apiClient.post(
@@ -104,8 +104,6 @@ const BigCalendar = () => {
     () => [...allEvents, ...bookings],
     [allEvents, bookings]
   );
-
- 
 
   console.log('calendarEntries', calendarEntries)
 
@@ -161,3 +159,4 @@ const BigCalendar = () => {
 };
 
 export default BigCalendar;
+
