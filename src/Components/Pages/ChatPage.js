@@ -121,7 +121,7 @@ const ChatPage = () => {
           padding: 1
         }}>My Connections</Typography>
         {conversationList.map((c) => (
-          <ListItem onClick={() => setCurrentChat(c)}>
+          <ListItem onClick={() => setCurrentChat(c)} key={c._id}>
             <Conversation
               conversation={c}
               currentUser={user}
@@ -143,7 +143,7 @@ const ChatPage = () => {
         {currentChat ? (
           <Grid>
             {messageList.map((m) => (
-              <ListItem ref={scrollRef}>
+              <ListItem ref={scrollRef} key={m._id}>
                 <ChatRoom chatText={m} own={m.sender === user.email} />
               </ListItem>
             ))}
