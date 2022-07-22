@@ -61,7 +61,6 @@ export const Volunteer = () => {
               </Button>
             </CardActions>
           </Card>
-
           <Card sx={{ maxWidth: 600, mb: 2 }}>
             <CardContent>
               <Typography
