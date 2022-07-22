@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Divider, Fade, Grid, ImageListItem, Link, Paper, Popper, Typography } from "@mui/material";
+import { Box, Divider, Fade, Grid, ImageListItem, Link, Paper, Typography } from "@mui/material";
 import Loading from "../Loading/Loading";
 import Educationlanding from "../../images/EducationLanding.jpg"
 import learning from "../../images/learning.jpg"
