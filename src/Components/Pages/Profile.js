@@ -45,7 +45,7 @@ const Profile = () => {
         backgroundSize: "cover",
       }}
     >
-      <Container style={{ display: "flex", justifyContent: "center" }}>
+      <Container sx={{ display: "flex", justifyContent: "center", pt:2 }}>
         <ProfilePicUpload />
       </Container>
       <Divider>
