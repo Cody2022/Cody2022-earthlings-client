@@ -6,11 +6,8 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
 import ctrain from "../../images/ctrain.jpg";
 import { Button } from '@mui/material';
 
@@ -47,8 +44,8 @@ export default function TransportCard() {
         }}
       />
       <CardMedia component="img" height="170" image={ctrain} alt="transport" />
-      <CardContent>
-        <Typography variant="body3" color="text.secondary">
+      <CardContent sx={{pb:1}}>
+        <Typography variant="body3" color="black">
         Need help getting transportation service? Click on “Get Assistance” to search for volunteers offering transportation help.
         </Typography>
       </CardContent>
@@ -60,21 +57,7 @@ export default function TransportCard() {
         >
           Get Assistance
         </Button>
-        {/* <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore> */}
       </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>More information:</Typography>
-          <Typography paragraph>Get transport assistance.</Typography>
-        </CardContent>
-      </Collapse> */}
     </Card>
   );
 }

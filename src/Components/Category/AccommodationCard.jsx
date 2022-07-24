@@ -5,15 +5,8 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {useNavigate } from "react-router-dom";
 
 import housing from "../../images/housing.jpg";
@@ -50,12 +43,12 @@ export default function AccommodationCard() {
         image={housing}
         alt="Accommodation"
       />
-      <CardContent>
-        <Typography variant="body3" color="text.secondary">
+      <CardContent sx={{pb:1}}>
+        <Typography variant="body3" color="black">
         Need a place to stay? Click on “Get Assistance” to search for accommodations offered by our volunteers.
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions >
          <Button 
          size="medium" 
          sx={{color:"blue", textTransform:"capitalize" }} 
@@ -63,23 +56,7 @@ export default function AccommodationCard() {
          >
           Get Assistance
           </Button>
-        {/* <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore> */}
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>More information:</Typography>
-          <Typography paragraph>
-            Get Accommodation assistance.
-          </Typography>
-        </CardContent>
-      </Collapse>
     </Card>
   );
 }

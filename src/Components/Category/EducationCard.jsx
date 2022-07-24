@@ -6,10 +6,8 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import school from "../../images/school.jpg";
 import { Button } from '@mui/material';
 
@@ -44,30 +42,14 @@ export default function EducationCard() {
         image={school}
         alt="Education"
       />
-      <CardContent>
-        <Typography variant="body3" color="text.secondary">
+     <CardContent sx={{pb:1}}>
+        <Typography variant="body3" color="black">
          Need education resources? Click on "Get Assistance" to explore resources provided by governments and institutions.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
          <Button size="medium" sx={{color:"blue", textTransform:"capitalize"}} onClick={()=>{navigate("/education")}}>Get Assistance</Button>
-        {/* <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore> */}
       </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>More information:</Typography>
-          <Typography paragraph>
-            Get Education assistance.
-          </Typography>
-        </CardContent>
-      </Collapse> */}
     </Card>
   );
 }
