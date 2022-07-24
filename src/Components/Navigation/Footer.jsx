@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <Box>
       <h3 style={{ color: "blue", textAlign: "center", marginTop: "0px" }}>
-        I AM HERE: Connecting Newcomers to Volunteers
+        I AM HERE: Connecting Newcomers with Volunteers
       </h3>
       <Container>
         <Row>

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -8,14 +9,13 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
 import ServerRequestDatePicker from "./ServerRequestDatePicker";
 import StartEndTimePicker from "./StartEndTimePicker";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FormControl } from "react-bootstrap";
 import {useNavigate } from "react-router-dom";
 
-
+//This
 const TranslateVolunteerForm = (props) => {
   const rerender = props.rerender;
   const setRerender = props.setRerender;
@@ -103,18 +103,22 @@ const TranslateVolunteerForm = (props) => {
       },
       body: JSON.stringify(translateInfo),
     });
+    console.log(`REACH ME`)
+
     return response.json();
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(`CALENDAR NAV`)
     try {
       const newTranslateInfo = await createTranslateInfo();
+      console.log(`New Translate`, newTranslateInfo)
       setRerender(!rerender);
     } catch (error) {
       console.log(error.message);
     }
-    navigate("/Colunteers")
+    navigate("/calendar")
   };
 
   if (isLoading || !user || !translateInfo) {

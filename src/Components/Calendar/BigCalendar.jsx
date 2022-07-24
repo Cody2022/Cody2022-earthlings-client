@@ -3,7 +3,7 @@ import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
-import { Calendar, dateFnsLocalizer} from "react-big-calendar";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 // import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,8 +13,7 @@ import apiClient from "../helpers/apiClient";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment from "moment";
 
-
-//Calendar
+//This
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
 };
@@ -27,7 +26,7 @@ const localizer = dateFnsLocalizer({
 });
 
 const apiScheduleToModel = (apiSchedule) => ({
-  title: apiSchedule.task + " volunteer will contact you.",
+  title: apiSchedule.task,
   start: apiSchedule.startDate,
   end: apiSchedule.endDate,
 });
@@ -35,28 +34,41 @@ const apiScheduleToModel = (apiSchedule) => ({
 const apiBookingToModel = (apiBooking) => ({
   volunteerEmail: apiBooking.volunteerEmail,
   newcomerEmail: apiBooking.newcomerEmail,
-  title: apiBooking.task + " for " + apiBooking.newcomerEmail + " appointment is confirmed.",
+  title: apiBooking.task,
   start: apiBooking.startTime,
   end: apiBooking.endTime,
 });
 
+const apiTranslateToModel = (apiTranslate) => ({
+  volunteerEmail: apiTranslate.volunteerEmail,
+  newcomerEmail: apiTranslate.newcomerEmail,
+  title: apiTranslate.task,
+  start: apiTranslate.startTime,
+  end: apiTranslate.endTime,
+});
+
 const BigCalendar = () => {
-  const [newEvent, setNewEvent] = useState({ task: "", start: "", end: "" });
+  const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState([]);
+  const [translateSlots, setTranslateSlots] = useState([]);
   const [bookings, setBookings] = useState([]);
   const { user } = useAuth0();
   const userEmail = user?.email;
   const useName = user?.name;
 
+  const [date, setDate] = useState([
+    new Date(2021, 6, 1),
+    new Date(2021, 6, 10),
+  ]);
+
   const submitToApi = useCallback(() => {
-    if (newEvent.task === "") {
-      return newEvent.task === "Translator";
+    if (newEvent.title === "") {
+      return;
     }
-    
     apiClient.post(
       "/schedule",
       JSON.stringify({
-        task: newEvent.task,
+        task: newEvent.title,
         email: userEmail,
         startDate: newEvent.start,
         endDate: newEvent.end,
@@ -87,6 +99,13 @@ const BigCalendar = () => {
       })();
       (async () => {
         const response = await apiClient.get(
+          `translate/get/${encodeURIComponent(userEmail)}`
+        );
+        const apiTranslate = JSON.parse(response?.data ?? '{"translate": []}');
+        setTranslateSlots(apiTranslate.map(apiTranslateToModel));
+      })();
+      (async () => {
+        const response = await apiClient.get(
           `bookings/${encodeURIComponent(userEmail)}`
         );
         const data = JSON.parse(response?.data ?? '{"bookings": []}');
@@ -95,11 +114,13 @@ const BigCalendar = () => {
     }
   }, [userEmail]);
 
+  console.log('translate', translateSlots)
+
   console.log('bookings', bookings)
 
   const calendarEntries = useMemo(
-    () => [...allEvents, ...bookings],
-    [allEvents, bookings]
+    () => [...allEvents, ...translateSlots, ...bookings],
+    [allEvents, translateSlots, bookings]
   );
 
   console.log('calendarEntries', calendarEntries)
@@ -107,7 +128,7 @@ const BigCalendar = () => {
   const eventPropGetter = useCallback((event, start, end, isSelected) => {
     console.log('event', event.volunteerEmail)
     if (event.volunteerEmail) {
-      return { style: { backgroundColor: "#F03C15" } };
+      return { style: { backgroundColor: "red" } };
     }
 
     return {};
@@ -121,13 +142,13 @@ const BigCalendar = () => {
         <input
           type="text"
           placeholder="Add Tasks"
-          style={{ width: "20%", marginRight: "20px" }}
+          style={{ width: "20%", marginRight: "10px" }}
           value={newEvent.task}
-          onChange={(e) => setNewEvent({ ...newEvent, task: e.target.value })}
+          onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
         />
         <DatePicker
           placeholderText="Start Date"
-          style={{ width: "20%", marginRight: "20px" }}
+          // style={{ width: "20%", marginRight: "10px" }}
           selected={newEvent.start}
           onChange={(start) => setNewEvent({ ...newEvent, start })}
         />
@@ -148,6 +169,8 @@ const BigCalendar = () => {
         events={calendarEntries}
         startAccessor="start"
         endAccessor="end"
+        selectRange={true}
+        defaultValue={date} 
         style={{ height: 400, margin: "30px" }}
         eventPropGetter={eventPropGetter}
       />
@@ -156,5 +179,3 @@ const BigCalendar = () => {
 };
 
 export default BigCalendar;
-
-
