@@ -8,7 +8,7 @@ import {
   CallToAction,
   ScrollDownIndicator,
 } from "react-landing-page";
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -28,7 +28,7 @@ function HomePage(props) {
         <Heading fontSize={60}>Connecting Newcomers with Volunteers</Heading>
         <Subhead fontSize={[3, 6]}>I Am Here</Subhead>
         <Flex mt={3}>
-          <CallToAction bg="grey" mr={3} href="http://localhost:3000/newcome">
+          <CallToAction bg="grey" mr={3} href="http://localhost:3000/newcomer">
             Newcomers
           </CallToAction>
           <CallToAction href= "http://localhost:3000/Volunteer">Volunteers</CallToAction>

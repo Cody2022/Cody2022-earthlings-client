@@ -28,7 +28,7 @@ const Navbar = (props) => {
   const logoutWithRedirect = () => logout({ returnTo: window.location.origin });
 
   return (
-    <Box>
+    <>
       <AppBar position="sticky">
         <Toolbar disableGutters>
           <Link to="/">
@@ -106,7 +106,7 @@ const Navbar = (props) => {
           )}
         </Toolbar>
       </AppBar>
-    </Box>
+    </>
   );
 };
 
