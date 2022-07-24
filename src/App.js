@@ -20,11 +20,15 @@ function App() {
   const { user } = useAuth0();
   console.log('user is: ', user)
   const [userData, setUserData] = useState(false);
+  const userEmail = user?.email;
 
     useEffect(() => {
+      if (!userEmail) {
+        return;
+      }
       const getFeaturedVolunteerInfo = async () => {
         try {
-          const response = await axios.get("/name?email=" + user.email);
+          const response = await axios.get("/name?email=" + userEmail);
           setUserData(response.data);
           console.log(response.data)
         } catch (err) {
@@ -32,7 +36,7 @@ function App() {
         }
       };
       getFeaturedVolunteerInfo();
-    }, [user]);
+    }, [userEmail]);
   console.log(`Logged in user is (${JSON.stringify(userData)})`)
   
 

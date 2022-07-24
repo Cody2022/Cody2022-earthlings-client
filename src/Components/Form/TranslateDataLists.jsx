@@ -1,57 +1,69 @@
-import React, { useEffect, useState, useMemo } from "react";
-import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Box, Grid, TextField, Typography } from "@mui/material";
-import moment from "moment";
-import DatePicker from "react-datepicker";
-import TranslateIcon from "@mui/icons-material/Translate";
+import React, { useEffect, useState } from "react";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import "react-datepicker/dist/react-datepicker.css";
-import Paper from "@mui/material/Paper";
-import { Col, Container, Row } from "react-bootstrap";
-import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
+import { useAuth0 } from "@auth0/auth0-react";
+import TranslateIcon from "@mui/icons-material/Translate";
+import { Box, Grid, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import List from "@mui/material/List";
 import CardContent from "@mui/material/CardContent";
+import Checkbox from "@mui/material/Checkbox";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Select from "@mui/material/Select";
+import Stack from "@mui/material/Stack";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import apiClient from "../helpers/apiClient";
+import moment from 'moment';
 
+const languages = ["English", "Ukrainian", "Mandarin", "Somali", "French"];
+const selectStyle = {
+  PaperProps: {
+    style: {
+      maxHeight: 48 * 4.5 + 8,
+      width: 250,
+    },
+  },
+};
 
 //This
 const TranslateDataLists = () => {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const [slots, setSlots] = useState();
-  const [startDate, setStartDate] = useState(new Date());
-  const [fromDate, setfromDate] = useState();
-  const [toDate, settoDate] = useState();
-  const [searchkey, setsearchkey] = useState("");
-  const [fromLang, setfromLang] = useState();
-  const [toLang, settoLang] = useState();
-  const [bookingInfo, setBookingInfo] = useState();
+  const [slots, setSlots] = useState([]);
+  const [when, setWhen] = useState(new Date());
+  const [fromLangs, setFromLangs] = useState([]);
+  const [toLangs, setToLangs] = useState([]);
   const [bookings, setBookings] = useState([]);
-  const { user, isLoading } = useAuth0();
+  const { user } = useAuth0();
   const email = user?.email;
 
   useEffect(() => {
+    if (!when || !fromLangs.length || !toLangs.length) {
+      return;
+    }
     const getTranslateList = async () => {
       try {
-        const translateInfo = await fetch("/translate/getall");
-        const response = await translateInfo.json();
-        console.log(`translate request:`, response);
-        setSlots(response);
+        const response = await apiClient.get("/translate/search", {
+          params: { when, fromLangs, toLangs },
+        });
+        const data = JSON.parse(response.data);
+        console.log(`search response:`, data);
+        setSlots(data.results);
       } catch (ex) {}
     };
     getTranslateList();
+  }, [when, fromLangs, toLangs]);
+
+  useEffect(() => {
     const getBookingList = async () => {
       try {
         const bookingInfo = await fetch(
           `/bookings/${encodeURIComponent(email)}`
         );
         const response = await bookingInfo.json();
-        console.log(`bookingInfo requess:`, response.bookings);
         setBookings(response.bookings);
       } catch (ex) {}
     };
@@ -75,15 +87,89 @@ const TranslateDataLists = () => {
   const handleSubmit = async (slot) => {
     try {
       const newBookingInfo = await createBookingInfo(slot);
+      setBookings((prev) => [...prev, newBookingInfo]);
     } catch (error) {}
   };
 
   return (
     <div>
-      <Typography variant= "h3" justifyContent={"center"} fontWeight={"bold"}>
+      <Typography variant="h3" justifyContent={"center"} fontWeight={"bold"}>
         Available Translators
-          </Typography>
-      <Grid container>
+      </Typography>
+      <Grid
+        container
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignContent: "center",
+        }}
+        sx={{ width: "100%", marginTop: 2, marginBottom: 5 }}
+      >
+        <Grid item marginBottom={1}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              label="Date"
+              value={moment(when).startOf('day').toDate()}
+              minDate={new Date("2018-01-01")}
+              onChange={setWhen}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+        </Grid>
+        <Grid item marginBottom={1}>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel id="from-langs-label">From Language(s)</InputLabel>
+            <Select
+              labelId="from-langs-label"
+              id="from-langs"
+              multiple
+              value={fromLangs}
+              onChange={(e) => {
+                const value = e.target.value;
+                const chosen =
+                  typeof value === "string" ? value.split(",") : value;
+                setFromLangs(chosen);
+              }}
+              input={<OutlinedInput label="From Language(s)" />}
+              renderValue={(selected) => selected.join(", ")}
+              MenuProps={selectStyle}
+            >
+              {languages.map((lang) => (
+                <MenuItem key={lang} value={lang}>
+                  <Checkbox checked={fromLangs.includes(lang)} />
+                  <ListItemText primary={lang} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item marginBottom={1}>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel id="to-langs-label">To Language(s)</InputLabel>
+            <Select
+              labelId="to-langs-label"
+              id="to-langs"
+              multiple
+              value={toLangs}
+              onChange={(e) => {
+                const value = e.target.value;
+                const chosen =
+                  typeof value === "string" ? value.split(",") : value;
+                setToLangs(chosen);
+              }}
+              input={<OutlinedInput label="To Language(s)" />}
+              renderValue={(selected) => selected.join(", ")}
+              MenuProps={selectStyle}
+            >
+              {languages.map((lang) => (
+                <MenuItem key={lang} value={lang}>
+                  <Checkbox checked={toLangs.includes(lang)} />
+                  <ListItemText primary={lang} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
         {slots ? (
           slots.map((slot) => {
             const isBooked = bookings.find((b) => {
@@ -124,7 +210,7 @@ const TranslateDataLists = () => {
                         Volunteer Email: {slot.email}{" "}
                       </Typography>
                       <Typography>
-                        Available Start Date::{" "}
+                        Available Start Date:{" "}
                         {new Date(slot.startTime).toLocaleString("en-US", {
                           hour12: false,
                           day: "numeric",
@@ -135,7 +221,7 @@ const TranslateDataLists = () => {
                         })}
                       </Typography>
                       <Typography>
-                        Available End Time::{" "}
+                        Available End Time:{" "}
                         {new Date(slot.endTime).toLocaleString("en-US", {
                           hour12: false,
                           day: "numeric",
@@ -146,15 +232,12 @@ const TranslateDataLists = () => {
                         })}
                       </Typography>
                       <Typography>
-                        Translate From: {slot.fromLanguage}
+                        Translate From: {slot.fromLanguage.join(' / ')}
                       </Typography>
-                      <Typography>Translate To: {slot.toLanguage}</Typography>
+                      <Typography>Translate To: {slot.toLanguage.join(' / ')}</Typography>
                     </Typography>
 
                     <Stack direction="row" spacing={5}>
-                      <Button variant="contained" onClick={handleShow}>
-                        Learn More
-                      </Button>
                       {!isBooked && (
                         <Button
                           variant="contained"
