@@ -133,17 +133,16 @@ const UserForm = (props) => {
   };
 
   return (
-    <Container>
-      <Grid container alignItems="center" justify="center" direction="column">
-        <Grid container sx={{ alignItems: "center", justifyContent: "center" }}>
+     <Container justify="center" direction="column">
+        <Grid sx={{ display: "flex",  justifyContent: "center" }}>
           <TextField
             required
             id="name-input"
             name="firstName"
             label="First Name"
             type="text"
+            variant="standard"
             value={userInfo.firstName}
-            sx={{ py: 1, px: 1 }}
             onChange={(e) => {
               const value = e.target.value;
               setUserInfo({
@@ -159,8 +158,9 @@ const UserForm = (props) => {
             name="lastName"
             label="Last Name"
             type="text"
+            variant="standard"
             value={userInfo.lastName}
-            sx={{ py: 1, px: 1 }}
+            sx={{ px: 1 }}
             onChange={(e) => {
               const value = e.target.value;
               setUserInfo({
@@ -169,15 +169,15 @@ const UserForm = (props) => {
               });
             }}
           />
-
           <TextField
             id="age-input"
             name="age"
             label="Age"
             type="number"
+            variant="standard"
             value={`${userInfo.age}`}
             InputProps={{ inputProps: { min: 1 } }}
-            sx={{ py: 1, px: 1 }}
+            sx={{ px: 1 }}
             onChange={(e) => {
               const value = e.target.value;
               setUserInfo({
@@ -188,9 +188,9 @@ const UserForm = (props) => {
           />
         </Grid>
 
-        <Grid container sx={{ display: "flex", justifyContent: "center" }}>
+        <Grid sx={{ display: "flex", justifyContent: "center" }}>
           <FormControl>
-            <FormLabel sx={{ fontWeight: "bold", color: "black" }}>
+            <FormLabel sx={{ mt:1, fontWeight: "bold", color: "black" }}>
               Gender
             </FormLabel>
             <RadioGroup
@@ -230,10 +230,10 @@ const UserForm = (props) => {
           </FormControl>
         </Grid>
 
-        <Grid>
+        <Grid sx={{ display: "flex", justifyContent: "center" }}>
           <FormGroup row sx={{ py: 2 }}>
             <FormLabel
-              sx={{ py: 2, px: 2, fontWeight: "bold", color: "black" }}
+              sx={{ py: 1, px: 2, fontWeight: "bold", color: "black" }}
               id="demo-row-radio-buttons-group-label"
             >
               Language
@@ -296,7 +296,7 @@ const UserForm = (props) => {
           </FormGroup>
         </Grid>
 
-        <Grid>
+        <Grid sx={{ display: "flex", justifyContent: "center" }}>
           <FormControl>
             <FormLabel
               id="demo-row-radio-buttons-group-label"
@@ -400,7 +400,7 @@ const UserForm = (props) => {
           />
         </Grid>
 
-        <Grid container sx={{ display: "flex", justifyContent: "center" }}>
+        <Grid sx={{ display: "flex", justifyContent: "center" }}>
           <FormControl>
             <FormLabel sx={{ fontWeight: "bold", color: "black" }}>
               Select Your Role*
@@ -421,17 +421,19 @@ const UserForm = (props) => {
                 label="Volunteer"
               />
             </RadioGroup>
-          </FormControl>
+          </FormControl>         
         </Grid>
         {isShowMessage && (
           <Alert
             severity="warning"
+            sx={{ display: "flex", justifyContent: "center", py:1 }}
             style={{ color: "purple", fontWeight: "bold" }}
           >
             Select your role please!
           </Alert>
         )}
-        <TextareaAutosize
+       <Grid sx={{ display: "flex", justifyContent: "center", py:1 }}>
+          <TextareaAutosize
           maxRows={6}
           label="Short Bio"
           aria-label="maximum height"
@@ -446,8 +448,11 @@ const UserForm = (props) => {
             });
           }}
         />
+       </Grid>
+       
+       <Grid sx={{ display: "flex", justifyContent: "center"}}>
         <Button
-          sx={{ my: 2 }}
+          sx={{ my: 2, display: "flex", justifyContent: "center"}}
           variant="contained"
           color="primary"
           type="submit"
@@ -455,8 +460,8 @@ const UserForm = (props) => {
         >
           Save Changes
         </Button>
-      </Grid>
-    </Container>
+       </Grid>
+     </Container>
   );
 };
 export default UserForm;
