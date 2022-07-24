@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import ServerRequestDatePicker from "./ServerRequestDatePicker";
 import StartEndTimePicker from "./StartEndTimePicker";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Card } from "react-bootstrap";
 
 const VolunTransportForm = (props) => {
   const rerender = props.rerender;
@@ -134,36 +135,28 @@ const VolunTransportForm = (props) => {
   }
 
   return (
-    <Container
-      style={{
-        display: "flex",
-        // flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
-      <Grid
-        container
+      <Grid container
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          alignContent:"center"
         }}
-        sx={{ width: "80%", marginTop: 3, marginBottom: 5 }}
+        sx={{ pt: 3, marginBottom: 2 }}
       >
-        <Grid item marginBottom={2} display={"flex"} justifyContent={"center"}>
-          <Typography justifyContent={"center"} fontWeight={"bold"}>
+        <Grid item sx={{display:"flex", justifyContent:"center"}}>
+        <Typography justifyContent={"center"} fontWeight={"bold"}>
             Transportation Service Availability Form
           </Typography>
         </Grid>
-
-        <Grid item style={{ marginTop: 10 }}>
+        
+        <Grid item sx={{ width: "50%", pt: 3, marginBottom: 1, display:"flex", justifyContent:"center" }}>
           <ServerRequestDatePicker
+          sx={{ width: "50%", pt: 3, marginBottom: 2, display:"flex", justifyContent:"center" }}
             transportInfo={transportInfo}
             setTransportInfo={setTransportInfo}
-          />
-        </Grid>
-
-        <Grid item style={{ marginTop: 20 }}>
+            />
+          </Grid>
+          <Grid sx={{ width: "50%", pt: 1, marginBottom: 1, display:"flex", justifyContent:"center" }}>     
           <StartEndTimePicker
             transportInfo={transportInfo}
             setTransportInfo={setTransportInfo}
@@ -242,7 +235,7 @@ const VolunTransportForm = (props) => {
             />
           </FormGroup>
         </Grid>
-        <Grid item marginTop={2}>
+        <Grid item sx={{ width: "50%", pt: 2, marginBottom: 2, display:"flex", justifyContent:"center" }}>
           <TextField
             id="number-input"
             name="maxPassengers"
@@ -250,7 +243,6 @@ const VolunTransportForm = (props) => {
             type="number"
             value={transportInfo.maxPassengers}
             InputProps={{ inputProps: { min: 1, max: 5 } }}
-            sx={{ py: 1 }}
             onChange={(e) => {
               const value =
                 e.target.value < 1 ||
@@ -258,7 +250,6 @@ const VolunTransportForm = (props) => {
                 e.target.value > 5
                   ? (e.target.value = 1)
                   : Math.floor(e.target.value);
-              // const value = e.target.value
               setTransportInfo({
                 ...transportInfo,
                 maxPassengers: value,
@@ -267,9 +258,8 @@ const VolunTransportForm = (props) => {
           />
         </Grid>
 
-        <Grid item display={"flex"} justifyContent={"flex-start"}>
+        <Grid item sx={{ width: "50%", marginBottom: 1, display:"flex", justifyContent:"center" }}>
           <Button
-            sx={{ my: 2 }}
             variant="contained"
             color="primary"
             type="submit"
@@ -279,7 +269,6 @@ const VolunTransportForm = (props) => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
   );
 };
 
