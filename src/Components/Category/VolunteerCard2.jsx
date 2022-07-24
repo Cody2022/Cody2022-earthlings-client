@@ -125,21 +125,7 @@ export default function VolunteerCard() {
         >
           Contact me
         </Button>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>More information:</Typography>
-          <Typography paragraph>Contact Information.</Typography>
-        </CardContent>
-      </Collapse>
     </Card>
   );
 }
