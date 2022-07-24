@@ -10,15 +10,25 @@ import  BrowseCategories from './BrowseCategories';
 
 export const Categories = () => {
   return (
-    <Container sx={{ pt: 3 }}>
+    <Container>
       <BrowseCategories />
-      <Divider sx={{ p: 2 }}>
+      <Divider sx={{ pb: 1}}>
         <Typography color="CaptionText" fontWeight="bold"
           fontSize="1.5rem">
           Find Services
         </Typography>
       </Divider>
       <Grid container spacing={2} display="flex" justifyContent="center">
+      <Grid
+          item
+          display="flex"
+          justifyContent="center"
+          xs={12}
+          sm={6}
+          md={3.2}
+        >
+          <AccommodationCard />
+        </Grid>
         <Grid item display="flex" justifyContent="center" xs={12} sm={6} md={3}>
           <TransportCard />
         </Grid>
@@ -34,16 +44,7 @@ export const Categories = () => {
           <TranslationCard />
         </Grid>
 
-        <Grid
-          item
-          display="flex"
-          justifyContent="center"
-          xs={12}
-          sm={6}
-          md={3.2}
-        >
-          <AccommodationCard />
-        </Grid>
+     
 
         <Grid
           item
