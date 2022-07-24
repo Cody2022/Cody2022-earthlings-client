@@ -22,11 +22,11 @@ const card = (
       <Typography variant="h5" fontFamily="Comic Sans MS" component="div" display={"flex"} justifyContent={"center"}>
       Welcome to the Newcomer Services Page
       </Typography>
-      <Typography sx={{ m: 1.5 }} color="text.secondary" display={"flex"} justifyContent={"center"}>
+      <Typography sx={{ m: 1 }} color="text.secondary" display={"flex"} justifyContent={"center"}>
       To access any of the services or find resources, simply click on the "Get Assistance" for more information and to get started! 
       </Typography>
       <Typography variant="h6" display={"flex"} justifyContent={"center"}>
-      We are glad to be part of your journey in Canada!
+      "I am Here" is glad to be part of your journey in Canada!
        </Typography>
     </CardContent>
   </React.Fragment>
