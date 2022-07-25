@@ -93,15 +93,19 @@ const TranslateDataLists = () => {
 
   return (
     <div>
+       <Grid sx={{ display: "flex", justifyContent: "center" }}>
+          
+        
       <Typography variant="h4" justifyContent={"center"} fontWeight={"bold"}>
       <TranslateIcon
                       fontSize="large"
                       size="large"
                       sx={{ justifyContent: "flex-end" }}
                     />
-                    Find Available Translators
+      Find Available Translators
       </Typography>
-      <div>
+ 
+      </Grid>
       <Grid
         container
         style={{
@@ -112,6 +116,7 @@ const TranslateDataLists = () => {
         sx={{ width: "100%", marginTop: 2, marginBottom: 5 }}
       >
         <Grid item marginBottom={1}>
+        <FormControl sx={{ m: 1, width: 300 }}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label="Date"
@@ -121,6 +126,7 @@ const TranslateDataLists = () => {
               renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>
+          </FormControl>
         </Grid>
         <Grid item marginBottom={1}>
           <FormControl sx={{ m: 1, width: 300 }}>
@@ -191,7 +197,7 @@ const TranslateDataLists = () => {
                   sx={{
                     display: "inline-block",
                     margin: 1,
-                    // minWidth: 250,
+                    //minWidth: 250,
                   }}
                   xs={11}
                   sm={5}
@@ -259,10 +265,29 @@ const TranslateDataLists = () => {
             );
           })
         ) : (
-          <Typography component="div" variant="h3"></Typography>
+          <Typography
+            display={"flex"}
+            justifyContent={"center"}
+            color={"blue"}
+            component="div"
+            variant="h3"
+          >
+            Loading...
+          </Typography>
+        )}
+
+        {slots?.length < 1 && (
+          <Typography
+            component="div"
+            variant="h5"
+            color={"green"}
+            marginBottom={"5"}
+          >
+            Sorry, we couldn't find any results matching your search. Try other
+            time or languages please.
+          </Typography>
         )}
       </Grid>
-    </div>
     </div>
   );
 };

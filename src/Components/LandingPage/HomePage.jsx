@@ -25,7 +25,7 @@ function HomePage(props) {
         bg="black"
         bgOpacity={0.5}
       >
-        <Heading fontSize={60}>Connecting Newcomers with Volunteers</Heading>
+        <Subhead fontSize={[3, 6]}>Connecting Newcomers with Volunteers</Subhead>
         <Subhead fontSize={[3, 6]}>I Am Here</Subhead>
         <Flex mt={3}>
           <CallToAction bg="grey" mr={3} href="http://localhost:3000/newcomer">
