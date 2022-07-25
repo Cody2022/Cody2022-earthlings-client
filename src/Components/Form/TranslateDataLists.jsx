@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import TranslateIcon from "@mui/icons-material/Translate";
-import { Box, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  TableContainer,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -18,7 +25,7 @@ import Stack from "@mui/material/Stack";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import apiClient from "../helpers/apiClient";
-import moment from 'moment';
+import moment from "moment";
 
 const languages = ["English", "Ukrainian", "Mandarin", "Somali", "French"];
 const selectStyle = {
@@ -92,40 +99,39 @@ const TranslateDataLists = () => {
   };
 
   return (
-    <div>
-       <Grid sx={{ display: "flex", justifyContent: "center" }}>
-          
-        
-      <Typography variant="h4" justifyContent={"center"} fontWeight={"bold"}>
-      <TranslateIcon
-                      fontSize="large"
-                      size="large"
-                      sx={{ justifyContent: "flex-end" }}
-                    />
-      Find Available Translators
-      </Typography>
- 
+    <Container>
+      <Grid item sx={{ display: "flex", justifyContent: "left" }}>
+        <Typography
+        variant="h6"
+        component="h2"
+        color="#0033cc"
+        // align="center"
+        // pt={5}
+      >
+          Find Available Translators
+        </Typography>
       </Grid>
+      <br />
       <Grid
         container
         style={{
           display: "flex",
           flexDirection: "column",
-          alignContent: "center",
+          alignContent: "left",
         }}
         sx={{ width: "100%", marginTop: 2, marginBottom: 5 }}
       >
         <Grid item marginBottom={1}>
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              label="Date"
-              value={moment(when).startOf('day').toDate()}
-              minDate={new Date("2018-01-01")}
-              onChange={setWhen}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Date"
+                value={moment(when).startOf("day").toDate()}
+                minDate={new Date("2018-01-01")}
+                onChange={setWhen}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
           </FormControl>
         </Grid>
         <Grid item marginBottom={1}>
@@ -192,76 +198,88 @@ const TranslateDataLists = () => {
               );
             });
             return (
-              <Box sx={{ boxshadow: 3 }}>
-                <Card
+              <Grid container sx={{flexDirection: "row"}}>
+                <Grid
+                  items
                   sx={{
-                    display: "inline-block",
-                    margin: 1,
-                    //minWidth: 250,
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    display: "flex",
                   }}
-                  xs={11}
-                  sm={5}
-                  md={3}
                 >
-                  <CardContent>
-                    <TranslateIcon
-                      fontSize="large"
-                      size="large"
-                      sx={{ justifyContent: "flex-end" }}
-                    />
-                    <Typography variant="h5" color="text.primary">
-                      Translate Available
-                      <Typography variant="h6" fontWeight={"bold"}>
-                        {new Date(slot.date).toDateString()}
-                      </Typography>
-                      <Typography
-                        style={{ flex: 1 }}
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        Volunteer Email: {slot.email}{" "}
-                      </Typography>
-                      <Typography>
-                        Available Start Date:{" "}
-                        {new Date(slot.startTime).toLocaleString("en-US", {
-                          hour12: false,
-                          day: "numeric",
-                          month: "numeric",
-                          year: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </Typography>
-                      <Typography>
-                        Available End Time:{" "}
-                        {new Date(slot.endTime).toLocaleString("en-US", {
-                          hour12: false,
-                          day: "numeric",
-                          month: "numeric",
-                          year: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </Typography>
-                      <Typography>
-                        Translate From: {slot.fromLanguage.join(' / ')}
-                      </Typography>
-                      <Typography>Translate To: {slot.toLanguage.join(' / ')}</Typography>
-                    </Typography>
-
-                    <Stack direction="row" spacing={5}>
-                      {!isBooked && (
-                        <Button
-                          variant="contained"
-                          onClick={() => handleSubmit(slot)}
+                  <Card
+                    sx={{
+                      // display: "inline-block",
+                      margin: 1,
+                      //minWidth: 250,
+                    }}
+                    // xs={10}
+                    // sm={4}
+                    // md={2}
+                  >
+                    <CardContent>
+                      <TranslateIcon
+                        fontSize="large"
+                        size="large"
+                        sx={{ justifyContent: "flex-end" }}
+                      />
+                      <Typography variant="h5" color="text.primary">
+                        Translate Available
+                        <Typography variant="h6" fontWeight={"bold"}>
+                          {new Date(slot.date).toDateString()}
+                        </Typography>
+                        <Typography
+                          style={{ flex: 1 }}
+                          variant="body2"
+                          color="text.primary"
                         >
-                          Booking
-                        </Button>
-                      )}
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </Box>
+                          Volunteer Email: {slot.email}{" "}
+                        </Typography>
+                        <Typography>
+                          Available Start Date:{" "}
+                          {new Date(slot.startTime).toLocaleString("en-US", {
+                            hour12: false,
+                            day: "numeric",
+                            month: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </Typography>
+                        <Typography>
+                          Available End Time:{" "}
+                          {new Date(slot.endTime).toLocaleString("en-US", {
+                            hour12: false,
+                            day: "numeric",
+                            month: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </Typography>
+                        <Typography>
+                          Translate From: {slot.fromLanguage.join(" / ")}
+                        </Typography>
+                        <Typography>
+                          Translate To: {slot.toLanguage.join(" / ")}
+                        </Typography>
+                      </Typography>
+
+                      <Stack direction="row" spacing={5}>
+                        {!isBooked && (
+                          <Button
+                            variant="contained"
+                            onClick={() => handleSubmit(slot)}
+                          >
+                            Booking
+                          </Button>
+                        )}
+                      </Stack>
+                    </CardContent>
+                  </Card>
+                  {/* </Box> */}
+                </Grid>
+              </Grid>
             );
           })
         ) : (
@@ -280,15 +298,24 @@ const TranslateDataLists = () => {
           <Typography
             component="div"
             variant="h5"
+            display="block"
             color={"green"}
             marginBottom={"5"}
           >
-            Sorry, we couldn't find any results matching your search. Try other
-            time or languages please.
+            Sorry, we couldn't find any results matching your search. 
+            <Typography
+            component="div"
+            variant="h5"
+            display="block"
+            color={"green"}
+            marginBottom={"5"}
+          > Try other time or languages please.
           </Typography>
+          </Typography>
+          
         )}
       </Grid>
-    </div>
+    </Container>
   );
 };
 

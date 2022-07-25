@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { Grid, Typography } from "@mui/material";
 import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
@@ -47,7 +48,6 @@ const apiBookingToModel = (apiBooking) => ({
   end: apiBooking.endTime,
 });
 
-
 const BigCalendar = () => {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState([]);
@@ -82,7 +82,6 @@ const BigCalendar = () => {
     );
   }, [newEvent, userEmail]);
 
-
   const handleAddEvent = () => {
     setAllEvents((prev) => [...prev, newEvent]);
     submitToApi();
@@ -115,30 +114,52 @@ const BigCalendar = () => {
     }
   }, [userEmail]);
 
-  console.log('translate', translateSlots)
+  console.log("translate", translateSlots);
 
-  console.log('bookings', bookings)
+  console.log("bookings", bookings);
 
   const calendarEntries = useMemo(
     () => [...allEvents, ...bookings],
     [allEvents, bookings]
   );
 
-  console.log('calendarEntries', calendarEntries)
+  console.log("calendarEntries", calendarEntries);
 
   const eventPropGetter = useCallback((event, start, end, isSelected) => {
-    console.log('event', event.volunteerEmail)
+    console.log("event", event.volunteerEmail);
     if (event.volunteerEmail) {
       return { style: { backgroundColor: "red" } };
     }
 
     return {};
   }, []);
- 
+
   return (
     <div className="App">
-      <h1>Calendar</h1>
-      <h2>My Availability</h2>
+      <Grid item marginBottom={1} display={"flex"} justifyContent={"center"}>
+        <Typography
+          variant="h6"
+          component="h2"
+          color="blue"
+          align="center"
+          pt={2}
+        >
+          Calendar
+        </Typography>
+      </Grid>
+      <Grid item marginBottom={1} display={"flex"} justifyContent={"center"}>
+        <Typography
+          variant="h6"
+          component="h2"
+          color="blue"
+          align="center"
+          pt={1}
+        >
+          My Availability
+        </Typography>
+      </Grid>
+      {/* <h1>Calendar</h1>
+      <h2>My Availability</h2> */}
       <div>
         <input
           type="text"

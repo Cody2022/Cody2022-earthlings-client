@@ -9,6 +9,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import Box from '@mui/material/Box';
 import ServerRequestDatePicker from "./ServerRequestDatePicker";
 import StartEndTimePicker from "./StartEndTimePicker";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -133,6 +134,7 @@ const TranslateVolunteerForm = (props) => {
         justifyContent: "center",
       }}
     >
+      
       <Grid
         container
         style={{
@@ -140,14 +142,20 @@ const TranslateVolunteerForm = (props) => {
           flexDirection: "column",
           justifyContent: "center",
         }}
-        sx={{ width: "80%", marginTop: 3, marginBottom: 5 }}
+        sx={{ width: "100%", marginTop: 3, marginBottom: 5 }}
       >
-        <Grid item marginBottom={2} display={"flex"} justifyContent={"center"}>
-          <Typography variant= "h3" justifyContent={"center"} fontWeight={"bold"}>
+        <Grid item marginBottom={2} display={"flex"} justifyContent={"left"}>
+        <Typography
+        variant="h6"
+        component="h2"
+        color="blue"
+        // align="center"
+        // pt={5}
+      >
             Volunteer Translation Form
           </Typography>
         </Grid> 
-
+     
         <Grid item style={{ marginTop: 10 }}>
           <ServerRequestDatePicker
             transportInfo={translateInfo}
@@ -255,6 +263,7 @@ const TranslateVolunteerForm = (props) => {
             >
               Submit
             </Button>
+     
           </Grid>
         </Grid>
       </Grid>
