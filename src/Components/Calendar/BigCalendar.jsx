@@ -31,14 +31,6 @@ const apiScheduleToModel = (apiSchedule) => ({
   end: apiSchedule.endDate,
 });
 
-const apiBookingToModel = (apiBooking) => ({
-  volunteerEmail: apiBooking.volunteerEmail,
-  newcomerEmail: apiBooking.newcomerEmail,
-  title: apiBooking.task,
-  start: apiBooking.startTime,
-  end: apiBooking.endTime,
-});
-
 const apiTranslateToModel = (apiTranslate) => ({
   volunteerEmail: apiTranslate.volunteerEmail,
   newcomerEmail: apiTranslate.newcomerEmail,
@@ -46,6 +38,15 @@ const apiTranslateToModel = (apiTranslate) => ({
   start: apiTranslate.startTime,
   end: apiTranslate.endTime,
 });
+
+const apiBookingToModel = (apiBooking) => ({
+  volunteerEmail: apiBooking.volunteerEmail,
+  newcomerEmail: apiBooking.newcomerEmail,
+  title: apiBooking.task + " appointment with " + apiBooking.volunteerEmail,
+  start: apiBooking.startTime,
+  end: apiBooking.endTime,
+});
+
 
 const BigCalendar = () => {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
@@ -102,7 +103,7 @@ const BigCalendar = () => {
           `translate/get/${encodeURIComponent(userEmail)}`
         );
         const apiTranslate = JSON.parse(response?.data ?? '{"translate": []}');
-        setTranslateSlots(apiTranslate.map(apiTranslateToModel));
+        setAllEvents(apiTranslate.map(apiTranslateToModel));
       })();
       (async () => {
         const response = await apiClient.get(
@@ -119,8 +120,8 @@ const BigCalendar = () => {
   console.log('bookings', bookings)
 
   const calendarEntries = useMemo(
-    () => [...allEvents, ...translateSlots, ...bookings],
-    [allEvents, translateSlots, bookings]
+    () => [...allEvents, ...bookings],
+    [allEvents, bookings]
   );
 
   console.log('calendarEntries', calendarEntries)
@@ -169,8 +170,6 @@ const BigCalendar = () => {
         events={calendarEntries}
         startAccessor="start"
         endAccessor="end"
-        selectRange={true}
-        defaultValue={date} 
         style={{ height: 400, margin: "30px" }}
         eventPropGetter={eventPropGetter}
       />

@@ -93,9 +93,15 @@ const TranslateDataLists = () => {
 
   return (
     <div>
-      <Typography variant="h3" justifyContent={"center"} fontWeight={"bold"}>
-        Available Translators
+      <Typography variant="h4" justifyContent={"center"} fontWeight={"bold"}>
+      <TranslateIcon
+                      fontSize="large"
+                      size="large"
+                      sx={{ justifyContent: "flex-end" }}
+                    />
+                    Find Available Translators
       </Typography>
+      <div>
       <Grid
         container
         style={{
@@ -199,7 +205,7 @@ const TranslateDataLists = () => {
                     />
                     <Typography variant="h5" color="text.primary">
                       Translate Available
-                      <Typography variant="h6">
+                      <Typography variant="h6" fontWeight={"bold"}>
                         {new Date(slot.date).toDateString()}
                       </Typography>
                       <Typography
@@ -256,6 +262,7 @@ const TranslateDataLists = () => {
           <Typography component="div" variant="h3"></Typography>
         )}
       </Grid>
+    </div>
     </div>
   );
 };
