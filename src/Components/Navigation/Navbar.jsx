@@ -28,7 +28,7 @@ const Navbar = (props) => {
   const logoutWithRedirect = () => logout({ returnTo: window.location.origin });
 
   return (
-    <Box>
+    <>
       <AppBar position="sticky">
         <Toolbar disableGutters>
           <Link to="/">
@@ -39,7 +39,7 @@ const Navbar = (props) => {
             />
           </Link>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            {t("i_am_T")}<span> </span>{t("here_T")}
+            I Am<span> </span>Here
           </Typography>
           <Header className={menuButton} userData={userData}> 
           </Header>
@@ -106,7 +106,7 @@ const Navbar = (props) => {
           )}
         </Toolbar>
       </AppBar>
-    </Box>
+    </>
   );
 };
 

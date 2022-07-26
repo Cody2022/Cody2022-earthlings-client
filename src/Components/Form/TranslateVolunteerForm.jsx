@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -8,14 +9,13 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
 import ServerRequestDatePicker from "./ServerRequestDatePicker";
 import StartEndTimePicker from "./StartEndTimePicker";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FormControl } from "react-bootstrap";
 import {useNavigate } from "react-router-dom";
 
-
+//This
 const TranslateVolunteerForm = (props) => {
   const rerender = props.rerender;
   const setRerender = props.setRerender;
@@ -103,18 +103,22 @@ const TranslateVolunteerForm = (props) => {
       },
       body: JSON.stringify(translateInfo),
     });
+    console.log(`REACH ME`)
+
     return response.json();
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(`CALENDAR NAV`)
     try {
       const newTranslateInfo = await createTranslateInfo();
+      console.log(`New Translate`, newTranslateInfo)
       setRerender(!rerender);
     } catch (error) {
       console.log(error.message);
     }
-    navigate("/Colunteers")
+    navigate("/calendar")
   };
 
   if (isLoading || !user || !translateInfo) {
@@ -129,6 +133,7 @@ const TranslateVolunteerForm = (props) => {
         justifyContent: "center",
       }}
     >
+      
       <Grid
         container
         style={{
@@ -136,14 +141,20 @@ const TranslateVolunteerForm = (props) => {
           flexDirection: "column",
           justifyContent: "center",
         }}
-        sx={{ width: "80%", marginTop: 3, marginBottom: 5 }}
+        sx={{ width: "100%", marginTop: 3, marginBottom: 5 }}
       >
-        <Grid item marginBottom={2} display={"flex"} justifyContent={"center"}>
-          <Typography variant= "h3" justifyContent={"center"} fontWeight={"bold"}>
+        <Grid item marginBottom={2} display={"flex"} justifyContent={"left"}>
+        <Typography
+        variant="h6"
+        component="h2"
+        color="blue"
+        // align="center"
+        // pt={5}
+      >
             Volunteer Translation Form
           </Typography>
         </Grid> 
-
+     
         <Grid item style={{ marginTop: 10 }}>
           <ServerRequestDatePicker
             transportInfo={translateInfo}
@@ -251,6 +262,7 @@ const TranslateVolunteerForm = (props) => {
             >
               Submit
             </Button>
+     
           </Grid>
         </Grid>
       </Grid>

@@ -10,6 +10,7 @@ import TranslateFilterDate from "./TranslateFilterDate";
 import TranslateFilterLists from "./TranslateFilterLists";
 import TranslateDataLists from "./TranslateDataLists";
 
+//This
 const TranslateNewcomerInfo = () => {
   const [translateList, setTranslateList] = useState();
   const [value, setValue] = React.useState("one");
