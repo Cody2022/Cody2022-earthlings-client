@@ -25,7 +25,7 @@ import VolunteerAccommodation from "./Components/Pages/VolunteerAccommodation";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import TranslateNewcomerInfo from "./Components/Form/TranslateNewcomerInfo";
+// import TranslateNewcomerInfo from "./Components/Form/TranslateNewcomerInfo";
 import TranslateDataLists from "./Components/Form/TranslateDataLists";
 
 function App() {

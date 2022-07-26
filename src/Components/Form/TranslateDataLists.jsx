@@ -26,6 +26,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import apiClient from "../helpers/apiClient";
 import moment from "moment";
+import { makeStyles } from '@mui/styles';
 
 const languages = ["English", "Ukrainian", "Mandarin", "Somali", "French"];
 const selectStyle = {
@@ -37,7 +38,14 @@ const selectStyle = {
   },
 };
 
-//This
+const useStyles = makeStyles({
+	gridContainer: {
+		paddingLeft: "20px",
+		paddingRight: "40px",
+	},
+	
+	});
+
 const TranslateDataLists = () => {
   const [slots, setSlots] = useState([]);
   const [when, setWhen] = useState(new Date());
@@ -46,6 +54,7 @@ const TranslateDataLists = () => {
   const [bookings, setBookings] = useState([]);
   const { user } = useAuth0();
   const email = user?.email;
+  const classes = useStyles();
 
   useEffect(() => {
     if (!when || !fromLangs.length || !toLangs.length) {
@@ -102,12 +111,12 @@ const TranslateDataLists = () => {
     <Container>
       <Grid item sx={{ display: "flex", justifyContent: "left" }}>
         <Typography
-        variant="h6"
-        component="h2"
-        color="#0033cc"
-        // align="center"
-        // pt={5}
-      >
+          variant="h6"
+          component="h2"
+          color="#0033cc"
+          // align="center"
+          // pt={5}
+        >
           Find Available Translators
         </Typography>
       </Grid>
@@ -188,132 +197,181 @@ const TranslateDataLists = () => {
             </Select>
           </FormControl>
         </Grid>
-        {slots ? (
-          slots.map((slot) => {
-            const isBooked = bookings.find((b) => {
+
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          {slots ? (
+            slots.map((slot) => {
+              const isBooked = bookings.find((b) => {
+                return (
+                  b.startTime === slot.startTime &&
+                  b.endTime === slot.endTime &&
+                  b.task === slot.task
+                );
+              });
               return (
-                b.startTime === slot.startTime &&
-                b.endTime === slot.endTime &&
-                b.task === slot.task
-              );
-            });
-            return (
-              <Grid container sx={{flexDirection: "row"}}>
-                <Grid
-                  items
-                  sx={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    display: "flex",
-                  }}
-                >
-                  <Card
-                    sx={{
-                      // display: "inline-block",
-                      margin: 1,
-                      //minWidth: 250,
-                    }}
-                    // xs={10}
-                    // sm={4}
-                    // md={2}
-                  >
-                    <CardContent>
-                      <TranslateIcon
-                        fontSize="large"
-                        size="large"
-                        sx={{ justifyContent: "flex-end" }}
-                      />
-                      <Typography variant="h5" color="text.primary">
-                        Translate Available
-                        <Typography variant="h6" fontWeight={"bold"}>
-                          {new Date(slot.date).toDateString()}
-                        </Typography>
-                        <Typography
-                          style={{ flex: 1 }}
-                          variant="body2"
-                          color="text.primary"
-                        >
-                          Volunteer Email: {slot.email}{" "}
-                        </Typography>
-                        <Typography>
-                          Available Start Date:{" "}
-                          {new Date(slot.startTime).toLocaleString("en-US", {
-                            hour12: false,
-                            day: "numeric",
-                            month: "numeric",
-                            year: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </Typography>
-                        <Typography>
-                          Available End Time:{" "}
-                          {new Date(slot.endTime).toLocaleString("en-US", {
-                            hour12: false,
-                            day: "numeric",
-                            month: "numeric",
-                            year: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </Typography>
-                        <Typography>
-                          Translate From: {slot.fromLanguage.join(" / ")}
-                        </Typography>
-                        <Typography>
-                          Translate To: {slot.toLanguage.join(" / ")}
-                        </Typography>
-                      </Typography>
-
-                      <Stack direction="row" spacing={5}>
-                        {!isBooked && (
-                          <Button
-                            variant="contained"
-                            onClick={() => handleSubmit(slot)}
+                // <Grid container sx={{ flexDirection: "row" }}>
+                //   <Grid
+                //     items
+                //     sx={{
+                //       flexDirection: "row",
+                //       justifyContent: "center",
+                //       display: "flex",
+                //     }}
+                //   >
+                    <Grid container spacing={2} sx={{ flexDirection: "row"}} className={classes.gridContainer}>
+                      <Grid item xs={6} sm={4} md={2} sx={{minWidth:340}}>
+                      <Card>
+                        <CardContent>
+                          <TranslateIcon
+                            fontSize="large"
+                            size="large"
+                            sx={{ justifyContent: "center" }}
+                          />
+                          {/* <Typography
+                            variant="h5"
+                            sx={{ fontWeight: "bold" }}
+                            color="text.primary"
                           >
-                            Booking
-                          </Button>
-                        )}
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                  {/* </Box> */}
-                </Grid>
-              </Grid>
-            );
-          })
-        ) : (
-          <Typography
-            display={"flex"}
-            justifyContent={"center"}
-            color={"blue"}
-            component="div"
-            variant="h3"
-          >
-            Loading...
-          </Typography>
-        )}
+                            Translate Available
+                          </Typography> */}
+                          <Typography variant="h5" fontWeight={"bold"}>
+                            {new Date(slot.date).toDateString()}
+                            <Typography
+                              style={{ flex: 1 }}
+                              variant="body2"
+                              sx={{ fontWeight: "bold" }}
+                              color="text.primary"
+                            >
+                              Volunteer Email:{" "}
+                            </Typography>
+                            <Typography> {slot.email} </Typography>
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: "bold" }}
+                            >
+                              Available Start Date:{" "}
+                              <Typography>
+                                {new Date(slot.startTime).toLocaleString(
+                                  "en-US",
+                                  {
+                                    hour12: false,
+                                    day: "numeric",
+                                    month: "numeric",
+                                    year: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  }
+                                )}
+                              </Typography>
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: "bold" }}
+                            >
+                              Available End Time:{" "}
+                              <Typography>
+                                {new Date(slot.endTime).toLocaleString(
+                                  "en-US",
+                                  {
+                                    hour12: false,
+                                    day: "numeric",
+                                    month: "numeric",
+                                    year: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  }
+                                )}
+                              </Typography>
+                            </Typography>
+                            {/* <Typography>
+                          Translate From: {slot.fromLanguage.join(" / ")}
+                        </Typography> */}
+                            {/* <Typography>
+                          Translate To: {slot.toLanguage.join(" / ")}
+                        </Typography> */}
 
-        {slots?.length < 1 && (
-          <Typography
-            component="div"
-            variant="h5"
-            display="block"
-            color={"green"}
-            marginBottom={"5"}
-          >
-            Sorry, we couldn't find any results matching your search. 
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: "bold" }}
+                            >
+                              Translate From:
+                            </Typography>
+                            <Typography>
+                              <ul style={{ marginTop: 2, marginBottom: 4 }}>
+                                {slot.fromLanguage.map((language, index) => {
+                                  return <li key={index}>{language}</li>;
+                                })}
+                              </ul>
+                            </Typography>
+
+                            <Typography
+                              variant="body2"
+                              sx={{ fontWeight: "bold" }}
+                            >
+                              Translate To:
+                            </Typography>
+                            <Typography>
+                              <ul style={{ marginTop: 2, marginBottom: 4 }}>
+                                {slot.toLanguage.map((language, index) => {
+                                  return <li key={index}>{language}</li>;
+                                })}
+                              </ul>
+                            </Typography>
+                          </Typography>
+
+                          <Stack direction="row" spacing={5}>
+                            {!isBooked && (
+                              <Button
+                                variant="contained"
+                                onClick={() => handleSubmit(slot)}
+                              >
+                                Booking
+                              </Button>
+                            )}
+                          </Stack>
+                        </CardContent>
+                      </Card>
+                      {/* </Box> */}
+                    {/* </Grid>
+                  </Grid> */}
+                  </Grid>
+                </Grid>
+              );
+            })
+          ) : (
             <Typography
-            component="div"
-            variant="h5"
-            display="block"
-            color={"green"}
-            marginBottom={"5"}
-          > Try other time or languages please.
-          </Typography>
-          </Typography>
-          
-        )}
+              display={"flex"}
+              justifyContent={"center"}
+              color={"blue"}
+              component="div"
+              variant="h3"
+            >
+              Loading...
+            </Typography>
+          )}
+
+          {slots?.length < 1 && (
+            <Typography
+              component="div"
+              variant="h5"
+              display="block"
+              color={"green"}
+              marginBottom={"5"}
+            >
+              Sorry, we couldn't find any results matching your search.
+              <Typography
+                component="div"
+                variant="h5"
+                display="block"
+                color={"green"}
+                marginBottom={"5"}
+              >
+                {" "}
+                Try other time or languages please.
+              </Typography>
+            </Typography>
+          )}
+        </div>
       </Grid>
     </Container>
   );

@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
-import { Grid, Typography } from "@mui/material";
+import {Button, Grid, Typography } from "@mui/material";
 import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-// import "react-big-calendar/lib/css/react-big-calendar.css";
-import DatePicker from "react-datepicker";
+import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../App.css";
@@ -62,6 +61,19 @@ const BigCalendar = () => {
     new Date(2021, 6, 10),
   ]);
 
+  const MyContainer = ({ className, children }) => {
+    return (
+      <div style={{ padding: "16px", background: "#216ba5", color: "#fff" }}>
+        <CalendarContainer className={className}>
+          <div style={{ background: "#f0f0f0" }}>
+            Select an available date
+          </div>
+          <div style={{ position: "relative" }}>{children}</div>
+        </CalendarContainer>
+      </div>
+    );
+  };
+
   const submitToApi = useCallback(() => {
     if (newEvent.title === "") {
       return;
@@ -87,6 +99,7 @@ const BigCalendar = () => {
     submitToApi();
     console.log("newEvents", newEvent);
   };
+  console.log("submitToApi", submitToApi());
 
   useEffect(() => {
     if (userEmail) {
@@ -122,7 +135,6 @@ const BigCalendar = () => {
     () => [...allEvents, ...bookings],
     [allEvents, bookings]
   );
-
   console.log("calendarEntries", calendarEntries);
 
   const eventPropGetter = useCallback((event, start, end, isSelected) => {
@@ -164,34 +176,51 @@ const BigCalendar = () => {
         <input
           type="text"
           placeholder="Add Tasks"
-          style={{ width: "20%", marginRight: "10px" }}
+          style={{marginRight: "10px" }}
           value={newEvent.task}
           onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
         />
         <DatePicker
           placeholderText="Start Date"
-          // style={{ width: "20%", marginRight: "10px" }}
+          style={{ marginRight: "10px" }}
           selected={newEvent.start}
           onChange={(start) => setNewEvent({ ...newEvent, start })}
+          calendarContainer={MyContainer}
         />
         <DatePicker
           placeholderText="End Date"
+          style={{ marginRight: "10px" }}
           selected={newEvent.end}
           onChange={(end) => setNewEvent({ ...newEvent, end })}
+          calendarContainer={MyContainer}
         />
-        <button
+        {/* <button
           style={{ width: "15%", marginTop: "28px" }}
           onClick={handleAddEvent}
         >
           Submit
-        </button>
+        </button> */}
+
+        <Grid item display={"flex"} justifyContent={"center"}>
+            <Button
+              sx={{ my: 2 }}
+              variant="contained"
+              color="primary"
+              type="submit"
+              onClick={handleAddEvent}
+            >
+              Submit
+            </Button>
+     
+          </Grid>
       </div>
       <Calendar
         localizer={localizer}
         events={calendarEntries}
+        selectable
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 400, margin: "30px" }}
+        style={{height: 450, margin: "30px" }}
         eventPropGetter={eventPropGetter}
       />
     </div>

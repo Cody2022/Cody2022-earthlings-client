@@ -48,7 +48,7 @@ const Footer = () => {
             <Heading>Our Developers</Heading>
             <FooterLink href="https://www.linkedin.com/in/ryancaruthcalgary/">Ryan Caruth</FooterLink>
             <FooterLink href="https://www.linkedin.com/in/sixu-cody-zheng">Cody Zheng</FooterLink>
-            <FooterLink href="#">Fowzia Hassan</FooterLink>
+            <FooterLink href="https://github.com/zia20">Fowzia Hassan</FooterLink>
             <FooterLink href="https://www.linkedin.com/in/edmund-lee-alberta/">Edmund Lee</FooterLink>
           </Column>
           <Column>
