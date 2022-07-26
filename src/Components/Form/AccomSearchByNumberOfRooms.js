@@ -19,19 +19,7 @@ const AccomSearchByNumberOfRooms = (props) => {
   };
 
   return (
-    
-      
-     
-      
     <Container>
-      <Typography
-        variant="h4"
-        component="h2"
-        color="blue"
-        align="center"
-      >
-        Number of Rooms
-      </Typography>
       <Box
         component="span"
         m={1}
@@ -55,6 +43,7 @@ const AccomSearchByNumberOfRooms = (props) => {
             name="numberOfRomms"
             label="Number of Rooms"
             type="number"
+            InputProps={{ inputProps: { min: 1 } }}
             value={accomSearchInfo}
             sx={{ py: 2, px: 1 }}
             onChange={(e) => {
@@ -62,11 +51,18 @@ const AccomSearchByNumberOfRooms = (props) => {
               setAccomSearchInfo(value);
             }}
           />
-          
         </Grid>
       </Box>
-      <Grid container sx={{m:1, display:"flex", justifyContent:"center", alignItems:"center"}}>
-        <Box >
+      <Grid
+        container
+        sx={{
+          m: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box>
           <Button
             onClick={handleSearchByNumberOfRooms}
             type="submit"

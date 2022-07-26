@@ -12,7 +12,7 @@ import {
 const AccomSearchByMaxNumTenants = (props) => {
   const setMaxNumTenantsFilter = props.setMaxNumTenantsFilter;
   const maxNumTenantsFilter = props.maxNumTenantsFilter;
-    const [accomSearchInfo, setAccomSearchInfo] = useState(null);
+  const [accomSearchInfo, setAccomSearchInfo] = useState(null);
 
   const handleSearchByMaxNumTenants = async (event) => {
     setMaxNumTenantsFilter(accomSearchInfo);
@@ -20,14 +20,6 @@ const AccomSearchByMaxNumTenants = (props) => {
 
   return (
     <Container>
-      <Typography
-        variant="h4"
-        component="h4"
-        color="blue"
-        align="center"
-      >
-        Max Num of Tenants
-      </Typography>
       <Box
         component="span"
         m={1}
@@ -51,6 +43,7 @@ const AccomSearchByMaxNumTenants = (props) => {
             name="maxNumTenants"
             label="Max Number of Tenants"
             type="number"
+            InputProps={{ inputProps: { min: 1 } }}
             value={accomSearchInfo}
             sx={{ py: 2, px: 1 }}
             onChange={(e) => {
@@ -60,7 +53,15 @@ const AccomSearchByMaxNumTenants = (props) => {
           />
         </Grid>
       </Box>
-      <Grid container sx={{m:1, display:"flex", justifyContent:"center", alignItems:"center"}}>
+      <Grid
+        container
+        sx={{
+          m: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
           <Button
             onClick={handleSearchByMaxNumTenants}

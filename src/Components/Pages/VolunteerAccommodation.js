@@ -17,14 +17,8 @@ export const Volunteer = () => {
 
   return (
     <div style={{ background: "rgba(221, 238, 137, 0.6)" }}>
-      {/* <Typography mx={5} variant="h4">
-        Accommodation Availablility Form
-        </Typography> */}
       <AccommodationForm accomListRender={accomListRender} setAccomListRender={setAccomListRender}/>
-      <Typography variant='h5' sx={{m:3, display:"flex", justifyContent:"center", alignItems:"center"}}>
-        Accommodations Posted by: {email}
-      </Typography>
-      <VolunteerListing accomListRender={accomListRender} setAccomListRender={setAccomListRender}/>
+     <VolunteerListing accomListRender={accomListRender} setAccomListRender={setAccomListRender}/>
     </div>
   );
 };
