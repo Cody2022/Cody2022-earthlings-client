@@ -26,7 +26,7 @@ export const Volunteer = () => {
     }, [email, rerender]);
 
   return (
-    <div style={{ background: "rgba(221, 238, 137, 0.6)" }}>
+    <div >
       <Container sytle={{ marginBottom: 5 }}>
         <VolunteerTransportForm rerender={rerender} setRerender={setRerender} />
         {transportList && (

@@ -86,8 +86,10 @@ const NewcomerAccommodation = () => {
           width: "100%",
           display: "flex",
           justifyContent: "center",
-          margin: 5,
-          border: 1,
+          margin: 3,
+          border: 2,
+          borderRadius:3,
+          borderColor:"blue"
         }}
       >
         <Tabs
@@ -101,8 +103,8 @@ const NewcomerAccommodation = () => {
             sx={{
               textTransform: "capitalize",
               color: "black",
-              ontFamily: "Raleway",
-              fontSize: "1.2rem",
+              fontFamily: "Raleway",
+              fontSize: "1.3rem",
             }}
             value="one"
             label="View Accommodations"
@@ -111,7 +113,8 @@ const NewcomerAccommodation = () => {
             sx={{
               textTransform: "capitalize",
               color: "black",
-              fontSize: "1.2rem",
+              fontFamily: "Raleway",
+              fontSize: "1.3rem",
             }}
             value="two"
             label="Search by Num of Rooms"
@@ -120,7 +123,8 @@ const NewcomerAccommodation = () => {
             sx={{
               textTransform: "capitalize",
               color: "black",
-              fontSize: "1.2rem",
+              fontFamily: "Raleway",
+              fontSize: "1.3rem",
             }}
             value="three"
             label="Search by Max Num of Tenants"
@@ -129,7 +133,8 @@ const NewcomerAccommodation = () => {
             sx={{
               textTransform: "capitalize",
               color: "black",
-              fontSize: "1.2rem",
+              fontFamily: "Raleway",
+              fontSize: "1.3rem",
             }}
             value="four"
             label="Search by Location"

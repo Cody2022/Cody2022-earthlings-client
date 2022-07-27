@@ -8,8 +8,7 @@ import { Box } from '@mui/system';
 export const Newcomer = () => {
   
   return (
-    <Box
-     style={{background:"#10e1eb54", backgroundSize: "cover"}}>
+    <Box>
       <Categories />
     </Box>
   )

@@ -10,6 +10,7 @@ import NewcomerTransportSearchByTime from '../Form/NewcomerTransportSearchByTime
 // import NewcomerTransportList from "../Form/NewcomerTransportList";
 import TransportationData from '../Form/TransportationDataCard';
 import NewcomerTransportSearchByLanguages from "../Form/NewcomerTransportSearchByLanguages";
+import { BorderColor } from '@mui/icons-material';
 
 
 const NewcomerTransport = () => {
@@ -41,8 +42,10 @@ const NewcomerTransport = () => {
           width: "100%",
           display: "flex",
           justifyContent: "center",
-          margin: 5,
-          border: 1,
+          margin: 3,
+          border: 2,
+          borderRadius:3,
+          borderColor:"green"
         }}
       >
         <Tabs
@@ -56,8 +59,8 @@ const NewcomerTransport = () => {
             sx={{
               textTransform: "capitalize",
               color: "black",
-              ontFamily: "Raleway",
-              fontSize: "1.2rem",
+              fontFamily: "Raleway",
+              fontSize: "1.5rem",
             }}
             value="one"
             label="View All"
@@ -66,7 +69,8 @@ const NewcomerTransport = () => {
             sx={{
               textTransform: "capitalize",
               color: "black",
-              fontSize: "1.2rem",
+              fontFamily: "Raleway",
+              fontSize: "1.5rem",
             }}
             value="two"
             label="Search by Date and Time"
@@ -75,7 +79,8 @@ const NewcomerTransport = () => {
             sx={{
               textTransform: "capitalize",
               color: "black",
-              fontSize: "1.2rem",
+              fontFamily: "Raleway",
+              fontSize: "1.5rem",
             }}
             value="three"
             label="Search by Language"
@@ -101,7 +106,7 @@ const NewcomerTransport = () => {
           </Grid>
         )}
 
-        <Grid container display={"flex"} justifyContent={"center"}>
+        <Grid container display={"flex"} flexWrap={"wrap"} justifyContent={"space-around"}>
           {transportList ? (
             transportList.map((transportInfo, index) => {
               return (
