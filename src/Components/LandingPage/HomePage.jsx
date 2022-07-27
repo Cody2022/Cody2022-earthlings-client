@@ -1,77 +1,41 @@
 import React, { useEffect, useState } from "react";
-import 'bootstrap/dist/css/bootstrap.css';
-import images from "../../images/ukraineFlag.jpg"
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Navigate } from 'react-router-dom';
-import { useTranslation} from "react-i18next";
+import ReactDOM from "react-dom";
+import "tachyons";
+import { Provider, Heading, Subhead } from "rebass";
+import {
+  Hero,
+  Flex,
+  CallToAction,
+  ScrollDownIndicator,
+} from "react-landing-page";
+// import "bootstrap/dist/css/bootstrap.css";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-
-function HomePage() {
-  const wordTyping =  ["Newcomers", "connect", "with", "I Am Here"];
-    const [ index, setIndex ] = useState(0);
-    const [ blink, setBlink ] = useState(true);
-    const [ subIndex, setSubIndex ] = useState(0);
-    const [ reverse, setReverse ] = useState(false);
-
-    useEffect(() => {
-        if (index === wordTyping.length - 1 && subIndex === wordTyping[index].length) {
-          return;
-        }
-    
-        if (
-          subIndex === wordTyping[index].length + 1 && 
-          index !== wordTyping.length - 1 && 
-          !reverse 
-        ) {
-          setReverse(true);
-          return;
-        }
-    
-        if (subIndex === 0 && reverse) {
-          setReverse(false);
-          setIndex((prev) => prev + 1);
-          return;
-        }
-    
-        const timeout = setTimeout(() => {
-          setSubIndex((prev) => prev + (reverse ? -1 : 1));
-        }, Math.max(reverse ? 75 : subIndex === wordTyping[index].length ? 1000 :
-                    150, parseInt(Math.random() * 350)));
-    
-        return () => clearTimeout(timeout);
-      }, [subIndex, index, reverse]);
-    
-      // blinker
-      useEffect(() => {
-        const timeout2 = setTimeout(() => {
-          setBlink((prev) => !prev);
-        }, 500);
-        return () => clearTimeout(timeout2);
-      }, [blink]);
-      const click = function(){
-          Navigate('/')
-      }
-
-  const { t } = useTranslation();
+//This
+function HomePage(props) {
   return (
-    <div>
-      <Container>
-    <Row className='mt-3'>
-      <Col className='mt-5 pl-3'>
-          <h1>Newcomers Connect with Volunteers</h1>
-          <h2>
-              {`Hello, and Welcome to ${wordTyping[index].substring(0, subIndex)}${blink ? "|" : ""}`}
-          </h2>
-          <a href='http://localhost:3000/translateForm'>
-          <Button type='button' className='mt-3' variant="outline-success"  size="lg">Translate Form</Button></a>
-      </Col>
-      <Col>
-        <img alt='parks' src={images}/>
-      </Col>
-    </Row>
-  </Container>
-          {t("landing_intro")}
-    </div>
+    <Provider>
+      <Hero
+        color="white"
+        backgroundImage="https://cdn.pixabay.com/photo/2018/07/14/11/33/earth-3537401_1280.jpg"
+        //backgroundImage="https://image.freepik.com/free-vector/colorful-memphis-design-background-vector_53876-81744.jpg"
+        //backgroundImage="https://image.freepik.com/free-vector/blue-abstract-acrylic-brush-stroke-textured-background_53876-86373.jpg"
+        bg="black"
+        bgOpacity={0.5}
+      >
+        <Subhead fontSize={[3, 6]}>Connecting Newcomers with Volunteers</Subhead>
+        <Subhead fontSize={[3, 6]}>I Am Here</Subhead>
+        <Flex mt={3}>
+          <CallToAction bg="grey" mr={3} href="http://localhost:3000/newcomer">
+            Newcomers
+          </CallToAction>
+          <CallToAction href= "http://localhost:3000/Volunteer">Volunteers</CallToAction>
+        </Flex>
+        <ScrollDownIndicator />
+      </Hero>
+    </Provider>
   );
 }
 

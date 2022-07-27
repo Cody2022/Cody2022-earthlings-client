@@ -1,8 +1,10 @@
-import { Box, Card, Paper, Typography } from "@mui/material";
+import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import React from "react";
+import {useNavigate } from "react-router-dom";
 
 const AccomData = (props) => {
   const accomInfo = props.accomInfo;
+  const navigate=useNavigate();
 
   return (
     <div>
@@ -34,6 +36,13 @@ const AccomData = (props) => {
             Accommodation Type:{accomInfo.accommodationType}{" "}
           </Typography>
           <Typography>Accessible Home:{accomInfo.accessibleHome} </Typography>
+          <Button 
+          type="submit"
+          color="primary"
+          onClick={() => navigate("/chat")}
+          >
+            Let's Chat
+          </Button>
         </Paper>
       </Box>
     </div>

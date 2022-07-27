@@ -24,10 +24,6 @@ const AccomSearchByLocation = (props) => {
 
   return (
     <Container>
-      <Typography variant="h4" component="h2" color="blue" align="center">
-        Location
-      </Typography>
-
       <Box
         component="span"
         m={1}
@@ -45,12 +41,6 @@ const AccomSearchByLocation = (props) => {
           }}
         >
           <FormControl>
-            <FormLabel
-              id="demo-row-radio-buttons-group-label"
-              sx={{ fontWeight: "bold", color: "black" }}
-            >
-              Accommodations Location
-            </FormLabel>
             <RadioGroup
               row
               name="location"

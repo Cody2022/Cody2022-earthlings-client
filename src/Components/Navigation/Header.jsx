@@ -23,9 +23,9 @@ function Header(props) {
           <Link className='links' fontSize="28px" to="/chat">
             <Button color="inherit">Chat</Button>
           </Link>
-          <Link className='links' fontSize="28px" to="/admin">
+          {/* <Link className='links' fontSize="28px" to="/admin">
             <Button color="inherit">Admin</Button>
-          </Link>
+          </Link> */}
         </div>
     </header>
     

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import cookies from "js-cookie";
 import i18next from "i18next";
@@ -9,6 +9,15 @@ import "flag-icon-css/css/flag-icons.min.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "bootstrap/dist/js/bootstrap.js";
 import PublicIcon from "@mui/icons-material/Public";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import IconButton from "@mui/material/IconButton";
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+import PersonIcon from "@mui/icons-material/Person";
+import AddIcon from "@mui/icons-material/Add";
+import Typography from "@mui/material/Typography";
 
 const languages = [
   {
@@ -23,10 +32,33 @@ const languages = [
   },
 ];
 
+function LanguageDialog({ onSelect, open }) {
+  return (
+    <Dialog open={open}>
+      <DialogTitle>Select Language</DialogTitle>
+      <List sx={{ pt: 0 }}>
+        {languages.map(({ code, name }) => (
+          <ListItem button onClick={() => onSelect(code)} key={code}>
+            <ListItemText primary={name} />
+          </ListItem>
+        ))}
+      </List>
+    </Dialog>
+  );
+}
+
 function SelectLanguage() {
   const currentLanguageCode = cookies.get("i18next") || "en";
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+
+  const close = useCallback((newCode) => {
+    setOpen(false);
+    if (newCode) {
+      i18next.changeLanguage(newCode);
+    }
+  }, []);
 
   useEffect(() => {
     console.log("Setting page stuff");
@@ -39,16 +71,11 @@ function SelectLanguage() {
       <div className="language-select">
         <div className="d-flex justify-content-end align-items-center language-select-root">
           <div className="dropdown">
-            <button
-              className="btn btn-link dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <IconButton aria-label="delete" onClick={() => setOpen(true)}>
               <PublicIcon />
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            </IconButton>
+            <LanguageDialog open={open} onSelect={close} />
+            {/* <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               {languages.map(({ code, name, country_code }) => (
                 <li key={country_code}>
                   <a
@@ -70,7 +97,7 @@ function SelectLanguage() {
                   </a>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>
