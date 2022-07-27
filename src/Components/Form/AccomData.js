@@ -13,8 +13,8 @@ const AccomData = (props) => {
           "& > :not(style)": {
             m: 1,
             p: 1.5,
-            width: 260,
-            height: 240,
+            width: 280,
+            height: 300,
           },
         }}
       >
