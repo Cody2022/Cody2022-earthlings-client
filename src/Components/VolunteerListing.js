@@ -11,7 +11,7 @@ import { Container } from "@mui/system";
 const VolunteerListing = (props) => {
   const { user } = useAuth0();
   const email = user?.email;
-  console.log("user is", email);
+  // console.log("user is", email);
   let accomListRender = props.accomListRender;
   const [volunteerList, setVolunteerList] = useState();
   const params = useParams();
@@ -22,7 +22,7 @@ const VolunteerListing = (props) => {
       try {
         let response = await fetch(`/accommodation/get/${email}`);
         let volunteerLists = await response.json();
-        console.log("volunteerList is", volunteerLists);
+        // console.log("volunteerList is", volunteerLists);
         return setVolunteerList(volunteerLists);
       } catch (ex) {
         console.log(ex);
