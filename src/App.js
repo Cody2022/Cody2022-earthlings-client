@@ -18,7 +18,7 @@ import TranslateNewcomerInfo from "./Components/Form/TranslateNewcomerInfo";
 
 function App() {
   const { user } = useAuth0();
-  console.log('user is: ', user)
+  // console.log('user is: ', user)
   const [userData, setUserData] = useState(false);
 
     useEffect(() => {
@@ -26,15 +26,14 @@ function App() {
         try {
           const response = await axios.get("/name?email=" + user.email);
           setUserData(response.data);
-          console.log(response.data)
+          // console.log(response.data)
         } catch (err) {
           console.log(err.message);
         }
       };
       getFeaturedVolunteerInfo();
     }, [user]);
-  console.log(`Logged in user is (${JSON.stringify(userData)})`)
-  
+ 
 
       
   return (
