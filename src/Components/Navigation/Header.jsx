@@ -14,7 +14,7 @@ function Header(props) {
           {userData && userData.isNewcomer && <Link className='links' color="white" to="/newcomer">
             <Button color="inherit">Newcomer</Button>
           </Link>}
-          {userData && userData.isVolunteer && <Link className='links' color="white" to="/Volunteer">
+          {userData && userData.isVolunteer && <Link className='links' color="white" to="/volunteer">
             <Button color="inherit">Volunteer</Button>
           </Link>}
           <Link className='links' color="white" to="/profile">

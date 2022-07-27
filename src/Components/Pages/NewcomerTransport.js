@@ -106,7 +106,7 @@ const NewcomerTransport = () => {
           </Grid>
         )}
 
-        <Grid container display={"flex"} flexWrap={"wrap"} justifyContent={"space-around"}>
+        <Grid container display={"flex"} flexWrap={"wrap"} justifyContent={"center"}>
           {transportList ? (
             transportList.map((transportInfo, index) => {
               return (

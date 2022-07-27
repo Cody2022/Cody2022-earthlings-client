@@ -114,11 +114,12 @@ const TranslateVolunteerForm = (props) => {
     try {
       const newTranslateInfo = await createTranslateInfo();
       console.log(`New Translate`, newTranslateInfo)
+      navigate("/calendar");
       setRerender(!rerender);
     } catch (error) {
       console.log(error.message);
     }
-    navigate("/calendar")
+    // navigate("/calendar")
   };
 
   if (isLoading || !user || !translateInfo) {
