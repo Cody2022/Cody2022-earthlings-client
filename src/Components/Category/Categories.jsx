@@ -12,14 +12,13 @@ export const Categories = () => {
   return (
     <Container>
       <BrowseCategories />
-      <Divider sx={{ pb: 1}}>
-        <Typography color="CaptionText" fontWeight="bold"
-          fontSize="1.5rem">
+      <Divider sx={{ pb: 1 }}>
+        <Typography color="CaptionText" fontWeight="bold" fontSize="1.5rem">
           Find Services
         </Typography>
       </Divider>
       <Grid container spacing={2} display="flex" justifyContent="center">
-      <Grid
+        <Grid
           item
           display="flex"
           justifyContent="center"
@@ -29,10 +28,6 @@ export const Categories = () => {
         >
           <AccommodationCard />
         </Grid>
-        <Grid item display="flex" justifyContent="center" xs={12} sm={6} md={3}>
-          <TransportCard />
-        </Grid>
-
         <Grid
           item
           display="flex"
@@ -43,8 +38,9 @@ export const Categories = () => {
         >
           <TranslationCard />
         </Grid>
-
-     
+        <Grid item display="flex" justifyContent="center" xs={12} sm={6} md={3}>
+          <TransportCard />
+        </Grid>
 
         <Grid
           item

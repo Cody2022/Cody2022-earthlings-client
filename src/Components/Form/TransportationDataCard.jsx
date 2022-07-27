@@ -62,11 +62,11 @@ const TransportationData = (props) => {
       sx={{
         pl: 1,
         margin: 1,
-        minWidth: 300,
+        minWidth: 250,
         display: "grid",
         alignContent: "space-around",
         borderRadius: 5,
-        boxShadow: 5,
+        boxShadow: 0,
       }}
       xs={12}
       sm={6}

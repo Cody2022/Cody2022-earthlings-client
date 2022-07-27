@@ -22,7 +22,7 @@ const AccommodationForm = (props) => {
   let accomListRender=props.accomListRender;
   let setAccomListRender=props.setAccomListRender;
 
-  console.log("user is", email);
+  // console.log("user is", email);
 
   const defaultAccomListInfo = {
     email: email,
@@ -64,7 +64,6 @@ const AccommodationForm = (props) => {
   return (
     <Container>
       <Typography
-        variant="h6"
         component="h2"
         color="blue"
         align="center"
@@ -124,6 +123,7 @@ const AccommodationForm = (props) => {
             label="Number of Rooms"
             type="number"
             value={accomListInfo.numberOfRooms}
+            InputProps={{ inputProps: { min: 1 } }}
             sx={{ py: 2, px: 1 }}
             onChange={(e) => {
               let value = e.target.value;
@@ -138,6 +138,7 @@ const AccommodationForm = (props) => {
             type="number"
             value={accomListInfo.maxNumTenants}
             sx={{ py: 2, px: 1 }}
+            InputProps={{ inputProps: { min: 1 }}}
             onChange={(e) => {
               let value = e.target.value;
               setAccomListInfo({ ...accomListInfo, maxNumTenants: value });

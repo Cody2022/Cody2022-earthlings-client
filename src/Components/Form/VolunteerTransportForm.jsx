@@ -135,140 +135,180 @@ const VolunTransportForm = (props) => {
   }
 
   return (
-      <Grid container
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignContent:"center"
-        }}
-        sx={{ pt: 3, marginBottom: 2 }}
-      >
-        <Grid item sx={{display:"flex", justifyContent:"center"}}>
-        <Typography justifyContent={"center"} fontWeight={"bold"}>
-            Transportation Service Availability Form
-          </Typography>
-        </Grid>
-        
-        <Grid item sx={{ width: "50%", pt: 3, marginBottom: 1, display:"flex", justifyContent:"center" }}>
-          <ServerRequestDatePicker
-          sx={{ width: "50%", pt: 3, marginBottom: 2, display:"flex", justifyContent:"center" }}
-            transportInfo={transportInfo}
-            setTransportInfo={setTransportInfo}
-            />
-          </Grid>
-          <Grid sx={{ width: "50%", pt: 1, marginBottom: 1, display:"flex", justifyContent:"center" }}>     
-          <StartEndTimePicker
-            transportInfo={transportInfo}
-            setTransportInfo={setTransportInfo}
-          />
-        </Grid>
-
-        <Grid item>
-          <FormGroup row sx={{ py: 1 }}>
-            <FormLabel
-              sx={{ py: 1, marginRight: 1, fontWeight: "bold", color: "black" }}
-              id="demo-row-radio-buttons-group-label"
-            >
-              Language Spoken
-            </FormLabel>
-
-            <FormControlLabel
-              control={<Checkbox />}
-              name="accessories"
-              label="English"
-              value="English"
-              onChange={getLanguages}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              name="accessories"
-              value="French"
-              label="French"
-              onChange={getLanguages}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              name="accessories"
-              value="Ukrainian"
-              label="Ukrainian"
-              onChange={getLanguages}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              name="accessories"
-              value="Mandarin"
-              label="Mandarin"
-              onChange={getLanguages}
-            />
-          </FormGroup>
-        </Grid>
-
-        <Grid item>
-          <FormGroup row>
-            <FormLabel
-              sx={{ py: 1, marginRight: 1, fontWeight: "bold", color: "black" }}
-              id="demo-row-radio-buttons-group-label"
-            >
-              Accessories
-            </FormLabel>
-
-            <FormControlLabel
-              control={<Checkbox />}
-              name="accessories"
-              label="Wheelchair"
-              value="Wheelchair"
-              onChange={getAccessories}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              name="accessories"
-              value="Carseat"
-              label="Carseat"
-              onChange={getAccessories}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              name="accessories"
-              value="Medical Equipment"
-              label="Medical Equipment"
-              onChange={getAccessories}
-            />
-          </FormGroup>
-        </Grid>
-        <Grid item sx={{ width: "50%", pt: 2, marginBottom: 2, display:"flex", justifyContent:"center" }}>
-          <TextField
-            id="number-input"
-            name="maxPassengers"
-            label="Maximum Passengers (<=5)"
-            type="number"
-            value={transportInfo.maxPassengers}
-            InputProps={{ inputProps: { min: 1, max: 5 } }}
-            onChange={(e) => {
-              const value =
-                e.target.value < 1 ||
-                e.target.value === "" ||
-                e.target.value > 5
-                  ? (e.target.value = 1)
-                  : Math.floor(e.target.value);
-              setTransportInfo({
-                ...transportInfo,
-                maxPassengers: value,
-              });
-            }}
-          />
-        </Grid>
-
-        <Grid item sx={{ width: "50%", marginBottom: 1, display:"flex", justifyContent:"center" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button>
-        </Grid>
+    <Grid
+      container
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignContent: "center",
+      }}
+      sx={{ pt: 3, marginBottom: 2 }}
+    >
+      <Grid item sx={{ display: "flex", justifyContent: "center" }}>
+        <Typography component="h2" color="blue" align="center" pt={1}>
+          Transportation Service Availability Form
+        </Typography>
       </Grid>
+
+      <Grid
+        item
+        sx={{
+          width: "50%",
+          pt: 3,
+          marginBottom: 1,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <ServerRequestDatePicker
+          sx={{
+            width: "50%",
+            pt: 3,
+            marginBottom: 2,
+            display: "flex",
+            justifyContent: "center",
+          }}
+          transportInfo={transportInfo}
+          setTransportInfo={setTransportInfo}
+        />
+      </Grid>
+      <Grid
+        sx={{
+          width: "50%",
+          pt: 1,
+          marginBottom: 1,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <StartEndTimePicker
+          transportInfo={transportInfo}
+          setTransportInfo={setTransportInfo}
+        />
+      </Grid>
+
+      <Grid item>
+        <FormGroup row sx={{ py: 1 }}>
+          <FormLabel
+            sx={{ py: 1, marginRight: 1, fontWeight: "bold", color: "black" }}
+            id="demo-row-radio-buttons-group-label"
+          >
+            Language Spoken
+          </FormLabel>
+
+          <FormControlLabel
+            control={<Checkbox />}
+            name="accessories"
+            label="English"
+            value="English"
+            onChange={getLanguages}
+          />
+          <FormControlLabel
+            control={<Checkbox />}
+            name="accessories"
+            value="French"
+            label="French"
+            onChange={getLanguages}
+          />
+          <FormControlLabel
+            control={<Checkbox />}
+            name="accessories"
+            value="Ukrainian"
+            label="Ukrainian"
+            onChange={getLanguages}
+          />
+          <FormControlLabel
+            control={<Checkbox />}
+            name="accessories"
+            value="Mandarin"
+            label="Mandarin"
+            onChange={getLanguages}
+          />
+        </FormGroup>
+      </Grid>
+
+      <Grid item>
+        <FormGroup row>
+          <FormLabel
+            sx={{ py: 1, marginRight: 1, fontWeight: "bold", color: "black" }}
+            id="demo-row-radio-buttons-group-label"
+          >
+            Accessories
+          </FormLabel>
+
+          <FormControlLabel
+            control={<Checkbox />}
+            name="accessories"
+            label="Wheelchair"
+            value="Wheelchair"
+            onChange={getAccessories}
+          />
+          <FormControlLabel
+            control={<Checkbox />}
+            name="accessories"
+            value="Carseat"
+            label="Carseat"
+            onChange={getAccessories}
+          />
+          <FormControlLabel
+            control={<Checkbox />}
+            name="accessories"
+            value="Medical Equipment"
+            label="Medical Equipment"
+            onChange={getAccessories}
+          />
+        </FormGroup>
+      </Grid>
+      <Grid
+        item
+        sx={{
+          width: "50%",
+          pt: 2,
+          marginBottom: 2,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <TextField
+          id="number-input"
+          name="maxPassengers"
+          label="Maximum Passengers (<=5)"
+          type="number"
+          sx={{ width: "50%" }}
+          value={transportInfo.maxPassengers}
+          InputProps={{ inputProps: { min: 1, max: 5 } }}
+          onChange={(e) => {
+            const value =
+              e.target.value < 1 || e.target.value === "" || e.target.value > 5
+                ? (e.target.value = 1)
+                : Math.floor(e.target.value);
+            setTransportInfo({
+              ...transportInfo,
+              maxPassengers: value,
+            });
+          }}
+        />
+      </Grid>
+
+      <Grid
+        item
+        sx={{
+          width: "50%",
+          marginBottom: 1,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 
