@@ -16,6 +16,7 @@ const Navbar = (props) => {
 
   const navigate=useNavigate();
   const { user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  let nameShown=userData.firstName? userData.firstName:user?.email;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -60,14 +61,14 @@ const Navbar = (props) => {
             <>
               <Button
                 variant="contained"
-                sx={{ mr: 3 }}
+                sx={{ mr: 3, textTransform:"capitalize" }}
                 id="demo-positioned-button"
                 aria-controls={open ? "demo-positioned-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
               >
-                {user.name}
+                {nameShown}
               </Button>
               <Menu
                 id="demo-positioned-menu"
