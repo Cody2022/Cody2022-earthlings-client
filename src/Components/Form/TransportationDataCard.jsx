@@ -67,6 +67,7 @@ const TransportationData = (props) => {
         alignContent: "space-around",
         borderRadius: 5,
         boxShadow: 0,
+        backgroundColor:"#eff43987"
       }}
       xs={12}
       sm={6}

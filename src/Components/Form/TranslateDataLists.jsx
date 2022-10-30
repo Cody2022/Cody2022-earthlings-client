@@ -108,8 +108,8 @@ const TranslateDataLists = () => {
   };
 
   return (
-    <Container>
-      <Grid item sx={{ display: "flex", justifyContent: "left" }}>
+    <Container maxWidth={false} sx={{backgroundColor:"#00ffdb29"}}>
+      <Grid item sx={{ display: "flex", justifyContent: "center" }}>
         <Typography
           variant="h6"
           component="h2"
@@ -126,9 +126,9 @@ const TranslateDataLists = () => {
         style={{
           display: "flex",
           flexDirection: "column",
-          alignContent: "left",
+          alignContent: "center",
         }}
-        sx={{ width: "100%", marginTop: 2, marginBottom: 5 }}
+        sx={{ width: "100%", marginTop: 2, paddingBottom: 3 }}
       >
         <Grid item marginBottom={1}>
           <FormControl sx={{ m: 1, width: 300 }}>
@@ -356,7 +356,7 @@ const TranslateDataLists = () => {
               variant="h5"
               display="block"
               color={"green"}
-              marginBottom={"5"}
+              marginBottom={10}
             >
               Sorry, we couldn't find any results matching your search.
               <Typography

@@ -80,13 +80,14 @@ const NewcomerAccommodation = () => {
   }, [value]);
 
   return (
-    <Container>
+    <Container maxWidth={false} sx={{backgroundColor:"#00ffdb29", paddingTop:5, paddingBottom:5}}>
       <Box
         sx={{
           width: "100%",
           display: "flex",
           justifyContent: "center",
-          margin: 3,
+          margintop: 3,
+          marginBottom: 5,
           border: 2,
           borderRadius:3,
           borderColor:"blue"

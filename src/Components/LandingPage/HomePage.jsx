@@ -31,7 +31,7 @@ function HomePage(props) {
           <CallToAction bg="grey" mr={3} href="http://localhost:3000/newcomer">
             Newcomers
           </CallToAction>
-          <CallToAction href= "http://localhost:3000/Volunteer">Volunteers</CallToAction>
+          <CallToAction href= "http://localhost:3000/volunteer">Volunteers</CallToAction>
         </Flex>
         <ScrollDownIndicator />
       </Hero>

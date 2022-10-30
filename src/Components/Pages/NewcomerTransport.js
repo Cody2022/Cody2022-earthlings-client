@@ -36,13 +36,13 @@ const NewcomerTransport = () => {
   }, [value]);
 
   return (
-    <Container>
+    <Container maxWidth={false} sx={{backgroundColor:"#00ffdb29", paddingTop:5, paddingBottom:5}}>
       <Box
         sx={{
           width: "100%",
           display: "flex",
           justifyContent: "center",
-          margin: 3,
+          // margin: 3,
           border: 2,
           borderRadius:3,
           borderColor:"green"
@@ -89,7 +89,7 @@ const NewcomerTransport = () => {
       </Box>
 
         {value === "two" && (
-          <Grid sx={{ display: "flex", justifyContent: "center" }}>
+          <Grid sx={{ display: "flex", justifyContent: "" }}>
             <NewcomerTransportSearchByTime
               transportList={transportList}
               setTransportList={setTransportList}

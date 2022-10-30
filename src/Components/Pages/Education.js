@@ -14,8 +14,8 @@ export const Education = () => {
 
 
   return (
-    <Box>
-      <Grid sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
+    <Box sx={{backgroundColor: "#00ffdb29"}}>
+      <Grid sx={{ pt: 4, display: "flex", justifyContent: "center" }}>
         <Typography
           variant="h5"
           fontFamily="Comic Sans MS"
